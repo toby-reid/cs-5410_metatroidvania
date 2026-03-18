@@ -136,3 +136,10 @@ Procedurally-generated sound may also be an interesting approach for the early p
 
 Saving by brute force is relatively simple, but we also hope to implement additional complexity such as encrypting save files to prevent the user from modifying game files.
 We have some experience with basic bitwise XOR encryption, but one potential deep dive would be into various game-saving encryption algorithms.
+
+## References & Inspiration
+
+* FEZ - Breaks the fourth wall with a blue screen of death
+* Oneshot - Requires the player to interact with the game via filesystem and other weird interfaces
+* Super Paper Mario - Requires the player to manipulate perspective to solve puzzles
+

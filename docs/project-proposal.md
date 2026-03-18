@@ -96,4 +96,17 @@ Essentially, we need only record information about the player character and load
 
 ## New Knowledge and Open Questions
 
-> Reflect on what you will need to learn in order to successfully complete this project. List the new topics, tools, engine features, libraries, or design techniques you plan to research, and identify any risks or open questions you have (for example: performance concerns, art pipeline issues, complex mechanics you are not yet sure how to implement). This section should make it clear that you have thought ahead about your learning plan and possible blockers.
+> Reflect on what you will need to learn in order to complete this project successfully.  
+> List the new topics, tools, engine features, libraries, or design techniques you plan to research, and identify any risks or open questions you have (for example: performance concerns, art pipeline issues, complex mechanics you are not yet sure how to implement).
+> This section should make it clear that you have thought ahead about your learning plan and possible blockers.
+
+One major element of research is to investigate other games, especially those with somewhat similar mechanics, to determine industry standard for implementation of various mechanics.
+
+If we manage to have enough time, we will also need to investigate implementation of visual shaders in Godot for our implementations of potentially toggleable Red/Green/Blue channels.
+These would be relatively simple shaders, but it would give insight into how they work generally.
+
+Sound design will be interesting, especially if we implement spatial sound or design our own.
+Procedurally-generated sound may also be an interesting approach for the early parts, so the "corrupted" game feels more spontaneous and arbitrary.
+
+Saving by brute force is relatively simple, but we also hope to implement additional complexity such as encrypting save files to prevent the user from modifying game files.
+We have some experience with basic bitwise XOR encryption, but one potential deep dive would be into various game-saving encryption algorithms.

@@ -1,6 +1,7 @@
 # Project Proposal
 
-"Meta-troidvania"
+"Meta-troidvania"  
+*Name subject to change*
 
 Tyler Allen  
 Brigham Campbell  

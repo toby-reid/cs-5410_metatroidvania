@@ -16,7 +16,7 @@ Other ideas include unlocking your health bar (so the game would crash without i
 ### The Story
 
 The player begins in a tutorial-like level, where they learn to move, jump, climb, attack and defend, collect coins, and so forth; however, when they try to touch the level goal, the game exhibits a BSOD and crashes.
-When they reopen the game, they discover that all functionality has been lost, and the game has been correupted.
+When they reopen the game, they discover that all functionality has been lost, and the game has been corrupted.
 They must now restore the game to its original glory.
 
 ## Core Mechanics, Features, and Tasks
@@ -27,7 +27,27 @@ They must now restore the game to its original glory.
 
 ## Scope and Complexity
 
-> Explain why this project is appropriately sized for the final project. Discuss the planned scope, level of polish, and technical difficulty. Your proposal should make a clear argument that the project will require approximately 30–35 hours of work per person on your team over the duration of the project. If you are planning stretch goals, note which features are core (must-have) and which are optional (nice-to-have) if time permits.
+Our focus on this project is to implement core logic and gameplay mechanics. 
+Graphics, animations, music, and map design will be present but less polished; there will be enough to present the game we made.
+We anticipate that our game design will allow easily changing the scope of our project if it ends up being easier or more difficult than anticipated. 
+
+### Must-haves
+* Player character must be able to unlock and use basic mechanics (move, jump, attack)
+* Unlock other gameplay mechanics (menus, health bar, etc.)
+* A large-enough map to hold all abilities / items
+  * Map will be made of different rooms loaded when a player enters
+* At least a few enemy types with animations and ai
+* At least one soundtrack
+* Sound effects for major actions
+* Saving/Loading file
+
+### Nice-to-haves
+* Optional collectables (unlock new animations, better sounds, etc.)
+* Additional player actions (such as climb)
+* Final boss/challenge
+* Un-lockable visual changes (maybe needing to recover RGB channels)
+* Map size varying on difficulty of other tasks
+* Number of enemies depending on difficulty
 
 ## New Knowledge and Open Questions
 

@@ -144,4 +144,3 @@ We have some experience with basic bitwise XOR encryption, but one potential dee
 * FEZ - Breaks the fourth wall with a blue screen of death
 * Oneshot - Requires the player to interact with the game via filesystem and other weird interfaces
 * Super Paper Mario - Requires the player to manipulate perspective to solve puzzles
-

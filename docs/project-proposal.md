@@ -93,9 +93,9 @@ Essentially, we need only record information about the player character and load
 
 ## Scope and Complexity
 
-> Explain why this project is appropriately sized for the final project. 
-> Discuss the planned scope, level of polish, and technical difficulty. 
-> Your proposal should make a clear argument that the project will require approximately 30–35 hours of work per person on your team over the duration of the project. 
+> Explain why this project is appropriately sized for the final project.  
+> Discuss the planned scope, level of polish, and technical difficulty.
+> Your proposal should make a clear argument that the project will require approximately 30–35 hours of work per person on your team over the duration of the project.
 > If you are planning stretch goals, note which features are core (must-have) and which are optional (nice-to-have) if time permits.
 
 Our focus on this project is to implement core logic and gameplay mechanics. 

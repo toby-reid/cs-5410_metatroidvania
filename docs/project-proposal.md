@@ -103,6 +103,7 @@ Graphics, animations, music, and map design will be present but less polished; t
 We anticipate that our game design will allow easily changing the scope of our project if it ends up being easier or more difficult than anticipated. 
 
 ### Must-haves
+
 * Player character must be able to unlock and use basic mechanics (move, jump, attack)
 * Unlock other gameplay mechanics (menus, health bar, etc.)
 * A large-enough map to hold all abilities / items
@@ -113,6 +114,7 @@ We anticipate that our game design will allow easily changing the scope of our p
 * Saving/Loading file
 
 ### Nice-to-haves
+
 * Optional collectables (unlock new animations, better sounds, etc.)
 * Additional player actions (such as climb)
 * Final boss/challenge

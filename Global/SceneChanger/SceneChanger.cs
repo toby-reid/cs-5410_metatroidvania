@@ -1,9 +1,8 @@
 using Godot;
-using System;
 
 namespace Global
 {
-    public partial class SceneChanger : Node2D
+    public partial class SceneChanger : Node
     {
         public static SceneChanger Instance { get; private set; }
 

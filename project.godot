@@ -18,6 +18,12 @@ config/icon="res://icon.svg"
 
 SceneChanger="*uid://c6ot1w3ul35a0"
 
+[display]
+
+window/size/viewport_width=320
+window/size/viewport_height=240
+window/size/mode=3
+
 [dotnet]
 
 project/assembly_name="Metatroidvania"

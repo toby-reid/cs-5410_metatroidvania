@@ -1,5 +1,6 @@
 [gd_scene format=3 uid="uid://dx1j3k3d8q3s0"]
 
+[ext_resource type="Script" uid="uid://dy7ggynj3e53y" path="res://Actors/Player/Player.cs" id="1_4x03u"]
 [ext_resource type="Texture2D" uid="uid://l078t7s4td7f" path="res://icon.svg" id="1_ech6m"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_4x03u"]
@@ -49,6 +50,7 @@ animations = [{
 size = Vector2(120, 118)
 
 [node name="Player" type="CharacterBody2D" unique_id=889309543]
+script = ExtResource("1_4x03u")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=731528621]
 sprite_frames = SubResource("SpriteFrames_4x03u")

@@ -2,7 +2,7 @@ using Godot;
 
 namespace Global
 {
-    public partial class Progression : Node
+    public partial class PlayerState : Node
     {
         public enum Movement : byte
         {
@@ -26,14 +26,20 @@ namespace Global
             BlueChannel = 1 << 7
         }
 
-        public static Progression Instance { get; private set; }
+        public static PlayerState Instance { get; private set; }
 
         public Movement Movements { get; private set; } = 0;
         public UIFeature UIFeatures { get; private set; } = 0;
+        public const byte MaxHP = 3;
+        public byte HP { get; private set; } = MaxHP;
+        public ushort CoinCount { get; private set; } = 0;
 
         public override void _Ready()
         {
             Instance = this;
         }
+
+        // TODO: Add methods for game progression, HP modification, & Coin Count
+        // If we attempt to modify HP/coin count without those UIFeatures, send to BSOD room
     }
 }

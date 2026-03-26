@@ -1,3 +1,58 @@
 [gd_scene format=3 uid="uid://dx1j3k3d8q3s0"]
 
-[node name="Player" type="Node2D" unique_id=1170332444]
+[ext_resource type="Texture2D" uid="uid://l078t7s4td7f" path="res://icon.svg" id="1_ech6m"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_4x03u"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_ech6m")
+}],
+"loop": true,
+"name": &"Attack",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_ech6m")
+}],
+"loop": true,
+"name": &"Idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_ech6m")
+}],
+"loop": true,
+"name": &"Jump",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_ech6m")
+}],
+"loop": true,
+"name": &"Run",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_ech6m")
+}],
+"loop": true,
+"name": &"TakeDamage",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ech6m"]
+size = Vector2(120, 118)
+
+[node name="Player" type="CharacterBody2D" unique_id=889309543]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=731528621]
+sprite_frames = SubResource("SpriteFrames_4x03u")
+animation = &"TakeDamage"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1994569514]
+shape = SubResource("RectangleShape2D_ech6m")

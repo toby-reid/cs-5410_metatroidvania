@@ -1,39 +1,63 @@
 using Godot;
 using System;
 
+using static Global.Constants.InputMap;
+
 namespace Actors
 {
     public partial class Player : CharacterBody2D
     {
+        private static class Animation
+        {
+            public const string Idle = "idle";
+            public const string Running = "run";
+            public const string Jumping = "jump";
+            public const string Attacking = "attack";
+            public const string TakingDamage = "take_damage";
+        }
+
+        [Export]
+        private AnimatedSprite2D _sprite;
+
         public const float Speed = 300.0f;
         public const float JumpVelocity = -400.0f;
+
+        public override void _Ready()
+        {
+            _sprite.Play(Animation.Idle);
+        }
 
         public override void _PhysicsProcess(double delta)
         {
             Vector2 velocity = Velocity;
 
-            // Add the gravity.
-            if (!IsOnFloor())
+            bool isOnFloor = IsOnFloor();
+            if (!isOnFloor)
             {
                 velocity += GetGravity() * (float)delta;
             }
-
-            // Handle Jump.
-            if (Input.IsActionJustPressed("ui_accept") && IsOnFloor())
+            else if (Input.IsActionJustPressed(Jump))
             {
                 velocity.Y = JumpVelocity;
+                _sprite.Play(Animation.Jumping);
             }
 
-            // Get the input direction and handle the movement/deceleration.
-            // As good practice, you should replace UI actions with custom gameplay actions.
-            Vector2 direction = Input.GetVector("ui_left", "ui_right", "ui_up", "ui_down");
-            if (direction != Vector2.Zero)
+            float xDirection = Input.GetAxis(MoveLeft, MoveRight);
+            if (xDirection != 0)
             {
-                velocity.X = direction.X * Speed;
+                velocity.X = xDirection * Speed;
+                if (isOnFloor)
+                {
+                    _sprite.Play(Animation.Running);
+                }
             }
             else
             {
                 velocity.X = Mathf.MoveToward(Velocity.X, 0, Speed);
+                if (isOnFloor && velocity.X == 0)
+                {
+                    _sprite.Play(Animation.Idle);
+                }
             }
 
             Velocity = velocity;

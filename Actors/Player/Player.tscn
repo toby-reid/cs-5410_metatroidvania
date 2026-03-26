@@ -10,7 +10,7 @@ animations = [{
 "texture": ExtResource("1_ech6m")
 }],
 "loop": true,
-"name": &"Attack",
+"name": &"attack",
 "speed": 5.0
 }, {
 "frames": [{
@@ -18,7 +18,7 @@ animations = [{
 "texture": ExtResource("1_ech6m")
 }],
 "loop": true,
-"name": &"Idle",
+"name": &"idle",
 "speed": 5.0
 }, {
 "frames": [{
@@ -26,7 +26,7 @@ animations = [{
 "texture": ExtResource("1_ech6m")
 }],
 "loop": true,
-"name": &"Jump",
+"name": &"jump",
 "speed": 5.0
 }, {
 "frames": [{
@@ -34,7 +34,7 @@ animations = [{
 "texture": ExtResource("1_ech6m")
 }],
 "loop": true,
-"name": &"Run",
+"name": &"run",
 "speed": 5.0
 }, {
 "frames": [{
@@ -42,19 +42,20 @@ animations = [{
 "texture": ExtResource("1_ech6m")
 }],
 "loop": true,
-"name": &"TakeDamage",
+"name": &"take_damage",
 "speed": 5.0
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ech6m"]
 size = Vector2(120, 118)
 
-[node name="Player" type="CharacterBody2D" unique_id=889309543]
+[node name="Player" type="CharacterBody2D" unique_id=889309543 node_paths=PackedStringArray("_sprite")]
 script = ExtResource("1_4x03u")
+_sprite = NodePath("AnimatedSprite2D")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=731528621]
 sprite_frames = SubResource("SpriteFrames_4x03u")
-animation = &"TakeDamage"
+animation = &"idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1994569514]
 shape = SubResource("RectangleShape2D_ech6m")

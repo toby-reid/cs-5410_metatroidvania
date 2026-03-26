@@ -39,6 +39,16 @@ namespace Global
             Instance = this;
         }
 
+        public bool CanMove(Movement movement)
+        {
+            return (Movements & movement) != 0;
+        }
+
+        public bool HasUI(UIFeature feature)
+        {
+            return (UIFeatures & feature) != 0;
+        }
+
         // TODO: Add methods for game progression, HP modification, & Coin Count
         // If we attempt to modify HP/coin count without those UIFeatures, send to BSOD room
     }

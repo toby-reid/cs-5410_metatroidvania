@@ -47,14 +47,17 @@ namespace Actors
                     velocity += gravity;
                 }
             }
-            else if (Input.IsActionJustPressed(Jump))
+            else if (Input.IsActionJustPressed(Jump) && Global.PlayerState.Instance.CanMove(Global.PlayerState.Movement.Jump))
             {
                 velocity.Y = JumpVelocity;
                 _sprite.Play(Animation.Jumping);
             }
 
             float xDirection = Input.GetAxis(MoveLeft, MoveRight);
-            if (xDirection != 0)
+            if (
+                (xDirection < 0 && Global.PlayerState.Instance.CanMove(Global.PlayerState.Movement.MoveLeft))
+                || (xDirection > 0 && Global.PlayerState.Instance.CanMove(Global.PlayerState.Movement.MoveRight))
+            )
             {
                 velocity.X = xDirection * Speed;
                 if (isOnFloor)
@@ -72,6 +75,10 @@ namespace Actors
             }
 
             Velocity = velocity;
+            if (Velocity.X < 0)
+            {
+                _sprite.FlipH = true;
+            }
             MoveAndSlide();
         }
     }

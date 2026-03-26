@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://c6ot1w3ul35a0"]
+
+[ext_resource type="Script" uid="uid://bfs3oittniwse" path="res://Global/SceneChanger/SceneChanger.cs" id="1_5nf47"]
+
+[node name="SceneChanger" type="Node2D" unique_id=2081979900]
+script = ExtResource("1_5nf47")

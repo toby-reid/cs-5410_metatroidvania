@@ -34,7 +34,18 @@ namespace Actors
             bool isOnFloor = IsOnFloor();
             if (!isOnFloor)
             {
-                velocity += GetGravity() * (float)delta;
+                Vector2 gravity = GetGravity() * (float)delta;
+                velocity += gravity;
+                if (Input.IsActionPressed(Jump))
+                {
+                    // Halve gravity
+                    velocity -= gravity / 2;
+                }
+                else if (Input.IsActionPressed(MoveDown))
+                {
+                    // Double gravity
+                    velocity += gravity;
+                }
             }
             else if (Input.IsActionJustPressed(Jump))
             {

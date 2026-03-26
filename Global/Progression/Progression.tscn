@@ -1,6 +1,0 @@
-[gd_scene format=3 uid="uid://dx6745mnpsf0q"]
-
-[ext_resource type="Script" uid="uid://crhljdokwky5m" path="res://Global/Progression/Progression.cs" id="1_75nnv"]
-
-[node name="Progression" type="Node2D" unique_id=1157415808]
-script = ExtResource("1_75nnv")

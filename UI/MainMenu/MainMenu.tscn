@@ -1,3 +1,12 @@
 [gd_scene format=3 uid="uid://dpjqsane38lsk"]
 
+[ext_resource type="Texture2D" uid="uid://l078t7s4td7f" path="res://icon.svg" id="1_8fkdr"]
+
 [node name="MainMenu" type="Node2D" unique_id=1921988516]
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=872874447]
+
+[node name="Icon" type="Sprite2D" parent="." unique_id=759793546]
+position = Vector2(46.5, 40.5)
+scale = Vector2(0.1796875, 0.1796875)
+texture = ExtResource("1_8fkdr")

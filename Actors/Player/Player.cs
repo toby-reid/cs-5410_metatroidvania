@@ -22,6 +22,10 @@ namespace Actors
         public const float Speed = 300.0f;
         public const float JumpVelocity = -400.0f;
 
+        // Use to disable manual moving, such as during cutscenes or animations
+        // Not to be confused with anchoring the Player
+        public static bool CanMove { get; set; } = true;
+
         public override void _Ready()
         {
             _sprite.Play(Animation.Idle);
@@ -36,7 +40,7 @@ namespace Actors
             {
                 Vector2 gravity = GetGravity() * (float)delta;
                 velocity += gravity;
-                if (Global.PlayerState.Instance.HasAbility(Global.PlayerState.Progression.Jump))
+                if (CanMove && Global.PlayerState.Instance.HasAbility(Global.PlayerState.Progression.Jump))
                 {
                     if (Input.IsActionPressed(Jump))
                     {
@@ -50,7 +54,7 @@ namespace Actors
                     }
                 }
             }
-            else if (Input.IsActionJustPressed(Jump) && Global.PlayerState.Instance.HasAbility(Global.PlayerState.Progression.Jump))
+            else if (CanMove && Input.IsActionJustPressed(Jump) && Global.PlayerState.Instance.HasAbility(Global.PlayerState.Progression.Jump))
             {
                 velocity.Y = JumpVelocity;
                 _sprite.Play(Animation.Jumping);
@@ -58,8 +62,11 @@ namespace Actors
 
             float xDirection = Input.GetAxis(MoveLeft, MoveRight);
             if (
-                (xDirection < 0 && Global.PlayerState.Instance.HasAbility(Global.PlayerState.Progression.MoveLeft))
-                || (xDirection > 0 && Global.PlayerState.Instance.HasAbility(Global.PlayerState.Progression.MoveRight))
+                CanMove
+                && (
+                    (xDirection < 0 && Global.PlayerState.Instance.HasAbility(Global.PlayerState.Progression.MoveLeft))
+                    || (xDirection > 0 && Global.PlayerState.Instance.HasAbility(Global.PlayerState.Progression.MoveRight))
+                )
             )
             {
                 velocity.X = xDirection * Speed;

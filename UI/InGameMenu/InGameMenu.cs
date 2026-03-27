@@ -23,7 +23,10 @@ namespace UI
             {
                 if (keyEvent.Pressed && keyEvent.Keycode == Key.Escape)
                 {
-                    Global.GameEngine.Instance.TogglePause();
+                    if (Actors.Player.CanMove)
+                    {
+                        Global.GameEngine.Instance.TogglePause();
+                    }
                 }
             }
         }

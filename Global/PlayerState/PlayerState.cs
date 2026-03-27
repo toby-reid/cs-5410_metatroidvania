@@ -28,6 +28,8 @@ namespace Global
 
         public static PlayerState Instance { get; private set; }
 
+        // Keeping it at 'private set' because C# does not allow operator overload for enums,
+        // so it's easier just to implement our own Add/Reset methods
         public Progression Abilities { get; private set; } = 0;
         public ushort CoinCount
         {

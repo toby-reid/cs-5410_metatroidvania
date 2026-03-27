@@ -12,6 +12,7 @@ The essential filed indicates if the item is necessary to complete the game (if 
 | Name                    | Priority | Required | Description                                                                             |
 |-------------------------|----------|----------|-----------------------------------------------------------------------------------------|
 | right movement          | 0        | Y        | The player can move right                                                               |
+| left meovement          | 0        | Y        | The player can move left                                                                |
 | jump                    | 0        | Y        | The player can jump                                                                     |
 | attack                  | 0        | Y        | Allows the player to perform a melee attack                                             |
 | health bar              | 0        | Y        | Allows the player to take damage, without this any damage will "crash" the game         |
@@ -36,11 +37,12 @@ Below is list of **required** items we intend to implement, in the intended coll
 *note: this is currently a very loose order, map designers will be able to make a much more informed ordering*
 *I added a few priority 1 options that I though we would be more likely to implement*
 
+1. left movement
 1. right movement
-2. jump
-3. enemy ai
-4. attack
-5. coin counter
-6. water
-7. health
-8. drop
+1. jump
+1. enemy ai
+1. attack
+1. coin counter
+1. water
+1. health
+1. drop

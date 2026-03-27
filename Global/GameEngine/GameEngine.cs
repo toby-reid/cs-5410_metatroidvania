@@ -7,6 +7,8 @@ namespace Global
     {
         public static GameEngine Instance { get; private set; }
 
+        public event Action<bool> OnTogglePause;
+
         // Called when the node enters the scene tree for the first time.
         public override void _Ready()
         {
@@ -15,17 +17,25 @@ namespace Global
 
         public void PauseGame()
         {
-            GetTree().Paused = true;
+            if (!GetTree().Paused)
+            {
+                TogglePause();
+            }
         }
 
         public void ResumeGame()
         {
-            GetTree().Paused = false;
+            if (GetTree().Paused)
+            {
+                TogglePause();
+            }
         }
 
         public void TogglePause()
         {
-            GetTree().Paused = !GetTree().Paused;
+            bool isNowPaused = !GetTree().Paused;
+            GetTree().Paused = isNowPaused;
+            OnTogglePause(isNowPaused);
         }
     }
 }

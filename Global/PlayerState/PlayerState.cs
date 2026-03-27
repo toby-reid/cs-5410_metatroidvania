@@ -30,7 +30,7 @@ namespace Global
 
         // Keeping it at 'private set' because C# does not allow operator overload for enums,
         // so it's easier just to implement our own Add/Reset methods
-        public Progression Abilities { get; private set; } = 0;
+        public Progression Abilities { get; private set; } = Progression.All;
         public ushort CoinCount
         {
             get;

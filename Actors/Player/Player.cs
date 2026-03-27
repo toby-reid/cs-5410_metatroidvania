@@ -36,15 +36,18 @@ namespace Actors
             {
                 Vector2 gravity = GetGravity() * (float)delta;
                 velocity += gravity;
-                if (Input.IsActionPressed(Jump))
+                if (Global.PlayerState.Instance.HasAbility(Global.PlayerState.Progression.Jump))
                 {
-                    // Halve gravity
-                    velocity -= gravity / 2;
-                }
-                else if (Input.IsActionPressed(MoveDown))
-                {
-                    // Double gravity
-                    velocity += gravity;
+                    if (Input.IsActionPressed(Jump))
+                    {
+                        // Halve gravity
+                        velocity -= gravity / 2;
+                    }
+                    else if (Input.IsActionPressed(MoveDown))
+                    {
+                        // Double gravity
+                        velocity += gravity;
+                    }
                 }
             }
             else if (Input.IsActionJustPressed(Jump) && Global.PlayerState.Instance.HasAbility(Global.PlayerState.Progression.Jump))

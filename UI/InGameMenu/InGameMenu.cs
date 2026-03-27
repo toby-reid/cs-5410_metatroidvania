@@ -5,15 +5,26 @@ namespace UI
 {
     public partial class InGameMenu : CanvasLayer
     {
-        public override void _Notification(int what)
+        public override void _Ready()
         {
-            if (what == NotificationPaused)
+            Visible = GetTree().Paused;
+            Global.GameEngine.Instance.OnTogglePause += OnPause;
+        }
+
+        public void OnPause(bool isPaused)
+        {
+            Visible = isPaused;
+        }
+
+        // Temporary inclusion. Will need to determine what circumstances let you open the pause menu
+        public override void _Input(InputEvent @event)
+        {
+            if (@event is InputEventKey keyEvent)
             {
-                Visible = true;
-            }
-            else if (what == NotificationUnpaused)
-            {
-                Visible = false;
+                if (keyEvent.Pressed && keyEvent.Keycode == Key.Escape)
+                {
+                    Global.GameEngine.Instance.TogglePause();
+                }
             }
         }
     }

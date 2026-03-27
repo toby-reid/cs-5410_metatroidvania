@@ -5,6 +5,7 @@
 [ext_resource type="Script" uid="uid://db7fncwixrngl" path="res://UI/InGameMenu/ResumeButton.cs" id="3_2cq3p"]
 
 [node name="InGameMenu" type="CanvasLayer" unique_id=1580437641]
+process_mode = 3
 layer = 10
 script = ExtResource("1_1r3d8")
 

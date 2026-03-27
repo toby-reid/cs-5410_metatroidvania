@@ -47,7 +47,7 @@ namespace Actors
                     velocity += gravity;
                 }
             }
-            else if (Input.IsActionJustPressed(Jump) && Global.PlayerState.Instance.CanMove(Global.PlayerState.Movement.Jump))
+            else if (Input.IsActionJustPressed(Jump) && Global.PlayerState.Instance.HasAbility(Global.PlayerState.Progression.Jump))
             {
                 velocity.Y = JumpVelocity;
                 _sprite.Play(Animation.Jumping);
@@ -55,8 +55,8 @@ namespace Actors
 
             float xDirection = Input.GetAxis(MoveLeft, MoveRight);
             if (
-                (xDirection < 0 && Global.PlayerState.Instance.CanMove(Global.PlayerState.Movement.MoveLeft))
-                || (xDirection > 0 && Global.PlayerState.Instance.CanMove(Global.PlayerState.Movement.MoveRight))
+                (xDirection < 0 && Global.PlayerState.Instance.HasAbility(Global.PlayerState.Progression.MoveLeft))
+                || (xDirection > 0 && Global.PlayerState.Instance.HasAbility(Global.PlayerState.Progression.MoveRight))
             )
             {
                 velocity.X = xDirection * Speed;

@@ -1,10 +1,11 @@
+using System;
 using Godot;
 
 namespace Global
 {
     public partial class PlayerState : Node
     {
-        public enum Movement : byte
+        public enum Progression : ushort
         {
             MoveLeft = 1 << 0,
             MoveRight = 1 << 1,
@@ -12,44 +13,64 @@ namespace Global
             Jump = 1 << 3,
             Swim = 1 << 4,
             JumpOnEnemies = 1 << 5,
-            RangedAttack = 1 << 6
-        }
-        public enum UIFeature : byte
-        {
-            HealthBar = 1 << 0,
-            CoinCount = 1 << 1,
-            OxygenMeter = 1 << 2,
-            InGameMenu = 1 << 3,
-            LanguageSetting = 1 << 4,
-            RedChannel = 1 << 5,
-            GreenChannel = 1 << 6,
-            BlueChannel = 1 << 7
+            RangedAttack = 1 << 6,
+            SaveAndLoad = 1 << 7,
+            Shield = 1 << 8,
+            CoinCount = 1 << 9,
+            OxygenMeter = 1 << 10,
+            InGameMenu = 1 << 11,
+            LanguageSetting = 1 << 12,
+            RedChannel = 1 << 13,
+            GreenChannel = 1 << 14,
+            BlueChannel = 1 << 15,
+            All = ushort.MaxValue
         }
 
         public static PlayerState Instance { get; private set; }
 
-        public Movement Movements { get; private set; } = 0;
-        public UIFeature UIFeatures { get; private set; } = 0;
-        public const byte MaxHP = 3;
-        public byte HP { get; private set; } = MaxHP;
-        public ushort CoinCount { get; private set; } = 0;
+        public Progression Abilities { get; private set; } = 0;
+        public ushort CoinCount
+        {
+            get;
+            set
+            {
+                if (HasAbility(Progression.CoinCount))
+                {
+                    field = value;
+                }
+                else
+                {
+                    // Change when ready
+                    GD.Print("Placeholder: attempted to set coins without coin progression");
+                }
+            }
+        } = 0;
 
         public override void _Ready()
         {
             Instance = this;
         }
 
-        public bool CanMove(Movement movement)
+        public bool HasAbility(Progression ability)
         {
-            return (Movements & movement) != 0;
+            return (Abilities & ability) != 0;
         }
 
-        public bool HasUI(UIFeature feature)
+        public void AddAbility(Progression ability)
         {
-            return (UIFeatures & feature) != 0;
+            if (Enum.IsDefined(ability))
+            {
+                Abilities |= ability;
+            }
+            else
+            {
+                GD.PrintErr("Unrecognized enum value encountered: " + ability);
+            }
         }
 
-        // TODO: Add methods for game progression, HP modification, & Coin Count
-        // If we attempt to modify HP/coin count without those UIFeatures, send to BSOD room
+        public void ResetAbilities()
+        {
+            Abilities = 0;
+        }
     }
 }

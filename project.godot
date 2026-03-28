@@ -11,7 +11,6 @@ config_version=5
 [application]
 
 config/name="Metatroidvania"
-run/main_scene="uid://dpjqsane38lsk"
 config/features=PackedStringArray("4.6", "C#", "Forward Plus")
 config/icon="res://icon.svg"
 
@@ -95,4 +94,5 @@ attack={
 
 [rendering]
 
+textures/canvas_textures/default_texture_filter=0
 rendering_device/driver.windows="d3d12"

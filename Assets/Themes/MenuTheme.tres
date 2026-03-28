@@ -1,36 +1,31 @@
 [gd_resource type="Theme" format=3 uid="uid://bedpyc0cry5gx"]
 
 [ext_resource type="FontFile" uid="uid://dhx7lfex34eog" path="res://Assets/Fonts/Determination/determination-stanbucks.ttf" id="1_e614j"]
+[ext_resource type="StyleBox" uid="uid://cax7ng6vl6pas" path="res://Assets/Themes/ButtonNormal.tres" id="2_2qcmy"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2qcmy"]
 content_margin_left = 2.0
 content_margin_top = 2.0
 content_margin_right = 2.0
 content_margin_bottom = 2.0
-bg_color = Color(0.6, 0.6, 0.6, 0)
+bg_color = Color(0.43137255, 0.43137255, 0.43137255, 0)
 border_width_left = 2
 border_width_top = 2
 border_width_right = 2
 border_width_bottom = 2
-border_color = Color(1, 1, 1, 1)
 border_blend = true
-expand_margin_left = 1.0
-expand_margin_top = 1.0
-expand_margin_right = 1.0
-expand_margin_bottom = 1.0
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3rjwb"]
 content_margin_left = 2.0
 content_margin_top = 2.0
 content_margin_right = 2.0
 content_margin_bottom = 2.0
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_e614j"]
-content_margin_left = 2.0
-content_margin_top = 2.0
-content_margin_right = 2.0
-content_margin_bottom = 2.0
-bg_color = Color(0.4313402, 0.43134028, 0.43134007, 1)
+bg_color = Color(0.54901963, 0.54901963, 0.54901963, 1)
 corner_radius_top_left = 3
 corner_radius_top_right = 3
 corner_radius_bottom_right = 3
@@ -42,14 +37,19 @@ content_margin_left = 2.0
 content_margin_top = 2.0
 content_margin_right = 2.0
 content_margin_bottom = 2.0
-bg_color = Color(0.16924527, 0.16924533, 0.16924518, 1)
+bg_color = Color(0.2901961, 0.2901961, 0.2901961, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
 
 [resource]
 Button/font_sizes/font_size = 12
 Button/fonts/font = ExtResource("1_e614j")
 Button/styles/focus = SubResource("StyleBoxFlat_2qcmy")
 Button/styles/hover = SubResource("StyleBoxFlat_3rjwb")
-Button/styles/normal = SubResource("StyleBoxFlat_e614j")
+Button/styles/normal = ExtResource("2_2qcmy")
 Button/styles/pressed = SubResource("StyleBoxFlat_34ca5")
 Label/colors/font_color = Color(0.6955032, 0.6955031, 0.6955031, 1)
 Label/colors/font_shadow_color = Color(0.29411766, 0.29411766, 0.29411766, 0.61960787)

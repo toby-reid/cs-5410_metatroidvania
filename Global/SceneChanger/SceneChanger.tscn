@@ -4,3 +4,4 @@
 
 [node name="SceneChanger" type="Node2D" unique_id=2081979900]
 script = ExtResource("1_5nf47")
+MainMenuPath = "uid://dpjqsane38lsk"

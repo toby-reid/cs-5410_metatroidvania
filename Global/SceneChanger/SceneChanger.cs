@@ -4,6 +4,10 @@ namespace Global
 {
     public partial class SceneChanger : Node
     {
+        // this holds a UUID for the scene; safe refactoring without immediately loading the scene
+        [Export(PropertyHint.File, "*.tscn")] 
+        private string _mainMenuPath;
+        
         public static SceneChanger Instance { get; private set; }
 
         // Called when the node enters the scene tree for the first time.
@@ -31,5 +35,7 @@ namespace Global
         {
             GetTree().Quit(exitCode);
         }
+
+        public void GoToMainMenu() => ChangeScene(_mainMenuPath);
     }
 }

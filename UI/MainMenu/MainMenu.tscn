@@ -1,15 +1,20 @@
 [gd_scene format=3 uid="uid://dpjqsane38lsk"]
 
 [ext_resource type="Texture2D" uid="uid://dxrne5j6s10al" path="res://Assets/Sight/Tilesets/Backgrounds/bg_00_garden.png" id="1_8fkdr"]
+[ext_resource type="Script" uid="uid://cfugrh5ygdope" path="res://UI/MainMenu/MainMenu.cs" id="1_8x0bb"]
 [ext_resource type="Theme" uid="uid://bedpyc0cry5gx" path="res://Assets/Themes/MenuTheme.tres" id="2_fw0vt"]
 
-[node name="MainMenu" type="Control" unique_id=106360665]
+[node name="MainMenu" type="Control" unique_id=106360665 node_paths=PackedStringArray("_newGameButton", "_continueButton", "_exitButton")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_8x0bb")
+_newGameButton = NodePath("MenuContainer/VBoxContainer/NewGame")
+_continueButton = NodePath("MenuContainer/VBoxContainer/Continue")
+_exitButton = NodePath("MenuContainer/VBoxContainer/Exit")
 
 [node name="Background" type="TextureRect" parent="." unique_id=1142078094]
 layout_mode = 1
@@ -47,6 +52,7 @@ grow_vertical = 2
 layout_mode = 2
 
 [node name="NewGame" type="Button" parent="MenuContainer/VBoxContainer" unique_id=558739521]
+unique_name_in_owner = true
 layout_mode = 2
 theme = ExtResource("2_fw0vt")
 text = "New Game"
@@ -57,6 +63,7 @@ theme = ExtResource("2_fw0vt")
 text = "Continue"
 
 [node name="Exit" type="Button" parent="MenuContainer/VBoxContainer" unique_id=1770486215]
+unique_name_in_owner = true
 layout_mode = 2
 theme = ExtResource("2_fw0vt")
 text = "Exit"

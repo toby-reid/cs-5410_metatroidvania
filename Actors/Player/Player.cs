@@ -12,8 +12,11 @@ namespace Actors
             public const string Idle = "idle";
             public const string Running = "run";
             public const string Jumping = "jump";
+            public const string Falling = "fall";
             public const string Attacking = "attack";
             public const string TakingDamage = "take_damage";
+
+            public static readonly Vector2 AttackingOffset = new(8, 0);
         }
 
         [Export]
@@ -21,6 +24,8 @@ namespace Actors
 
         public const float Speed = 300.0f;
         public const float JumpVelocity = -400.0f;
+
+        private bool _canAnimate = true;
 
         public override void _Ready()
         {
@@ -50,7 +55,6 @@ namespace Actors
             else if (Input.IsActionJustPressed(Jump) && Global.PlayerState.Instance.HasAbility(Global.PlayerState.Progression.Jump))
             {
                 velocity.Y = JumpVelocity;
-                _sprite.Play(Animation.Jumping);
             }
 
             float xDirection = Input.GetAxis(MoveLeft, MoveRight);
@@ -60,26 +64,73 @@ namespace Actors
             )
             {
                 velocity.X = xDirection * Speed;
-                if (isOnFloor)
-                {
-                    _sprite.Play(Animation.Running);
-                }
             }
             else
             {
                 velocity.X = Mathf.MoveToward(Velocity.X, 0, Speed);
-                if (isOnFloor && velocity.X == 0)
-                {
-                    _sprite.Play(Animation.Idle);
-                }
             }
 
             Velocity = velocity;
-            if (Velocity.X < 0)
+            if (_canAnimate)
             {
-                _sprite.FlipH = true;
+                SetAnimation();
             }
             MoveAndSlide();
+        }
+
+        public override void _Input(InputEvent @event)
+        {
+            if (@event.IsActionPressed(Global.Constants.InputMap.Attack))
+            {
+                Attack();
+            }
+        }
+
+        private void Attack()
+        {
+            // TODO (#31): create "sword" object for collisions
+            _sprite.Play(Animation.Attacking);
+            _sprite.Offset = Animation.AttackingOffset;
+            AddSpriteTriggers();
+        }
+
+        public void TakeDamage()
+        {
+            // TODO: add sound effects
+            _sprite.Play(Animation.TakingDamage);
+            AddSpriteTriggers();
+        }
+
+        private void SetAnimation()
+        {
+            if (Velocity.X != 0)
+            {
+                _sprite.FlipH = Velocity.X < 0;
+            }
+            string animation = _sprite.Animation;
+            if (IsOnFloor())
+            {
+                animation = (Velocity.X == 0) ? Animation.Idle : Animation.Running;
+            }
+            else
+            {
+                animation = (Velocity.Y > 0) ? Animation.Falling : Animation.Jumping;
+            }
+            _sprite.Play(animation);
+        }
+
+        private void AddSpriteTriggers()
+        {
+            _sprite.AnimationFinished += ResetSpriteTriggers;
+            _canAnimate = false;
+        }
+
+        private void ResetSpriteTriggers()
+        {
+            _sprite.AnimationFinished -= ResetSpriteTriggers;
+            _sprite.Offset = Vector2.Zero;
+            _canAnimate = true;
+            SetAnimation(); // required to avoid a single frame of weird offset for Attack animation
         }
     }
 }

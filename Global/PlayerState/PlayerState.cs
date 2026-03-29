@@ -39,11 +39,12 @@ namespace Global
                 if (HasAbility(Progression.CoinCount))
                 {
                     field = value;
+                    GD.Print("Coin count: " + field);
                 }
                 else
                 {
                     // Change when ready
-                    GD.Print("Placeholder: attempted to set coins without coin progression");
+                    GD.PrintErr("Placeholder: attempted to set coins without coin progression");
                 }
             }
         } = 0;

@@ -30,7 +30,7 @@ namespace Global
 
         // Keeping it at 'private set' because C# does not allow operator overload for enums,
         // so it's easier just to implement our own Add/Reset methods
-        public Progression Abilities { get; private set; } = 0;
+        public Progression Abilities { get; private set; } = Progression.All;
         public ushort CoinCount
         {
             get;
@@ -39,11 +39,12 @@ namespace Global
                 if (HasAbility(Progression.CoinCount))
                 {
                     field = value;
+                    GD.Print("Coin count: " + field);
                 }
                 else
                 {
                     // Change when ready
-                    GD.Print("Placeholder: attempted to set coins without coin progression");
+                    GD.PrintErr("Placeholder: attempted to set coins without coin progression");
                 }
             }
         } = 0;

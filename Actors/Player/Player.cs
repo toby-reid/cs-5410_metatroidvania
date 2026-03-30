@@ -75,6 +75,7 @@ namespace Actors
             float xDirection = Input.GetAxis(MoveLeft, MoveRight);
             if (
                 CanMove
+                && _attackTimer.IsStopped()
                 && (
                     (xDirection < 0 && Global.PlayerState.Instance.HasAbility(Global.PlayerState.Progression.MoveLeft))
                     || (xDirection > 0 && Global.PlayerState.Instance.HasAbility(Global.PlayerState.Progression.MoveRight))
@@ -150,7 +151,6 @@ namespace Actors
         private void ResetSpriteTriggers()
         {
             _sprite.AnimationFinished -= ResetSpriteTriggers;
-            _sprite.FrameChanged -= CheckAttackFrame;
             _canAnimate = true;
             SetAnimation(); // required to avoid a single frame of weird offset for Attack animation
         }
@@ -171,14 +171,21 @@ namespace Actors
 
         private void CheckAttackFrame()
         {
-            if (_sprite.Animation == Animation.Attacking && _sprite.Frame == Animation.AttackSwordSwipeFrame)
+            if (_sprite.Animation == Animation.Attacking)
             {
-                _optSwordSwipe = _swordSwipe.Instantiate<SwordSwipe>();
-                _optSwordSwipe.Scale = _sprite.FlipH ? new(-1, 1) : new(1, 1);
-                _optSwordSwipe.Sprite.SpriteFrames.SetAnimationSpeed(Animation.Attacking, _sprite.SpriteFrames.GetAnimationSpeed(Animation.Attacking));
-                _optSwordSwipe.Sprite.Play(Animation.Attacking);
-                // Keep default offset; SwordSwipe should be offset internally
-                AddChild(_optSwordSwipe);
+                if (_sprite.Frame == Animation.AttackSwordSwipeFrame)
+                {
+                    _optSwordSwipe = _swordSwipe.Instantiate<SwordSwipe>();
+                    _optSwordSwipe.Scale = _sprite.FlipH ? new(-1, 1) : new(1, 1);
+                    _optSwordSwipe.Sprite.SpriteFrames.SetAnimationSpeed(Animation.Attacking, _sprite.SpriteFrames.GetAnimationSpeed(Animation.Attacking));
+                    _optSwordSwipe.Sprite.Play(Animation.Attacking);
+                    // Keep default offset; SwordSwipe should be offset internally
+                    AddChild(_optSwordSwipe);
+                    _sprite.FrameChanged -= CheckAttackFrame;
+                }
+            }
+            else
+            {
                 _sprite.FrameChanged -= CheckAttackFrame;
             }
         }

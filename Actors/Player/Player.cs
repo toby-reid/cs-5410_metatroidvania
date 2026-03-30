@@ -15,8 +15,6 @@ namespace Actors
             public const string Falling = "fall";
             public const string Attacking = "attack";
             public const string TakingDamage = "take_damage";
-
-            public static readonly Vector2 AttackingOffset = new(8, 0);
         }
 
         [Export]
@@ -100,7 +98,6 @@ namespace Actors
         {
             // TODO (#31): create "sword" object for collisions
             _sprite.Play(Animation.Attacking);
-            _sprite.Offset = Animation.AttackingOffset;
             AddSpriteTriggers();
         }
 
@@ -138,7 +135,6 @@ namespace Actors
         private void ResetSpriteTriggers()
         {
             _sprite.AnimationFinished -= ResetSpriteTriggers;
-            _sprite.Offset = Vector2.Zero;
             _canAnimate = true;
             SetAnimation(); // required to avoid a single frame of weird offset for Attack animation
         }

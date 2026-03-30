@@ -1,0 +1,45 @@
+[gd_scene format=3 uid="uid://dtplbw1wf7knb"]
+
+[ext_resource type="Texture2D" uid="uid://bokmhdoqd53rt" path="res://Assets/Sight/Player/char_attack_00_sword-swipe-only.png" id="1_1b38u"]
+[ext_resource type="Script" uid="uid://c3v2asewxx0x1" path="res://Actors/Player/SwordSwipe/SwordSwipe.cs" id="1_qkxrr"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qkxrr"]
+atlas = ExtResource("1_1b38u")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s17yk"]
+atlas = ExtResource("1_1b38u")
+region = Rect2(0, 16, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_o1a8p"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qkxrr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s17yk")
+}, {
+"duration": 1.0,
+"texture": null
+}],
+"loop": false,
+"name": &"default",
+"speed": 10.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_1b38u"]
+radius = 8.0
+height = 20.0
+
+[node name="SwordSwipe" type="Area2D" unique_id=2103253961]
+script = ExtResource("1_qkxrr")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1813557904]
+sprite_frames = SubResource("SpriteFrames_o1a8p")
+offset = Vector2(16, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=363627707]
+position = Vector2(12, 0)
+rotation = 4.712389
+shape = SubResource("CapsuleShape2D_1b38u")

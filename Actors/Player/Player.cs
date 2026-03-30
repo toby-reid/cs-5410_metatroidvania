@@ -15,10 +15,16 @@ namespace Actors
             public const string Falling = "fall";
             public const string Attacking = "attack";
             public const string TakingDamage = "take_damage";
+
+            public const byte AttackSwordSwipeFrame = 2;
         }
 
         [Export]
         private AnimatedSprite2D _sprite;
+        [Export]
+        private Timer _attackTimer;
+        [Export]
+        private PackedScene _swordSwipe;
 
         public const float Speed = 300.0f;
         public const float JumpVelocity = -400.0f;
@@ -28,9 +34,13 @@ namespace Actors
         public static bool CanMove { get; set; } = true;
 
         private bool _canAnimate = true;
+        private SwordSwipe _optSwordSwipe = null;
 
         public override void _Ready()
         {
+            _attackTimer.WaitTime = _sprite.SpriteFrames.GetFrameCount(Animation.Attacking) / _sprite.SpriteFrames.GetAnimationSpeed(Animation.Attacking);
+            _attackTimer.OneShot = true;
+            _sprite.AnimationChanged += RemoveAnimationArtifacts;
             _sprite.Play(Animation.Idle);
         }
 
@@ -88,17 +98,22 @@ namespace Actors
 
         public override void _Input(InputEvent @event)
         {
-            if (@event.IsActionPressed(Global.Constants.InputMap.Attack))
+            if (@event.IsActionPressed(Attack))
             {
-                Attack();
+                TryAttack();
             }
         }
 
-        private void Attack()
+        private void TryAttack()
         {
-            // TODO (#31): create "sword" object for collisions
-            _sprite.Play(Animation.Attacking);
-            AddSpriteTriggers();
+            if (_attackTimer.IsStopped())
+            {
+                // TODO (#31): create "sword" object for collisions
+                _sprite.Play(Animation.Attacking);
+                _sprite.FrameChanged += CheckAttackFrame;
+                _attackTimer.Start();
+                AddSpriteTriggers();
+            }
         }
 
         public void TakeDamage()
@@ -135,8 +150,33 @@ namespace Actors
         private void ResetSpriteTriggers()
         {
             _sprite.AnimationFinished -= ResetSpriteTriggers;
+            _sprite.FrameChanged -= CheckAttackFrame;
             _canAnimate = true;
             SetAnimation(); // required to avoid a single frame of weird offset for Attack animation
+        }
+
+        private void RemoveAnimationArtifacts()
+        {
+            if (_optSwordSwipe != null)
+            {
+                if (IsInstanceValid(_optSwordSwipe))
+                {
+                    // This is mainly useful for if we take damage while attacking;
+                    // attack should be aborted immediately
+                    _optSwordSwipe.QueueFree();
+                }
+                _optSwordSwipe = null; // let C# descope the object; Godot already has
+            }
+        }
+
+        private void CheckAttackFrame()
+        {
+            if (_sprite.Animation == Animation.Attacking && _sprite.Frame == Animation.AttackSwordSwipeFrame)
+            {
+                _optSwordSwipe = _swordSwipe.Instantiate<SwordSwipe>();
+                // Keep default offset; SwordSwipe should be offset internally
+                AddChild(_optSwordSwipe);
+            }
         }
     }
 }

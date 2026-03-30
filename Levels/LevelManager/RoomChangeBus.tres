@@ -1,7 +1,0 @@
-[gd_resource type="Resource" script_class="RoomChangeBus" format=3 uid="uid://dbqvfjmvhhpu1"]
-
-[ext_resource type="Script" uid="uid://fsy813pte1am" path="res://Levels/LevelManager/RoomChangeBus.cs" id="1_ikxqc"]
-
-[resource]
-script = ExtResource("1_ikxqc")
-metadata/_custom_type_script = "uid://fsy813pte1am"

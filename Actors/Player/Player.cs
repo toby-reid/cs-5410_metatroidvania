@@ -174,8 +174,12 @@ namespace Actors
             if (_sprite.Animation == Animation.Attacking && _sprite.Frame == Animation.AttackSwordSwipeFrame)
             {
                 _optSwordSwipe = _swordSwipe.Instantiate<SwordSwipe>();
+                _optSwordSwipe.Scale = _sprite.FlipH ? new(-1, 1) : new(1, 1);
+                _optSwordSwipe.Sprite.SpriteFrames.SetAnimationSpeed(Animation.Attacking, _sprite.SpriteFrames.GetAnimationSpeed(Animation.Attacking));
+                _optSwordSwipe.Sprite.Play(Animation.Attacking);
                 // Keep default offset; SwordSwipe should be offset internally
                 AddChild(_optSwordSwipe);
+                _sprite.FrameChanged -= CheckAttackFrame;
             }
         }
     }

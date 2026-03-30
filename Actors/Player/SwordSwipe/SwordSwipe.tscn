@@ -24,7 +24,7 @@ animations = [{
 "texture": null
 }],
 "loop": false,
-"name": &"default",
+"name": &"attack",
 "speed": 10.0
 }]
 
@@ -32,11 +32,13 @@ animations = [{
 radius = 8.0
 height = 20.0
 
-[node name="SwordSwipe" type="Area2D" unique_id=2103253961]
+[node name="SwordSwipe" type="Area2D" unique_id=2103253961 node_paths=PackedStringArray("Sprite")]
 script = ExtResource("1_qkxrr")
+Sprite = NodePath("AnimatedSprite2D")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1813557904]
 sprite_frames = SubResource("SpriteFrames_o1a8p")
+animation = &"attack"
 offset = Vector2(16, 0)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=363627707]

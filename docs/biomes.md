@@ -1,5 +1,3 @@
-
-
 # Biomes
 
 To facilitate modular design our game will be split into a series of biomes. Each biome will have a different theme, but this will be mostly dependent on what textures we can find. 0be1322

@@ -25,7 +25,7 @@ namespace UI
             {
                 if (keyEvent.Pressed && keyEvent.Keycode == Key.Escape)
                 {
-                    if (PauseManager.IsGamePaused())
+                    if (PauseManager.Instance.IsGamePaused())
                     {
                         if (_isMyPause)
                         {
@@ -42,14 +42,14 @@ namespace UI
 
         private void ResumeGame()
         {
-            PauseManager.ResumeGame();
+            PauseManager.Instance.ResumeGame();
             _isMyPause = false;
             Visible = false;
         }
 
         private void PauseGame()
         {
-            PauseManager.PauseGame();
+            PauseManager.Instance.PauseGame();
             _isMyPause = true;
             Visible = true;
         }

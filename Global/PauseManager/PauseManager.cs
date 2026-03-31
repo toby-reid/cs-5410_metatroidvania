@@ -25,27 +25,27 @@ namespace Global
             Instance = null;
         }
 
-        public static bool IsGamePaused()
+        public bool IsGamePaused()
         {
-            return Instance.GetTree().Paused;
+            return GetTree().Paused;
         }
 
-        public static bool PauseGame()
+        public bool PauseGame()
         {
             if (!IsGamePaused())
             {
-                Instance.GetTree().Paused = true;
+                GetTree().Paused = true;
                 return true;
             }
             GD.PrintErr("Attempted to pause game when it was already paused");
             return false;
         }
 
-        public static bool ResumeGame()
+        public bool ResumeGame()
         {
             if (IsGamePaused())
             {
-                Instance.GetTree().Paused = false;
+                GetTree().Paused = false;
                 return true;
             }
             GD.PrintErr("Attempted to resume game when it was not paused");

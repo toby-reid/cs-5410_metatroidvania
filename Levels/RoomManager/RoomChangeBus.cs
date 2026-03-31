@@ -1,14 +1,15 @@
 using Godot;
-using System;
 
 /// signal bus for managing room change signals
 [GlobalClass]
 public partial class RoomChangeBus : Resource
 {
-    public event Action<string, int> OnRoomChangeRequest;
+
+    [Signal]
+    public delegate void RoomChangeRequestEventHandler(string scenePath, int doorId);
 
     public void Raise(string scenePath, int doorId)
     {
-        OnRoomChangeRequest?.Invoke(scenePath, doorId);
+        EmitSignal(SignalName.RoomChangeRequest, scenePath, doorId);
     }
 }

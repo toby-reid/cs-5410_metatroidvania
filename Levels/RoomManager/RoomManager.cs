@@ -12,12 +12,7 @@ public partial class RoomManager : Node
     public override void _Ready()
     {
         ChangeRoom(startRoom, startDoor);
-        _roomChangeBus.OnRoomChangeRequest += ChangeRoom;
-    }
-
-    public override void _ExitTree()
-    {
-        _roomChangeBus.OnRoomChangeRequest -= ChangeRoom;
+        _roomChangeBus.RoomChangeRequest += ChangeRoom;
     }
 
     private void ChangeRoom(string scene, int doorId)

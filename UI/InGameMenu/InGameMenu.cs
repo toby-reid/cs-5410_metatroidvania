@@ -15,13 +15,7 @@ namespace UI
         public override void _Ready()
         {
             Visible = false;
-            PauseManager.Instance.OnTogglePause += OnPause;
             _resumeButton.Pressed += ResumeGame;
-        }
-
-        public void OnPause(bool isPaused)
-        {
-            Visible = isPaused;
         }
 
         // Temporary inclusion. Will need to determine what circumstances let you open the pause menu
@@ -50,12 +44,14 @@ namespace UI
         {
             PauseManager.ResumeGame();
             _isMyPause = false;
+            Visible = false;
         }
 
         private void PauseGame()
         {
             PauseManager.PauseGame();
             _isMyPause = true;
+            Visible = true;
         }
     }
 }

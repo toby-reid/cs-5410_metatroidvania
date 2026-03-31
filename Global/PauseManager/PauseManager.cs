@@ -7,8 +7,6 @@ namespace Global
     {
         public static PauseManager Instance { get; private set; }
 
-        public event Action<bool> OnTogglePause;
-
         // Called when the node enters the scene tree for the first time.
         public override void _Ready()
         {
@@ -37,7 +35,6 @@ namespace Global
             if (!IsGamePaused())
             {
                 Instance.GetTree().Paused = true;
-                Instance.OnTogglePause(true);
                 return true;
             }
             GD.PrintErr("Attempted to pause game when it was already paused");
@@ -49,7 +46,6 @@ namespace Global
             if (IsGamePaused())
             {
                 Instance.GetTree().Paused = false;
-                Instance.OnTogglePause(false);
                 return true;
             }
             GD.PrintErr("Attempted to resume game when it was not paused");

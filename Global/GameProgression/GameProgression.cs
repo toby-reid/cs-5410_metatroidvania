@@ -94,6 +94,7 @@ namespace Global
             if (Enum.IsDefined(ability))
             {
                 Progress |= ability;
+                Save();
             }
             else
             {
@@ -105,6 +106,7 @@ namespace Global
             if (Enum.IsDefined(channel))
             {
                 ColorChannels |= channel;
+                Save();
             }
             else
             {
@@ -116,6 +118,7 @@ namespace Global
             if (Enum.IsDefined(track))
             {
                 Soundtracks |= track;
+                Save();
             }
             else
             {
@@ -127,6 +130,7 @@ namespace Global
             if (Enum.IsDefined(animation))
             {
                 Animations |= animation;
+                Save();
             }
             else
             {

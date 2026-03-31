@@ -3,9 +3,9 @@ using System;
 
 namespace Global
 {
-    public partial class GameEngine : Node
+    public partial class PauseManager : Node
     {
-        public static GameEngine Instance { get; private set; }
+        public static PauseManager Instance { get; private set; }
 
         public event Action<bool> OnTogglePause;
 

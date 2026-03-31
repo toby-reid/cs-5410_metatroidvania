@@ -2,5 +2,5 @@
 
 [ext_resource type="Script" uid="uid://dfvh4lv071ks6" path="res://Global/PauseManager/PauseManager.cs" id="1_dqhf3"]
 
-[node name="GameEngine" type="Node2D" unique_id=764119157]
+[node name="PauseManager" type="Node2D" unique_id=764119157]
 script = ExtResource("1_dqhf3")

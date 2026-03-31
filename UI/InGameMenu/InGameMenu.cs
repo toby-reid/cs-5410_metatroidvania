@@ -8,7 +8,7 @@ namespace UI
         public override void _Ready()
         {
             Visible = GetTree().Paused;
-            Global.GameEngine.Instance.OnTogglePause += OnPause;
+            Global.PauseManager.Instance.OnTogglePause += OnPause;
         }
 
         public void OnPause(bool isPaused)
@@ -25,7 +25,7 @@ namespace UI
                 {
                     if (Actors.Player.CanMove)
                     {
-                        Global.GameEngine.Instance.TogglePause();
+                        Global.PauseManager.Instance.TogglePause();
                     }
                 }
             }

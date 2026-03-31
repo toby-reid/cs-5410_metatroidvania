@@ -54,6 +54,8 @@ namespace Global
 
         public static GameProgression Instance { get; private set; }
 
+        public const string SaveFile = "user://save.tres";
+
         [Export] public Progression Progress { get; private set; } = Progression.All;
         [Export] public ColorChannel ColorChannels { get; private set; } = ColorChannel.All;
         [Export] public Soundtrack Soundtracks { get; private set; } = Soundtrack.All;
@@ -79,8 +81,7 @@ namespace Global
         // Static constructor: invoked the first time this class is accessed
         static GameProgression()
         {
-            // If the default value is different from All, change this to a *.tres resource load
-            Instance = new();
+            Instance = Load();
         }
 
         public bool HasUnlock(Progression ability) => Progress.HasFlag(ability);
@@ -131,6 +132,28 @@ namespace Global
             {
                 GD.PrintErr("Unrecognized animation: " + animation);
             }
+        }
+
+        public void Save()
+        {
+            Error err = ResourceSaver.Save(this, SaveFile);
+            if (err != Error.Ok)
+            {
+                GD.PrintErr("Failed to save game progression: " + err);
+            }
+        }
+        private static GameProgression Load()
+        {
+            if (FileAccess.FileExists(SaveFile))
+            {
+                GameProgression progress = ResourceLoader.Load<GameProgression>(SaveFile, cacheMode: ResourceLoader.CacheMode.Ignore);
+                if (progress != null)
+                {
+                    return progress;
+                }
+                GD.PrintErr("Failed to load game progression");
+            }
+            return new();
         }
     }
 }

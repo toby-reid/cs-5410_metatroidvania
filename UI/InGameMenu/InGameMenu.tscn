@@ -2,12 +2,12 @@
 
 [ext_resource type="Script" uid="uid://dfb0rivvi1gip" path="res://UI/InGameMenu/InGameMenu.cs" id="1_1r3d8"]
 [ext_resource type="Theme" uid="uid://b1eagc8i44ba" path="res://UI/InGameMenu/ButtonTheme.tres" id="1_y63dr"]
-[ext_resource type="Script" uid="uid://db7fncwixrngl" path="res://UI/InGameMenu/ResumeButton.cs" id="3_2cq3p"]
 
-[node name="InGameMenu" type="CanvasLayer" unique_id=1580437641]
+[node name="InGameMenu" type="CanvasLayer" unique_id=1580437641 node_paths=PackedStringArray("_resumeButton")]
 process_mode = 3
 layer = 10
 script = ExtResource("1_1r3d8")
+_resumeButton = NodePath("VBoxContainer/ResumeButton")
 
 [node name="ColorRect" type="ColorRect" parent="." unique_id=2032850667]
 anchors_preset = 15
@@ -35,4 +35,3 @@ alignment = 1
 layout_mode = 2
 theme = ExtResource("1_y63dr")
 text = "Resume"
-script = ExtResource("3_2cq3p")

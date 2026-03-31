@@ -12,30 +12,48 @@ namespace Global
         // Called when the node enters the scene tree for the first time.
         public override void _Ready()
         {
-            Instance = this;
-        }
-
-        public void PauseGame()
-        {
-            if (!GetTree().Paused)
+            if (Instance == null)
             {
-                TogglePause();
+                Instance = this;
+            }
+            else
+            {
+                GD.PrintErr("Attempted to create another PauseManager when one was already in use");
             }
         }
 
-        public void ResumeGame()
+        public override void _ExitTree()
         {
-            if (GetTree().Paused)
-            {
-                TogglePause();
-            }
+            Instance = null;
         }
 
-        public void TogglePause()
+        public static bool IsGamePaused()
         {
-            bool isNowPaused = !GetTree().Paused;
-            GetTree().Paused = isNowPaused;
-            OnTogglePause(isNowPaused);
+            return Instance.GetTree().Paused;
+        }
+
+        public static bool PauseGame()
+        {
+            if (!IsGamePaused())
+            {
+                Instance.GetTree().Paused = true;
+                Instance.OnTogglePause(true);
+                return true;
+            }
+            GD.PrintErr("Attempted to pause game when it was already paused");
+            return false;
+        }
+
+        public static bool ResumeGame()
+        {
+            if (IsGamePaused())
+            {
+                Instance.GetTree().Paused = false;
+                Instance.OnTogglePause(false);
+                return true;
+            }
+            GD.PrintErr("Attempted to resume game when it was not paused");
+            return false;
         }
     }
 }

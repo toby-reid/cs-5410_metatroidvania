@@ -29,10 +29,6 @@ namespace Actors
         public const float Speed = 300.0f;
         public const float JumpVelocity = -400.0f;
 
-        // Use to disable manual moving, such as during cutscenes or animations
-        // Not to be confused with anchoring the Player
-        public static bool CanMove { get; set; } = true;
-
         private bool _canAnimate = true;
         private SwordSwipe _optSwordSwipe = null;
 
@@ -53,7 +49,7 @@ namespace Actors
             {
                 Vector2 gravity = GetGravity() * (float)delta;
                 velocity += gravity;
-                if (CanMove && Global.PlayerState.Instance.HasAbility(Global.PlayerState.Progression.Jump))
+                if (Global.PlayerState.Instance.HasAbility(Global.PlayerState.Progression.Jump))
                 {
                     if (Input.IsActionPressed(Jump))
                     {
@@ -67,15 +63,14 @@ namespace Actors
                     }
                 }
             }
-            else if (CanMove && Input.IsActionJustPressed(Jump) && Global.PlayerState.Instance.HasAbility(Global.PlayerState.Progression.Jump))
+            else if (Input.IsActionJustPressed(Jump) && Global.PlayerState.Instance.HasAbility(Global.PlayerState.Progression.Jump))
             {
                 velocity.Y = JumpVelocity;
             }
 
             float xDirection = Input.GetAxis(MoveLeft, MoveRight);
             if (
-                CanMove
-                && _attackTimer.IsStopped()
+                _attackTimer.IsStopped()
                 && (
                     (xDirection < 0 && Global.PlayerState.Instance.HasAbility(Global.PlayerState.Progression.MoveLeft))
                     || (xDirection > 0 && Global.PlayerState.Instance.HasAbility(Global.PlayerState.Progression.MoveRight))

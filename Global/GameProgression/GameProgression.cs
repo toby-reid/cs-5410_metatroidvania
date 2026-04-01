@@ -54,8 +54,19 @@ namespace Global
 
         public static GameProgression Instance { get; private set; }
 
-        public const string SaveFile = "user://save.tres";
+        public const string SaveFile = "user://prog.tres";
 
+        [Export]
+        public bool CompletedTutorial
+        {
+            get;
+            set
+            {
+                field = value;
+                Save();
+            }
+        }
+        // Don't want to save with every 'set', because we may be performing bulk 'set's
         [Export] public Progression Progress { get; private set; } = Progression.All;
         [Export] public ColorChannel ColorChannels { get; private set; } = ColorChannel.All;
         [Export] public Soundtrack Soundtracks { get; private set; } = Soundtrack.All;
@@ -69,6 +80,7 @@ namespace Global
                 if (HasUnlock(Progression.CoinCount))
                 {
                     field = value;
+                    GD.Print("Coin count: " + field);
                 }
                 else
                 {
@@ -89,54 +101,38 @@ namespace Global
         public bool HasUnlock(Soundtrack track) => Soundtracks.HasFlag(track);
         public bool HasUnlock(Animation animation) => Animations.HasFlag(animation);
 
-        public void Unlock(Progression ability)
+        public void ResetProgression(bool resetTutorial = false)
         {
-            if (Enum.IsDefined(ability))
+            if (resetTutorial)
             {
-                Progress |= ability;
-                Save();
+                CompletedTutorial = false;
             }
-            else
-            {
-                GD.PrintErr("Unrecognized progression: " + ability);
-            }
+            Progress = 0;
+            ColorChannels = 0;
+            Soundtracks = 0;
+            Animations = 0;
+            CoinCount = 0;
+            Save();
         }
-        public void Unlock(ColorChannel channel)
+
+        public void UnlockAll()
         {
-            if (Enum.IsDefined(channel))
-            {
-                ColorChannels |= channel;
-                Save();
-            }
-            else
-            {
-                GD.PrintErr("Unrecognized channel: " + channel);
-            }
+            Unlock(Progression.All, ColorChannel.All, Soundtrack.All, Animation.All);
         }
-        public void Unlock(Soundtrack track)
+        public void Unlock(Progression ability = 0, ColorChannel channel = 0, Soundtrack track = 0, Animation animation = 0)
         {
-            if (Enum.IsDefined(track))
-            {
-                Soundtracks |= track;
-                Save();
-            }
-            else
-            {
-                GD.PrintErr("Unrecognized soundtrack: " + track);
-            }
+            Progress |= ability;
+            ColorChannels |= channel;
+            Soundtracks |= track;
+            Animations |= animation;
+            Save();
         }
-        public void Unlock(Animation animation)
-        {
-            if (Enum.IsDefined(animation))
-            {
-                Animations |= animation;
-                Save();
-            }
-            else
-            {
-                GD.PrintErr("Unrecognized animation: " + animation);
-            }
-        }
+        #pragma warning disable CA1822  // "Member can be made static" ... no these can't
+        public void Unlock(Progression ability) => Unlock(ability: ability);
+        public void Unlock(ColorChannel channel) => Unlock(channel: channel);
+        public void Unlock(Soundtrack track) => Unlock(track: track);
+        public void Unlock(Animation animation) => Unlock(animation: animation);
+        #pragma warning restore CA1822
 
         public void Save()
         {

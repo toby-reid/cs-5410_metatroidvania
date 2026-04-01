@@ -6,31 +6,37 @@ namespace Global
     public partial class GameProgression : Resource
     {
         [Flags]
-        public enum Progression : ushort
+        public enum Ability : byte
         {
             MoveRight = 1 << 0,
             MoveLeft = 1 << 1,
             Jump = 1 << 2,
-            BaseAttack = 1 << 3,
-            HealthBar = 1 << 4,
-            CoinCount = 1 << 5,
-            UseLadders = 1 << 6,
-            DropFromPlatform = 1 << 7,
-            EnemiesMove = 1 << 8,
-            WaterPhysics = 1 << 9,
-            InGameMenu = 1 << 10,
-            OxygenMeter = 1 << 11,
-            LanguageSetting = 1 << 12,
-            GameOptimization = 1 << 13,
-            All = ushort.MaxValue
+            DropFromPlatform = 1 << 3,
+            UseLadders = 1 << 4,
+            WaterPhysics = 1 << 5,
+            BaseAttack = 1 << 6,
+            All = byte.MaxValue
         }
 
         [Flags]
-        public enum ColorChannel : byte
+        public enum UI : byte
         {
-            Red = 1 << 0,
-            Green = 1 << 1,
-            Blue = 1 << 2,
+            HealthBar = 1 << 0,
+            CoinCount = 1 << 1,
+            OxygenMeter = 1 << 2,
+            InGameMenu = 1 << 3,
+            LanguageSetting = 1 << 4,
+            RedChannel = 1 << 5,
+            GreenChannel = 1 << 6,
+            BlueChannel = 1 << 7,
+            All = byte.MaxValue
+        }
+
+        [Flags]
+        public enum Gameplay : byte
+        {
+            EnemiesMove = 1 << 0,
+            FrameRate = 1 << 1,
             All = byte.MaxValue
         }
 
@@ -67,8 +73,9 @@ namespace Global
             }
         }
         // Don't want to save with every 'set', because we may be performing bulk 'set's
-        [Export] public Progression Progress { get; private set; } = Progression.All;
-        [Export] public ColorChannel ColorChannels { get; private set; } = ColorChannel.All;
+        [Export] public Ability PlayerAbilities { get; private set; } = Ability.All;
+        [Export] public UI UIFeatures { get; private set; } = UI.All;
+        [Export] public Gameplay GameplayFeatures { get; private set; } = Gameplay.All;
         [Export] public Soundtrack Soundtracks { get; private set; } = Soundtrack.All;
         [Export] public Animation Animations { get; private set; } = Animation.All;
         [Export]
@@ -77,7 +84,7 @@ namespace Global
             get;
             set
             {
-                if (HasUnlock(Progression.CoinCount))
+                if (HasUnlock(UI.CoinCount))
                 {
                     field = value;
                     GD.Print("Coin count: " + field);
@@ -96,8 +103,9 @@ namespace Global
             Instance = Load();
         }
 
-        public bool HasUnlock(Progression ability) => Progress.HasFlag(ability);
-        public bool HasUnlock(ColorChannel channel) => ColorChannels.HasFlag(channel);
+        public bool HasUnlock(Ability ability) => PlayerAbilities.HasFlag(ability);
+        public bool HasUnlock(UI uiFeature) => UIFeatures.HasFlag(uiFeature);
+        public bool HasUnlock(Gameplay gameplayFeature) => GameplayFeatures.HasFlag(gameplayFeature);
         public bool HasUnlock(Soundtrack track) => Soundtracks.HasFlag(track);
         public bool HasUnlock(Animation animation) => Animations.HasFlag(animation);
 
@@ -107,27 +115,36 @@ namespace Global
             {
                 CompletedTutorial = false;
             }
-            Progress = 0;
-            ColorChannels = 0;
+            PlayerAbilities = 0;
+            UIFeatures = 0;
+            GameplayFeatures = 0;
             Soundtracks = 0;
             Animations = 0;
             CoinCount = 0;
             Save();
         }
 
-        public void Unlock(Progression abilities = 0, ColorChannel channels = 0, Soundtrack tracks = 0, Animation animations = 0)
+        public void Unlock(
+            Ability abilities = 0,
+            UI uiFeatures = 0,
+            Gameplay gameplayFeatures = 0,
+            Soundtrack tracks = 0,
+            Animation animations = 0
+        )
         {
-            Progress |= abilities;
-            ColorChannels |= channels;
+            PlayerAbilities |= abilities;
+            UIFeatures |= uiFeatures;
+            GameplayFeatures |= gameplayFeatures;
             Soundtracks |= tracks;
             Animations |= animations;
             Save();
         }
-        public void Unlock(Progression ability) => Unlock(abilities: ability);
-        public void Unlock(ColorChannel channel) => Unlock(channels: channel);
+        public void Unlock(Ability ability) => Unlock(abilities: ability);
+        public void Unlock(UI uiFeature) => Unlock(uiFeatures: uiFeature);
+        public void Unlock(Gameplay gameplayFeature) => Unlock(gameplayFeatures: gameplayFeature);
         public void Unlock(Soundtrack track) => Unlock(tracks: track);
         public void Unlock(Animation animation) => Unlock(animations: animation);
-        public void UnlockAll() => Unlock(Progression.All, ColorChannel.All, Soundtrack.All, Animation.All);
+        public void UnlockAll() => Unlock(Ability.All, UI.All, Gameplay.All, Soundtrack.All, Animation.All);
 
         public void Save()
         {

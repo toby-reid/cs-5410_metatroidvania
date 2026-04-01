@@ -115,10 +115,6 @@ namespace Global
             Save();
         }
 
-        public void UnlockAll()
-        {
-            Unlock(Progression.All, ColorChannel.All, Soundtrack.All, Animation.All);
-        }
         public void Unlock(Progression ability = 0, ColorChannel channel = 0, Soundtrack track = 0, Animation animation = 0)
         {
             Progress |= ability;
@@ -133,6 +129,7 @@ namespace Global
         public void Unlock(Soundtrack track) => Unlock(track: track);
         public void Unlock(Animation animation) => Unlock(animation: animation);
         #pragma warning restore CA1822
+        public void UnlockAll() => Unlock(Progression.All, ColorChannel.All, Soundtrack.All, Animation.All);
 
         public void Save()
         {

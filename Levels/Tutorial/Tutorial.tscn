@@ -1,8 +1,17 @@
 [gd_scene format=3 uid="uid://b8au4wcoggn5v"]
 
 [ext_resource type="Texture2D" uid="uid://l078t7s4td7f" path="res://icon.svg" id="1_vo1h1"]
+[ext_resource type="PackedScene" uid="uid://0ncfoov5jkhu" path="res://Environment/Items/Item.tscn" id="2_vwhqw"]
 
 [node name="Tutorial" type="Node2D" unique_id=1504149254]
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=91530121]
+[node name="Item" parent="." unique_id=506489788 instance=ExtResource("2_vwhqw")]
+position = Vector2(-120, -2)
+_name = "move right"
+_instructions = "Press 'D' to move right!"
+_itemValue = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1387441091]
+position = Vector2(-150, 0)
+scale = Vector2(0.1640625, 0.1640625)
 texture = ExtResource("1_vo1h1")

@@ -27,8 +27,8 @@ namespace Actors
         {
             if (other is Player)
             {
-                // GameProgression will handle invalid CoinCount
-                ++Global.GameProgression.Instance.CoinCount;
+                // PlayerState will handle invalid CoinCount
+                ++Global.PlayerState.Instance.CoinCount;
                 _sprite.Play(Animation.PickUp);
                 _pickupSound.Play();
                 _sprite.AnimationFinished += QueueFree;

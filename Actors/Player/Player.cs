@@ -53,15 +53,15 @@ namespace Actors
                     velocity += gravity;
                 }
             }
-            else if (Input.IsActionJustPressed(Jump) && GameProgression.Instance.HasUnlock(GameProgression.Ability.Jump))
+            else if (Input.IsActionJustPressed(Jump) && PlayerState.Instance.HasUnlock(PlayerState.Progression.Jump))
             {
                 velocity.Y = JumpVelocity;
             }
 
             float xDirection = Input.GetAxis(MoveLeft, MoveRight);
             if (
-                (xDirection < 0 && GameProgression.Instance.HasUnlock(GameProgression.Ability.MoveLeft))
-                || (xDirection > 0 && GameProgression.Instance.HasUnlock(GameProgression.Ability.MoveRight))
+                (xDirection < 0 && PlayerState.Instance.HasUnlock(PlayerState.Progression.MoveLeft))
+                || (xDirection > 0 && PlayerState.Instance.HasUnlock(PlayerState.Progression.MoveRight))
             )
             {
                 velocity.X = xDirection * Speed;

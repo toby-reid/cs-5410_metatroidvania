@@ -3,11 +3,13 @@ using System;
 
 namespace Global
 {
-    public partial class GameProgression : Resource
+    public partial class PlayerState : Resource
     {
+        // may change to ulong with soundtracks, but more likely those will just be separate
         [Flags]
-        public enum Ability : byte
+        public enum Progression : uint
         {
+            // Player movement
             MoveRight = 1 << 0,
             MoveLeft = 1 << 1,
             Jump = 1 << 2,
@@ -15,50 +17,34 @@ namespace Global
             UseLadders = 1 << 4,
             WaterPhysics = 1 << 5,
             BaseAttack = 1 << 6,
-            All = byte.MaxValue
+
+            // UI elements
+            HealthBar = 1 << 7,
+            CoinCount = 1 << 8,
+            OxygenMeter = 1 << 9,
+            InGameMenu = 1 << 10,
+            LanguageSetting = 1 << 11,
+            // Color channels
+            RedChannel = 1 << 12,
+            GreenChannel = 1 << 13,
+            BlueChannel = 1 << 14,
+
+            // Miscellaneous gameplay features
+            EnemiesMove = 1 << 15,
+            FrameRate = 1 << 16,
+
+            // Soundtracks - not yet implemented.
+            // These may end up being represented as a static string class or something similar.
+            // We may also just use a placeholder value, Soundtrack = 1 << XX, with another value to represent the actual resource.
+
+            // Animations - not yet implemented.
+            // These may end up being represented as a static string class or something similar.
+            // We may also just use a placeholder value, Animation = 1 << XX, with another value to represent the actual resource.
+
+            All = uint.MaxValue
         }
 
-        [Flags]
-        public enum UI : byte
-        {
-            HealthBar = 1 << 0,
-            CoinCount = 1 << 1,
-            OxygenMeter = 1 << 2,
-            InGameMenu = 1 << 3,
-            LanguageSetting = 1 << 4,
-            RedChannel = 1 << 5,
-            GreenChannel = 1 << 6,
-            BlueChannel = 1 << 7,
-            All = byte.MaxValue
-        }
-
-        [Flags]
-        public enum Gameplay : byte
-        {
-            EnemiesMove = 1 << 0,
-            FrameRate = 1 << 1,
-            All = byte.MaxValue
-        }
-
-        [Flags]
-        public enum Soundtrack : byte
-        {
-            // Not implemented.
-            // This may end up being a static string class or something similar, depending on future development.
-            // It has been included for completion's sake in comparison with collectibles.md.
-            All = byte.MaxValue
-        }
-
-        [Flags]
-        public enum Animation : byte
-        {
-            // Not implemented.
-            // This may end up being a static string class or something similar, depending on future development.
-            // It has been included for completion's sake in comparison with collectibles.md.
-            All = byte.MaxValue
-        }
-
-        public static GameProgression Instance { get; private set; }
+        public static PlayerState Instance { get; private set; }
 
         public const string SaveFile = "user://prog.tres";
 
@@ -72,19 +58,14 @@ namespace Global
                 Save();
             }
         }
-        // Don't want to save with every 'set', because we may be performing bulk 'set's
-        [Export] public Ability PlayerAbilities { get; private set; } = Ability.All;
-        [Export] public UI UIFeatures { get; private set; } = UI.All;
-        [Export] public Gameplay GameplayFeatures { get; private set; } = Gameplay.All;
-        [Export] public Soundtrack Soundtracks { get; private set; } = Soundtrack.All;
-        [Export] public Animation Animations { get; private set; } = Animation.All;
+        [Export] public Progression Progress { get; private set; } = Progression.All;
         [Export]
         public ushort CoinCount
         {
             get;
             set
             {
-                if (HasUnlock(UI.CoinCount))
+                if (HasUnlock(Progression.CoinCount))
                 {
                     field = value;
                     GD.Print("Coin count: " + field);
@@ -96,18 +77,33 @@ namespace Global
                 }
             }
         }
+        [Export]
+        public byte HP
+        {
+            get;
+            set
+            {
+                if (HasUnlock(Progression.HealthBar))
+                {
+                    field = value;
+                    GD.Print("HP changed: " + field);
+                }
+                else
+                {
+                    // TODO: Crash the game
+                    GD.PrintErr("Placeholder: attempted to set HP without indicator");
+                }
+            }
+        }
+        public const byte MaxHP = 2;
 
         // Static constructor: invoked the first time this class is accessed
-        static GameProgression()
+        static PlayerState()
         {
-            Instance = Load();
+            Instance = new();
         }
 
-        public bool HasUnlock(Ability ability) => PlayerAbilities.HasFlag(ability);
-        public bool HasUnlock(UI uiFeature) => UIFeatures.HasFlag(uiFeature);
-        public bool HasUnlock(Gameplay gameplayFeature) => GameplayFeatures.HasFlag(gameplayFeature);
-        public bool HasUnlock(Soundtrack track) => Soundtracks.HasFlag(track);
-        public bool HasUnlock(Animation animation) => Animations.HasFlag(animation);
+        public bool HasUnlock(Progression unlock) => Progress.HasFlag(unlock);
 
         public void Reset(bool resetTutorial = false)
         {
@@ -115,36 +111,25 @@ namespace Global
             {
                 CompletedTutorial = false;
             }
-            PlayerAbilities = 0;
-            UIFeatures = 0;
-            GameplayFeatures = 0;
-            Soundtracks = 0;
-            Animations = 0;
+            Progress = 0;
             CoinCount = 0;
+            HP = MaxHP;
             Save();
         }
 
-        public void Unlock(
-            Ability abilities = 0,
-            UI uiFeatures = 0,
-            Gameplay gameplayFeatures = 0,
-            Soundtrack tracks = 0,
-            Animation animations = 0
-        )
+        public void Unlock(Progression unlock)
         {
-            PlayerAbilities |= abilities;
-            UIFeatures |= uiFeatures;
-            GameplayFeatures |= gameplayFeatures;
-            Soundtracks |= tracks;
-            Animations |= animations;
-            Save();
+            if (!HasUnlock(unlock))
+            {
+                Progress |= unlock;
+                Save();
+            }
+            else
+            {
+                GD.PrintErr("Attempted to re-unlock ability/ies: " + unlock);
+            }
         }
-        public void Unlock(Ability ability) => Unlock(abilities: ability);
-        public void Unlock(UI uiFeature) => Unlock(uiFeatures: uiFeature);
-        public void Unlock(Gameplay gameplayFeature) => Unlock(gameplayFeatures: gameplayFeature);
-        public void Unlock(Soundtrack track) => Unlock(tracks: track);
-        public void Unlock(Animation animation) => Unlock(animations: animation);
-        public void UnlockAll() => Unlock(Ability.All, UI.All, Gameplay.All, Soundtrack.All, Animation.All);
+        public void UnlockAll() => Unlock(Progression.All);
 
         public void Save()
         {
@@ -154,18 +139,24 @@ namespace Global
                 GD.PrintErr("Failed to save game progression: " + err);
             }
         }
-        private static GameProgression Load()
+        public static bool Load()
         {
             if (FileAccess.FileExists(SaveFile))
             {
-                GameProgression progress = ResourceLoader.Load<GameProgression>(SaveFile, cacheMode: ResourceLoader.CacheMode.Ignore);
-                if (progress != null)
+                PlayerState state = ResourceLoader.Load<PlayerState>(SaveFile, cacheMode: ResourceLoader.CacheMode.Ignore);
+                if (state != null)
                 {
-                    return progress;
+                    GD.Print("Successfully loaded player state: " + state);
+                    Instance = state;
+                    return true;
                 }
                 GD.PrintErr("Failed to load game progression");
             }
-            return new();
+            else
+            {
+                GD.Print("No save file found");
+            }
+            return false;
         }
     }
 }

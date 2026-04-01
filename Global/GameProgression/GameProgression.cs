@@ -115,20 +115,18 @@ namespace Global
             Save();
         }
 
-        public void Unlock(Progression ability = 0, ColorChannel channel = 0, Soundtrack track = 0, Animation animation = 0)
+        public void Unlock(Progression abilities = 0, ColorChannel channels = 0, Soundtrack tracks = 0, Animation animations = 0)
         {
-            Progress |= ability;
-            ColorChannels |= channel;
-            Soundtracks |= track;
-            Animations |= animation;
+            Progress |= abilities;
+            ColorChannels |= channels;
+            Soundtracks |= tracks;
+            Animations |= animations;
             Save();
         }
-        #pragma warning disable CA1822  // "Member can be made static" ... no these can't
-        public void Unlock(Progression ability) => Unlock(ability: ability);
-        public void Unlock(ColorChannel channel) => Unlock(channel: channel);
-        public void Unlock(Soundtrack track) => Unlock(track: track);
-        public void Unlock(Animation animation) => Unlock(animation: animation);
-        #pragma warning restore CA1822
+        public void Unlock(Progression ability) => Unlock(abilities: ability);
+        public void Unlock(ColorChannel channel) => Unlock(channels: channel);
+        public void Unlock(Soundtrack track) => Unlock(tracks: track);
+        public void Unlock(Animation animation) => Unlock(animations: animation);
         public void UnlockAll() => Unlock(Progression.All, ColorChannel.All, Soundtrack.All, Animation.All);
 
         public void Save()

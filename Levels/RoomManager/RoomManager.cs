@@ -1,9 +1,9 @@
 using Godot;
+using Global;
 
 public partial class RoomManager : Node
 {
     [Export] public Node2D _roomContainer;
-    [Export] public RoomChangeBus _roomChangeBus;
     
     [ExportGroup("Start Room")]
     [Export(PropertyHint.File, "*.tscn")] private string startRoom;
@@ -12,7 +12,7 @@ public partial class RoomManager : Node
     public override void _Ready()
     {
         ChangeRoom(startRoom, startDoor);
-        _roomChangeBus.RoomChangeRequest += ChangeRoom;
+        RoomBus.Instance.RoomChangeRequest += ChangeRoom;
     }
 
     private void ChangeRoom(string scene, int doorId)

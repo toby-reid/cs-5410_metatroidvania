@@ -2,5 +2,8 @@
 
 [ext_resource type="Script" uid="uid://qbggd1lu7ukl" path="res://Levels/RoomManager/RoomManager.cs" id="1_v5wby"]
 
-[node name="RoomManager" type="Node" unique_id=1047548115]
+[node name="RoomManager" type="Node" unique_id=1047548115 node_paths=PackedStringArray("_roomContainer")]
 script = ExtResource("1_v5wby")
+_roomContainer = NodePath("RoomContainer")
+
+[node name="RoomContainer" type="Node2D" parent="." unique_id=1496602959]

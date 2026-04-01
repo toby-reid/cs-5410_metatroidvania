@@ -81,18 +81,21 @@ namespace Actors
 
         public override void _Input(InputEvent @event)
         {
-            if (@event.IsActionPressed(Global.Constants.InputMap.Attack))
+            if (@event.IsActionPressed(Attack))
             {
-                Attack();
+                TryAttack();
             }
         }
 
-        private void Attack()
+        private void TryAttack()
         {
-            // TODO (#31): create "sword" object for collisions
-            _sprite.Play(Animation.Attacking);
-            _sprite.Offset = Animation.AttackingOffset;
-            AddSpriteTriggers();
+            if (PlayerState.Instance.HasUnlock(PlayerState.Progression.BaseAttack))
+            {
+                // TODO (#31): create "sword" object for collisions
+                _sprite.Play(Animation.Attacking);
+                _sprite.Offset = Animation.AttackingOffset;
+                AddSpriteTriggers();
+            }
         }
 
         public void TakeDamage()

@@ -2,11 +2,6 @@
 
 [ext_resource type="PackedScene" uid="uid://dx1j3k3d8q3s0" path="res://Actors/Player/Player.tscn" id="1_3a8k0"]
 [ext_resource type="PackedScene" uid="uid://ccd5qwewxph3u" path="res://Levels/RoomManager/RoomManager.tscn" id="3_r52jk"]
-[ext_resource type="Script" uid="uid://fsy813pte1am" path="res://Levels/RoomManager/RoomChangeBus.cs" id="4_csqc5"]
-
-[sub_resource type="Resource" id="Resource_csqc5"]
-script = ExtResource("4_csqc5")
-metadata/_custom_type_script = "uid://fsy813pte1am"
 
 [node name="MainGame" type="Node2D" unique_id=1642332332]
 
@@ -17,9 +12,5 @@ remote_path = NodePath("../../Camera2D")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=953465448]
 
-[node name="RoomContainer" type="Node2D" parent="." unique_id=1959292611]
-
-[node name="RoomManager" parent="." unique_id=1047548115 node_paths=PackedStringArray("_roomContainer") instance=ExtResource("3_r52jk")]
-_roomContainer = NodePath("../RoomContainer")
-_roomChangeBus = SubResource("Resource_csqc5")
+[node name="RoomManager" parent="." unique_id=1047548115 instance=ExtResource("3_r52jk")]
 startRoom = "uid://b8au4wcoggn5v"

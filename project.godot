@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 
 SceneChanger="*uid://c6ot1w3ul35a0"
 PlayerState="*uid://dx6745mnpsf0q"
+RoomBus="*uid://bk1snxocdui1v"
 
 [display]
 

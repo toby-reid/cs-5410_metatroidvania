@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://dpjqsane38lsk"]
 
-[ext_resource type="Texture2D" uid="uid://dxrne5j6s10al" path="res://Assets/Sight/Tilesets/Backgrounds/bg_00_garden.png" id="1_8fkdr"]
+[ext_resource type="Texture2D" uid="uid://dxrne5j6s10al" path="res://Assets/Sight/Tilesets/Garden/bg_00_garden.png" id="1_8fkdr"]
 [ext_resource type="Script" uid="uid://cfugrh5ygdope" path="res://UI/MainMenu/MainMenu.cs" id="1_8x0bb"]
 [ext_resource type="Theme" uid="uid://bedpyc0cry5gx" path="res://Assets/Themes/MenuTheme.tres" id="2_fw0vt"]
 

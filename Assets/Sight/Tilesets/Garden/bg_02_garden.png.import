@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dxrne5j6s10al"
-path="res://.godot/imported/bg_00_garden.png-cf43f26b24bb0f16888d9239cc46fdef.ctex"
+uid="uid://chwbtm10bsupr"
+path="res://.godot/imported/bg_02_garden.png-7743c427e8f493c66b7efd4c4560aa54.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Sight/Tilesets/Backgrounds/bg_00_garden.png"
-dest_files=["res://.godot/imported/bg_00_garden.png-cf43f26b24bb0f16888d9239cc46fdef.ctex"]
+source_file="res://Assets/Sight/Tilesets/Garden/bg_02_garden.png"
+dest_files=["res://.godot/imported/bg_02_garden.png-7743c427e8f493c66b7efd4c4560aa54.ctex"]
 
 [params]
 

@@ -109,7 +109,7 @@ namespace Global
         public bool HasUnlock(Soundtrack track) => Soundtracks.HasFlag(track);
         public bool HasUnlock(Animation animation) => Animations.HasFlag(animation);
 
-        public void ResetProgression(bool resetTutorial = false)
+        public void Reset(bool resetTutorial = false)
         {
             if (resetTutorial)
             {

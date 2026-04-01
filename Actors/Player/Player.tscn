@@ -1,32 +1,33 @@
 [gd_scene format=3 uid="uid://dx1j3k3d8q3s0"]
 
 [ext_resource type="Script" uid="uid://dy7ggynj3e53y" path="res://Actors/Player/Player.cs" id="1_4x03u"]
-[ext_resource type="Texture2D" uid="uid://dneofrwqsxh64" path="res://Assets/Sight/Player/char_attack_00_right_anim.png" id="2_l6vkj"]
+[ext_resource type="PackedScene" uid="uid://dtplbw1wf7knb" path="res://Actors/Player/SwordSwipe/SwordSwipe.tscn" id="2_kkbrm"]
+[ext_resource type="Texture2D" uid="uid://cghfpuskip4eq" path="res://Assets/Sight/Player/char_attack_00_char-only.png" id="2_rsi04"]
 [ext_resource type="Texture2D" uid="uid://6o5jq46md6ph" path="res://Assets/Sight/Player/char_jump_falling_right_anim.png" id="3_kkbrm"]
 [ext_resource type="Texture2D" uid="uid://cfsm14mv3peri" path="res://Assets/Sight/Player/char_idle_right_anim.png" id="3_rsi04"]
 [ext_resource type="Texture2D" uid="uid://blt28tw43qnd" path="res://Assets/Sight/Player/char_run_right_anim.png" id="5_6e37q"]
 [ext_resource type="Texture2D" uid="uid://w5734gvtlgmm" path="res://Assets/Sight/Player/char_jump_up_right_anim.png" id="5_qhy2x"]
 [ext_resource type="Texture2D" uid="uid://drig6f668nfp5" path="res://Assets/Sight/Player/char_hit_right_anim.png" id="6_qhy2x"]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_kkbrm"]
+atlas = ExtResource("2_rsi04")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6e37q"]
+atlas = ExtResource("2_rsi04")
+region = Rect2(0, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qhy2x"]
+atlas = ExtResource("2_rsi04")
+region = Rect2(0, 32, 16, 16)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_gh11b"]
-atlas = ExtResource("2_l6vkj")
-region = Rect2(0, 0, 32, 16)
+atlas = ExtResource("2_rsi04")
+region = Rect2(0, 48, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_upr3p"]
-atlas = ExtResource("2_l6vkj")
-region = Rect2(32, 0, 32, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ujyek"]
-atlas = ExtResource("2_l6vkj")
-region = Rect2(64, 0, 32, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_fllei"]
-atlas = ExtResource("2_l6vkj")
-region = Rect2(96, 0, 32, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_n45d6"]
-atlas = ExtResource("2_l6vkj")
-region = Rect2(128, 0, 32, 16)
+atlas = ExtResource("2_rsi04")
+region = Rect2(0, 64, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_s8ljq"]
 atlas = ExtResource("3_kkbrm")
@@ -124,19 +125,19 @@ region = Rect2(32, 0, 16, 16)
 animations = [{
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_kkbrm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6e37q")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qhy2x")
+}, {
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_gh11b")
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_upr3p")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ujyek")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_fllei")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_n45d6")
 }],
 "loop": false,
 "name": &"attack",
@@ -240,14 +241,21 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ech6m"]
 size = Vector2(9, 10)
 
-[node name="Player" type="CharacterBody2D" unique_id=889309543 node_paths=PackedStringArray("_sprite")]
+[node name="Player" type="CharacterBody2D" unique_id=889309543 node_paths=PackedStringArray("_sprite", "_attackTimer")]
 script = ExtResource("1_4x03u")
 _sprite = NodePath("AnimatedSprite2D")
+_attackTimer = NodePath("AttackTimer")
+_swordSwipe = ExtResource("2_kkbrm")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=731528621]
 sprite_frames = SubResource("SpriteFrames_4x03u")
 animation = &"attack"
+frame = 4
+frame_progress = 1.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1994569514]
 position = Vector2(0.5, 2)
 shape = SubResource("RectangleShape2D_ech6m")
+
+[node name="AttackTimer" type="Timer" parent="." unique_id=468091488]
+one_shot = true

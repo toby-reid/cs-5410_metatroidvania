@@ -17,19 +17,27 @@ namespace Actors
             public const string Attacking = "attack";
             public const string TakingDamage = "take_damage";
 
-            public static readonly Vector2 AttackingOffset = new(8, 0);
+            public const byte AttackSwordSwipeFrame = 2;
         }
 
         [Export]
         private AnimatedSprite2D _sprite;
+        [Export]
+        private Timer _attackTimer;
+        [Export]
+        private PackedScene _swordSwipe;
 
         public const float Speed = 300.0f;
         public const float JumpVelocity = -400.0f;
 
         private bool _canAnimate = true;
+        private SwordSwipe _optSwordSwipe = null;
 
         public override void _Ready()
         {
+            _attackTimer.WaitTime = _sprite.SpriteFrames.GetFrameCount(Animation.Attacking) / _sprite.SpriteFrames.GetAnimationSpeed(Animation.Attacking);
+            _attackTimer.OneShot = true;
+            _sprite.AnimationChanged += RemoveAnimationArtifacts;
             _sprite.Play(Animation.Idle);
         }
 
@@ -42,15 +50,18 @@ namespace Actors
             {
                 Vector2 gravity = GetGravity() * (float)delta;
                 velocity += gravity;
-                if (Input.IsActionPressed(Jump))
+                if (PlayerState.Instance.HasUnlock(PlayerState.Progression.Jump))
                 {
-                    // Halve gravity
-                    velocity -= gravity / 2;
-                }
-                else if (Input.IsActionPressed(MoveDown))
-                {
-                    // Double gravity
-                    velocity += gravity;
+                    if (Input.IsActionPressed(Jump))
+                    {
+                        // Halve gravity
+                        velocity -= gravity / 2;
+                    }
+                    else if (Input.IsActionPressed(MoveDown))
+                    {
+                        // Double gravity
+                        velocity += gravity;
+                    }
                 }
             }
             else if (Input.IsActionJustPressed(Jump) && PlayerState.Instance.HasUnlock(PlayerState.Progression.Jump))
@@ -60,8 +71,11 @@ namespace Actors
 
             float xDirection = Input.GetAxis(MoveLeft, MoveRight);
             if (
-                (xDirection < 0 && PlayerState.Instance.HasUnlock(PlayerState.Progression.MoveLeft))
-                || (xDirection > 0 && PlayerState.Instance.HasUnlock(PlayerState.Progression.MoveRight))
+                _attackTimer.IsStopped()
+                && (
+                    (xDirection < 0 && PlayerState.Instance.HasUnlock(PlayerState.Progression.MoveLeft))
+                    || (xDirection > 0 && PlayerState.Instance.HasUnlock(PlayerState.Progression.MoveRight))
+                )
             )
             {
                 velocity.X = xDirection * Speed;
@@ -89,11 +103,12 @@ namespace Actors
 
         private void TryAttack()
         {
-            if (PlayerState.Instance.HasUnlock(PlayerState.Progression.BaseAttack))
+            if (_attackTimer.IsStopped() && PlayerState.Instance.HasUnlock(PlayerState.Progression.BaseAttack))
             {
                 // TODO (#31): create "sword" object for collisions
                 _sprite.Play(Animation.Attacking);
-                _sprite.Offset = Animation.AttackingOffset;
+                _sprite.FrameChanged += CheckAttackFrame;
+                _attackTimer.Start();
                 AddSpriteTriggers();
             }
         }
@@ -132,9 +147,43 @@ namespace Actors
         private void ResetSpriteTriggers()
         {
             _sprite.AnimationFinished -= ResetSpriteTriggers;
-            _sprite.Offset = Vector2.Zero;
             _canAnimate = true;
             SetAnimation(); // required to avoid a single frame of weird offset for Attack animation
+        }
+
+        private void RemoveAnimationArtifacts()
+        {
+            if (_optSwordSwipe != null)
+            {
+                if (IsInstanceValid(_optSwordSwipe))
+                {
+                    // This is mainly useful for if we take damage while attacking;
+                    // attack should be aborted immediately
+                    _optSwordSwipe.QueueFree();
+                }
+                _optSwordSwipe = null; // let C# descope the object; Godot already has
+            }
+        }
+
+        private void CheckAttackFrame()
+        {
+            if (_sprite.Animation == Animation.Attacking)
+            {
+                if (_sprite.Frame == Animation.AttackSwordSwipeFrame)
+                {
+                    _optSwordSwipe = _swordSwipe.Instantiate<SwordSwipe>();
+                    _optSwordSwipe.Scale = _sprite.FlipH ? new(-1, 1) : new(1, 1);
+                    _optSwordSwipe.Sprite.SpriteFrames.SetAnimationSpeed(Animation.Attacking, _sprite.SpriteFrames.GetAnimationSpeed(Animation.Attacking));
+                    _optSwordSwipe.Sprite.Play(Animation.Attacking);
+                    // Keep default offset; SwordSwipe should be offset internally
+                    AddChild(_optSwordSwipe);
+                    _sprite.FrameChanged -= CheckAttackFrame;
+                }
+            }
+            else
+            {
+                _sprite.FrameChanged -= CheckAttackFrame;
+            }
         }
     }
 }

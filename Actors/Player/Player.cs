@@ -27,8 +27,8 @@ namespace Actors
         [Export]
         private PackedScene _swordSwipe;
 
-        public const float Speed = 300.0f;
-        public const float JumpVelocity = -400.0f;
+        public const float Speed = 200f;
+        public const float JumpVelocity = -250f;
 
         private bool _canAnimate = true;
         private SwordSwipe _optSwordSwipe = null;
@@ -78,11 +78,11 @@ namespace Actors
                 )
             )
             {
-                velocity.X = xDirection * Speed;
+                velocity.X = Mathf.MoveToward(Velocity.X, xDirection * Speed, Speed * 10 * (float)delta);
             }
             else
             {
-                velocity.X = Mathf.MoveToward(Velocity.X, 0, Speed);
+                velocity.X = Mathf.MoveToward(Velocity.X, 0, Speed * 10 * (float)delta);
             }
 
             Velocity = velocity;

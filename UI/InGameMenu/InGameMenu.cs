@@ -23,7 +23,7 @@ namespace UI
         {
             if (@event is InputEventKey keyEvent)
             {
-                if (keyEvent.Pressed && keyEvent.Keycode == Key.Escape && PlayerState.Instance.HasAbility(PlayerState.Progression.InGameMenu))
+                if (keyEvent.Pressed && keyEvent.Keycode == Key.Escape && PlayerState.Instance.HasUnlock(PlayerState.Progression.InGameMenu))
                 {
                     if (PauseManager.Instance.IsGamePaused())
                     {

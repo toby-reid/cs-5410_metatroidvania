@@ -1,6 +1,7 @@
 using Godot;
 using System;
 
+using Global;
 using static Global.Constants.InputMap;
 
 namespace Actors
@@ -49,7 +50,7 @@ namespace Actors
             {
                 Vector2 gravity = GetGravity() * (float)delta;
                 velocity += gravity;
-                if (Global.PlayerState.Instance.HasAbility(Global.PlayerState.Progression.Jump))
+                if (PlayerState.Instance.HasUnlock(PlayerState.Progression.Jump))
                 {
                     if (Input.IsActionPressed(Jump))
                     {
@@ -63,7 +64,7 @@ namespace Actors
                     }
                 }
             }
-            else if (Input.IsActionJustPressed(Jump) && Global.PlayerState.Instance.HasAbility(Global.PlayerState.Progression.Jump))
+            else if (Input.IsActionJustPressed(Jump) && PlayerState.Instance.HasUnlock(PlayerState.Progression.Jump))
             {
                 velocity.Y = JumpVelocity;
             }
@@ -72,8 +73,8 @@ namespace Actors
             if (
                 _attackTimer.IsStopped()
                 && (
-                    (xDirection < 0 && Global.PlayerState.Instance.HasAbility(Global.PlayerState.Progression.MoveLeft))
-                    || (xDirection > 0 && Global.PlayerState.Instance.HasAbility(Global.PlayerState.Progression.MoveRight))
+                    (xDirection < 0 && PlayerState.Instance.HasUnlock(PlayerState.Progression.MoveLeft))
+                    || (xDirection > 0 && PlayerState.Instance.HasUnlock(PlayerState.Progression.MoveRight))
                 )
             )
             {
@@ -102,7 +103,7 @@ namespace Actors
 
         private void TryAttack()
         {
-            if (_attackTimer.IsStopped())
+            if (_attackTimer.IsStopped() && PlayerState.Instance.HasUnlock(PlayerState.Progression.BaseAttack))
             {
                 // TODO (#31): create "sword" object for collisions
                 _sprite.Play(Animation.Attacking);

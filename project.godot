@@ -18,7 +18,6 @@ config/icon="res://icon.svg"
 [autoload]
 
 SceneChanger="*uid://c6ot1w3ul35a0"
-PlayerState="*uid://dx6745mnpsf0q"
 GameEngine="*uid://bt1v4bqw1dcrq"
 RoomBus="*uid://bk1snxocdui1v"
 

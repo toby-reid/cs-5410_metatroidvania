@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dfb0rivvi1gip" path="res://UI/InGameMenu/InGameMenu.cs" id="1_1r3d8"]
 [ext_resource type="Theme" uid="uid://bedpyc0cry5gx" path="res://Assets/Themes/MenuTheme.tres" id="2_ivg5q"]
+[ext_resource type="PackedScene" uid="uid://cb8kbpvloml2g" path="res://UI/InGameMenu/BackToMenu/BackToMenu.tscn" id="3_1r3d8"]
 
 [node name="InGameMenu" type="CanvasLayer" unique_id=1580437641 node_paths=PackedStringArray("_resumeButton")]
 process_mode = 3
@@ -35,3 +36,6 @@ alignment = 1
 layout_mode = 2
 theme = ExtResource("2_ivg5q")
 text = "Resume"
+
+[node name="BackToMenu" parent="VBoxContainer" unique_id=507123117 instance=ExtResource("3_1r3d8")]
+layout_mode = 2

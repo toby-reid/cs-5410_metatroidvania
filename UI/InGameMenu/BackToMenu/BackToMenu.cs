@@ -27,15 +27,9 @@ namespace UI
 
         public override void _Input(InputEvent @event)
         {
-            if (@event is InputEventAction actionEvent)
+            if (@event.IsActionPressed(Global.Constants.InputMap.Pause))
             {
-                if (
-                    actionEvent.Pressed
-                    && actionEvent.Action == Global.Constants.InputMap.Pause
-                )
-                {
-                    HideConfirmation();
-                }
+                HideConfirmation();
             }
         }
 

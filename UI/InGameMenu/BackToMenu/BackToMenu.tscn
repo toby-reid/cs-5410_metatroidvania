@@ -1,0 +1,42 @@
+[gd_scene format=3 uid="uid://cb8kbpvloml2g"]
+
+[ext_resource type="Theme" uid="uid://bedpyc0cry5gx" path="res://Assets/Themes/MenuTheme.tres" id="1_tsudj"]
+[ext_resource type="Script" uid="uid://ccmqqja3vjlsk" path="res://UI/InGameMenu/BackToMenu/BackToMenu.cs" id="2_3l7o1"]
+
+[node name="BackToMenu" type="VBoxContainer" unique_id=507123117 node_paths=PackedStringArray("_quitButton", "_confirmationDialogue", "_confirmButton", "_cancelButton")]
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("2_3l7o1")
+_quitButton = NodePath("BackToMenu")
+_confirmationDialogue = NodePath("ConfirmationDialogue")
+_confirmButton = NodePath("ConfirmationDialogue/HBoxContainer/Confirm")
+_cancelButton = NodePath("ConfirmationDialogue/HBoxContainer/Cancel")
+_mainMenuPath = "uid://dpjqsane38lsk"
+
+[node name="BackToMenu" type="Button" parent="." unique_id=2052799924]
+layout_mode = 2
+theme = ExtResource("1_tsudj")
+text = "Back to Menu"
+
+[node name="ConfirmationDialogue" type="VBoxContainer" parent="." unique_id=1999062515]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="ConfirmationDialogue" unique_id=601735129]
+layout_mode = 2
+theme = ExtResource("1_tsudj")
+text = "Are you sure?"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ConfirmationDialogue" unique_id=1217804287]
+layout_mode = 2
+alignment = 1
+
+[node name="Confirm" type="Button" parent="ConfirmationDialogue/HBoxContainer" unique_id=859990451]
+layout_mode = 2
+theme = ExtResource("1_tsudj")
+theme_override_colors/icon_normal_color = Color(1, 0.54509807, 0.49803922, 1)
+text = "Quit"
+
+[node name="Cancel" type="Button" parent="ConfirmationDialogue/HBoxContainer" unique_id=166778257]
+layout_mode = 2
+theme = ExtResource("1_tsudj")
+text = "Cancel"

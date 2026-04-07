@@ -1,3 +1,39 @@
 [gd_scene format=3 uid="uid://c3a1aq5qtukep"]
 
-[node name="CoinCountIndicator" type="Node2D" unique_id=22462205]
+[ext_resource type="Script" uid="uid://225psnwmgc13" path="res://UI/HUD/CoinCountIndicator/CoinCountIndicator.cs" id="1_fhr0c"]
+[ext_resource type="Texture2D" uid="uid://cf0k87m3li42e" path="res://Assets/Sight/Collectibles/Coin/gold_coin_idle.png" id="2_77i20"]
+[ext_resource type="Theme" uid="uid://bedpyc0cry5gx" path="res://Assets/Themes/MenuTheme.tres" id="3_cerk4"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fpxjv"]
+atlas = ExtResource("2_77i20")
+region = Rect2(0, 0, 4, 4)
+
+[node name="CoinCountIndicator" type="HBoxContainer" unique_id=608580633]
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -11.5
+offset_right = 18.0
+offset_bottom = 11.5
+grow_vertical = 2
+script = ExtResource("1_fhr0c")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=490077611]
+layout_mode = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer" unique_id=2000642570]
+layout_mode = 2
+texture = SubResource("AtlasTexture_fpxjv")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="." unique_id=181475307]
+layout_mode = 2
+theme = ExtResource("3_cerk4")
+theme_override_colors/font_color = Color(0.90949625, 0.90949625, 0.90949625, 1)
+theme_override_colors/font_shadow_color = Color(0.0008877465, 0.0008877465, 0.0008877465, 1)
+text = "0"

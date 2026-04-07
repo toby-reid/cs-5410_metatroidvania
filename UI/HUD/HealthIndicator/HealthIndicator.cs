@@ -1,6 +1,8 @@
 using Godot;
 using System;
 
+using Global;
+
 namespace UI
 {
     public partial class HealthIndicator : HBoxContainer
@@ -13,6 +15,15 @@ namespace UI
         // Called when the node enters the scene tree for the first time.
         public override void _Ready()
         {
+            PlayerState.Instance.OnProgression += CheckHPProgression;
+            PlayerState.Instance.OnHPChange += SetHealth;
+            CheckHPProgression(PlayerState.Instance.Progress);
+            SetHealth(PlayerState.Instance.HP);
+        }
+
+        private void CheckHPProgression(PlayerState.Progression progress)
+        {
+            Visible = progress.HasFlag(PlayerState.Progression.HealthBar);
         }
 
         private void SetHealth(byte newHp)

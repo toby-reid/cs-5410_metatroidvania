@@ -48,6 +48,9 @@ namespace Global
 
         public const string SaveFile = "user://prog.tres";
 
+        public event Action<Progression> OnProgression;
+        public event Action<byte> OnHPChange;
+
         [Export]
         public bool CompletedTutorial
         {
@@ -86,7 +89,7 @@ namespace Global
                 if (HasUnlock(Progression.HealthBar))
                 {
                     field = value;
-                    GD.Print("HP changed: " + field);
+                    OnHPChange(field);
                 }
                 else
                 {
@@ -122,6 +125,7 @@ namespace Global
             if (!HasUnlock(unlock))
             {
                 Progress |= unlock;
+                OnProgression(Progress);
                 Save();
             }
             else

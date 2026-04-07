@@ -8,7 +8,7 @@
 atlas = ExtResource("2_77i20")
 region = Rect2(0, 0, 4, 4)
 
-[node name="CoinCountIndicator" type="HBoxContainer" unique_id=608580633]
+[node name="CoinCountIndicator" type="HBoxContainer" unique_id=608580633 node_paths=PackedStringArray("_label")]
 anchors_preset = 4
 anchor_top = 0.5
 anchor_bottom = 0.5
@@ -17,6 +17,7 @@ offset_right = 18.0
 offset_bottom = 11.5
 grow_vertical = 2
 script = ExtResource("1_fhr0c")
+_label = NodePath("Label")
 
 [node name="MarginContainer" type="MarginContainer" parent="." unique_id=490077611]
 layout_mode = 2

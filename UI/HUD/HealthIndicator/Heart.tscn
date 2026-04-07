@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://bkwvi5qnm5nw5"]
+
+[ext_resource type="Texture2D" uid="uid://dm0nsdq0r55r0" path="res://Assets/Sight/Collectibles/Heart/heart_only.png" id="1_60trr"]
+
+[node name="MarginContainer" type="MarginContainer" unique_id=51273647]
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=838090354]
+layout_mode = 2
+texture = ExtResource("1_60trr")
+expand_mode = 3
+stretch_mode = 5

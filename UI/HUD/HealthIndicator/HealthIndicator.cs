@@ -38,7 +38,7 @@ namespace UI
             if (currentHearts > newHp)
             {
                 var hearts = _heartsContainer.GetChildren();
-                for (int i = 0; i < currentHearts - newHp; ++i)
+                for (byte i = newHp; i < currentHearts; ++i)
                 {
                     hearts[i].QueueFree();
                 }

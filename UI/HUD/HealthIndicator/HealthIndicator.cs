@@ -21,6 +21,12 @@ namespace UI
             SetHealth(PlayerState.Instance.HP);
         }
 
+        public override void _ExitTree()
+        {
+            PlayerState.Instance.OnProgression -= CheckHPProgression;
+            PlayerState.Instance.OnHPChange -= SetHealth;
+        }
+
         private void CheckHPProgression(PlayerState.Progression progress)
         {
             Visible = progress.HasFlag(PlayerState.Progression.HealthBar);

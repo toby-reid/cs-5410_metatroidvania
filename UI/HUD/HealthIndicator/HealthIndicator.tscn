@@ -1,9 +1,10 @@
 [gd_scene format=3 uid="uid://dbhantaane1o1"]
 
+[ext_resource type="Script" uid="uid://bbmcuoralb1uy" path="res://UI/HUD/HealthIndicator/HealthIndicator.cs" id="1_1mkoh"]
 [ext_resource type="PackedScene" uid="uid://bkwvi5qnm5nw5" path="res://UI/HUD/HealthIndicator/Heart.tscn" id="1_7ojc6"]
 [ext_resource type="Theme" uid="uid://bedpyc0cry5gx" path="res://Assets/Themes/MenuTheme.tres" id="2_1mkoh"]
 
-[node name="HealthIndicator" type="HBoxContainer" unique_id=159528474]
+[node name="HealthIndicator" type="HBoxContainer" unique_id=159528474 node_paths=PackedStringArray("_heartsContainer")]
 anchors_preset = 4
 anchor_top = 0.5
 anchor_bottom = 0.5
@@ -12,8 +13,14 @@ offset_right = 9.0
 offset_bottom = 4.0
 grow_vertical = 2
 theme_override_constants/separation = 0
+script = ExtResource("1_1mkoh")
+_heart = ExtResource("1_7ojc6")
+_heartsContainer = NodePath("HeartsContainer")
 
-[node name="MarginContainer" parent="." unique_id=51273647 instance=ExtResource("1_7ojc6")]
+[node name="HeartsContainer" type="HBoxContainer" parent="." unique_id=2142672606]
+layout_mode = 2
+
+[node name="Heart" parent="HeartsContainer" unique_id=51273647 instance=ExtResource("1_7ojc6")]
 layout_mode = 2
 
 [node name="Label" type="Label" parent="." unique_id=2127664892]

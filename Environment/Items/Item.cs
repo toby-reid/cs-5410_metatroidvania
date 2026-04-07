@@ -17,8 +17,11 @@ public partial class Item : Area2D
 
     private void OnAreaEntered(Node2D area)
     {
-        PlayerState.Instance.AddAbility(_itemValue);
-        QueueFree();
+        if (area is Actors.Player)
+        {
+            PlayerState.Instance.AddAbility(_itemValue);
+            QueueFree();
+        }
 
         // TODO show dialog box and pause game
     }

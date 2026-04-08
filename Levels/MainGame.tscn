@@ -3,6 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://dx1j3k3d8q3s0" path="res://Actors/Player/Player.tscn" id="1_3a8k0"]
 [ext_resource type="PackedScene" uid="uid://c3a1aq5qtukep" path="res://UI/HUD/CoinCountIndicator/CoinCountIndicator.tscn" id="3_csqc5"]
 [ext_resource type="PackedScene" uid="uid://ccd5qwewxph3u" path="res://Levels/RoomManager/RoomManager.tscn" id="3_r52jk"]
+[ext_resource type="PackedScene" uid="uid://dbhantaane1o1" path="res://UI/HUD/HealthIndicator/HealthIndicator.tscn" id="3_rclbk"]
 
 [node name="MainGame" type="Node2D" unique_id=1642332332]
 
@@ -22,6 +23,9 @@ startRoom = "uid://025pj7m3k7i7"
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer" unique_id=1049649150]
 offset_right = 40.0
 offset_bottom = 40.0
+
+[node name="HealthIndicator" parent="CanvasLayer/VBoxContainer" unique_id=159528474 instance=ExtResource("3_rclbk")]
+layout_mode = 2
 
 [node name="CoinCountIndicator" parent="CanvasLayer/VBoxContainer" unique_id=608580633 instance=ExtResource("3_csqc5")]
 layout_mode = 2

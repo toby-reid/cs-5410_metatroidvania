@@ -19,7 +19,7 @@ public partial class Item : Area2D
     {
         if (area is Actors.Player)
         {
-            PlayerState.Instance.AddAbility(_itemValue);
+            PlayerState.Instance.Unlock(_itemValue);
             QueueFree();
         }
 

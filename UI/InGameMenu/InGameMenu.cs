@@ -21,21 +21,21 @@ namespace UI
         // Temporary inclusion. Will need to determine what circumstances let you open the pause menu
         public override void _Input(InputEvent @event)
         {
-            if (@event is InputEventKey keyEvent)
+            if (
+                @event.IsActionPressed(Constants.InputMap.Pause)
+                && PlayerState.Instance.HasUnlock(PlayerState.Progression.InGameMenu)
+            )
             {
-                if (keyEvent.Pressed && keyEvent.Keycode == Key.Escape && PlayerState.Instance.HasUnlock(PlayerState.Progression.InGameMenu))
+                if (PauseManager.Instance.IsGamePaused())
                 {
-                    if (PauseManager.Instance.IsGamePaused())
+                    if (_isMyPause)
                     {
-                        if (_isMyPause)
-                        {
-                            ResumeGame();
-                        }
+                        ResumeGame();
                     }
-                    else
-                    {
-                        PauseGame();
-                    }
+                }
+                else
+                {
+                    PauseGame();
                 }
             }
         }

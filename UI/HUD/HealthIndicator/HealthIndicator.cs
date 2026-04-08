@@ -18,13 +18,34 @@ namespace UI
             PlayerState.Instance.OnProgression += CheckHPProgression;
             PlayerState.Instance.OnHPChange += SetHealth;
             CheckHPProgression(PlayerState.Instance.Progress);
-            SetHealth(PlayerState.Instance.HP);
+            SetMaxHP(PlayerState.MaxHP);
         }
 
         public override void _ExitTree()
         {
             PlayerState.Instance.OnProgression -= CheckHPProgression;
             PlayerState.Instance.OnHPChange -= SetHealth;
+        }
+
+        private void SetMaxHP(byte maxHp)
+        {
+            byte currentHearts = (byte)_heartsContainer.GetChildCount();
+            if (currentHearts > maxHp)
+            {
+                var hearts = _heartsContainer.GetChildren();
+                for (byte i = maxHp; i < currentHearts; ++i)
+                {
+                    hearts[i].QueueFree();
+                }
+            }
+            else
+            {
+                for (int i = currentHearts; i < maxHp; ++i)
+                {
+                    AddHeart();
+                }
+            }
+            SetHealth(PlayerState.Instance.HP);
         }
 
         private void CheckHPProgression(PlayerState.Progression progress)
@@ -34,20 +55,21 @@ namespace UI
 
         private void SetHealth(byte newHp)
         {
-            byte currentHearts = (byte)_heartsContainer.GetChildCount();
-            if (currentHearts > newHp)
+            var hearts = _heartsContainer.GetChildren();
+            if (hearts.Count != PlayerState.MaxHP || newHp > hearts.Count)
             {
-                var hearts = _heartsContainer.GetChildren();
-                for (byte i = newHp; i < currentHearts; ++i)
-                {
-                    hearts[i].QueueFree();
-                }
+                GD.PrintErr($"Mismatch in hearts/HP: {newHp}/{PlayerState.MaxHP} ({hearts.Count})");
+                return;
             }
-            else
+            for (byte i = 0; i < PlayerState.MaxHP; ++i)
             {
-                for (int i = currentHearts; i < newHp; ++i)
+                if (hearts[i] is Heart heart)
                 {
-                    AddHeart();
+                    heart.IsActive = i < newHp;
+                }
+                else
+                {
+                    GD.PrintErr("Found unrecognized hearts container child " + hearts[i]);
                 }
             }
         }

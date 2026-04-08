@@ -1,0 +1,24 @@
+[gd_scene format=3 uid="uid://bkwvi5qnm5nw5"]
+
+[ext_resource type="Script" uid="uid://c2uu5omohjhd5" path="res://UI/HUD/HealthIndicator/Heart/Heart.cs" id="1_oac8g"]
+[ext_resource type="Shader" uid="uid://f7nod7shbrbt" path="res://UI/HUD/HealthIndicator/Heart/Greyout.gdshader" id="1_xq4rh"]
+[ext_resource type="Texture2D" uid="uid://dm0nsdq0r55r0" path="res://Assets/Sight/Collectibles/Heart/heart_only.png" id="2_xq4rh"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xq4rh"]
+resource_local_to_scene = true
+shader = ExtResource("1_xq4rh")
+shader_parameter/is_active = false
+
+[node name="Heart" type="MarginContainer" unique_id=51273647]
+material = SubResource("ShaderMaterial_xq4rh")
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_bottom = 4
+script = ExtResource("1_oac8g")
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=838090354]
+use_parent_material = true
+layout_mode = 2
+texture = ExtResource("2_xq4rh")
+expand_mode = 3
+stretch_mode = 5

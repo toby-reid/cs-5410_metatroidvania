@@ -1,8 +1,14 @@
 [gd_scene format=3 uid="uid://dbhantaane1o1"]
 
 [ext_resource type="Script" uid="uid://bbmcuoralb1uy" path="res://UI/HUD/HealthIndicator/HealthIndicator.cs" id="1_1mkoh"]
-[ext_resource type="PackedScene" uid="uid://bkwvi5qnm5nw5" path="res://UI/HUD/HealthIndicator/Heart.tscn" id="1_7ojc6"]
+[ext_resource type="PackedScene" uid="uid://bkwvi5qnm5nw5" path="res://UI/HUD/HealthIndicator/Heart/Heart.tscn" id="1_7ojc6"]
 [ext_resource type="Theme" uid="uid://bedpyc0cry5gx" path="res://Assets/Themes/MenuTheme.tres" id="2_1mkoh"]
+[ext_resource type="Shader" uid="uid://f7nod7shbrbt" path="res://UI/HUD/HealthIndicator/Heart/Greyout.gdshader" id="3_xdsve"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_0wmi2"]
+resource_local_to_scene = true
+shader = ExtResource("3_xdsve")
+shader_parameter/is_active = false
 
 [node name="HealthIndicator" type="HBoxContainer" unique_id=159528474 node_paths=PackedStringArray("_heartsContainer")]
 anchors_preset = 4
@@ -19,8 +25,10 @@ _heartsContainer = NodePath("HeartsContainer")
 
 [node name="HeartsContainer" type="HBoxContainer" parent="." unique_id=2142672606]
 layout_mode = 2
+theme_override_constants/separation = 0
 
 [node name="Heart" parent="HeartsContainer" unique_id=51273647 instance=ExtResource("1_7ojc6")]
+material = SubResource("ShaderMaterial_0wmi2")
 layout_mode = 2
 
 [node name="Label" type="Label" parent="." unique_id=2127664892]

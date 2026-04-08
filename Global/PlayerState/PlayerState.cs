@@ -47,6 +47,7 @@ namespace Global
         public static PlayerState Instance { get; private set; }
 
         public const string SaveFile = "user://prog.tres";
+        public const byte MaxHP = 2;
 
         public event Action<Progression> OnProgression;
         public event Action<byte> OnHPChange;
@@ -98,8 +99,7 @@ namespace Global
                     GD.PrintErr("Placeholder: attempted to set HP without indicator");
                 }
             }
-        }
-        public const byte MaxHP = 2;
+        } = 1;
 
         // Static constructor: invoked the first time this class is accessed
         static PlayerState()

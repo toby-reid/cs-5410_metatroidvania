@@ -50,6 +50,7 @@ namespace Global
 
         public event Action<Progression> OnProgression;
         public event Action<byte> OnHPChange;
+        public event Action<ushort> OnCoinCountChange;
 
         [Export]
         public bool CompletedTutorial
@@ -71,7 +72,7 @@ namespace Global
                 if (HasUnlock(Progression.CoinCount))
                 {
                     field = value;
-                    GD.Print("Coin count: " + field);
+                    OnCoinCountChange(field);
                 }
                 else
                 {

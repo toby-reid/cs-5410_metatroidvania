@@ -14,7 +14,8 @@ public partial class MainMenu : Control
     public override void _Ready()
     {
         _newGameButton.Pressed += () => SceneChanger.Instance.ChangeScene(_mainGamePath);
-        _continueButton.Pressed += () => GD.Print("TODO: connect to continue game");
+        // placeholder until continue is implemented
+        _continueButton.Pressed += () => SceneChanger.Instance.GoToGameOver();
         _exitButton.Pressed += () => SceneChanger.Instance.ExitGame();
     }
 }

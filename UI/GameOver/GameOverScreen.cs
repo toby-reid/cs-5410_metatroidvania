@@ -16,7 +16,7 @@ public partial class GameOverScreen : Control
     {
         if (error != null)
         {
-            errorMessage = "Error:[/color][/bgcolor] " + error;
+            errorMessage = "[bgcolor=white][color=blue] Error:[/color][/bgcolor] " + error;
         }
     }
     

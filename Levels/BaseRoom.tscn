@@ -7,3 +7,10 @@ script = ExtResource("1_aiw25")
 _tileMapLayer = NodePath("TileMapLayer")
 
 [node name="TileMapLayer" type="TileMapLayer" parent="." unique_id=1428987800]
+
+[node name="Parallax2D" type="Parallax2D" parent="." unique_id=2106472750]
+z_index = -10
+repeat_size = Vector2(240, 160)
+repeat_times = 3
+
+[node name="Sprite2D" type="Sprite2D" parent="Parallax2D" unique_id=437551226]

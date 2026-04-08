@@ -3,6 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://ci3q7pyvnoivk" path="res://Levels/BaseRoom.tscn" id="1_oahte"]
 [ext_resource type="TileSet" uid="uid://cg3ntb4db6xws" path="res://Environment/TileSets/Dungeon.tres" id="2_26ine"]
 [ext_resource type="Texture2D" uid="uid://b65sqbhb3l77g" path="res://Assets/Sight/Tilesets/Dungeon/bg_00_dungeon.png" id="3_gqtaq"]
+[ext_resource type="PackedScene" uid="uid://tnva2pssfd7h" path="res://Actors/Enemies/Turnip/Turnip.tscn" id="3_gqtaq"]
 
 [node name="Room" unique_id=1234374025 instance=ExtResource("1_oahte")]
 
@@ -15,3 +16,5 @@ scroll_scale = Vector2(0.9, 0.9)
 
 [node name="Sprite2D" parent="Parallax2D" index="0" unique_id=437551226]
 texture = ExtResource("3_gqtaq")
+[node name="Turnip" parent="." index="1" unique_id=719326306 instance=ExtResource("3_gqtaq")]
+position = Vector2(-34, 216)

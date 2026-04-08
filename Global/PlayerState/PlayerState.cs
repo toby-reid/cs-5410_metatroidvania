@@ -48,6 +48,9 @@ namespace Global
 
         public const string SaveFile = "user://prog.tres";
 
+        public event Action<Progression> OnProgression;
+        public event Action<ushort> OnCoinCountChange;
+
         [Export]
         public bool CompletedTutorial
         {
@@ -68,7 +71,7 @@ namespace Global
                 if (HasUnlock(Progression.CoinCount))
                 {
                     field = value;
-                    GD.Print("Coin count: " + field);
+                    OnCoinCountChange(field);
                 }
                 else
                 {
@@ -122,6 +125,7 @@ namespace Global
             if (!HasUnlock(unlock))
             {
                 Progress |= unlock;
+                OnProgression(Progress);
                 Save();
             }
             else

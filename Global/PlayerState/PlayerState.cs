@@ -99,7 +99,7 @@ namespace Global
                     GD.PrintErr("Placeholder: attempted to set HP without indicator");
                 }
             }
-        } = 1;
+        } = MaxHP;
 
         // Static constructor: invoked the first time this class is accessed
         static PlayerState()

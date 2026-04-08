@@ -47,8 +47,10 @@ namespace Global
         public static PlayerState Instance { get; private set; }
 
         public const string SaveFile = "user://prog.tres";
+        public const byte MaxHP = 2;
 
         public event Action<Progression> OnProgression;
+        public event Action<byte> OnHPChange;
         public event Action<ushort> OnCoinCountChange;
 
         [Export]
@@ -89,7 +91,7 @@ namespace Global
                 if (HasUnlock(Progression.HealthBar))
                 {
                     field = value;
-                    GD.Print("HP changed: " + field);
+                    OnHPChange(field);
                 }
                 else
                 {
@@ -97,8 +99,7 @@ namespace Global
                     GD.PrintErr("Placeholder: attempted to set HP without indicator");
                 }
             }
-        }
-        public const byte MaxHP = 2;
+        } = MaxHP;
 
         // Static constructor: invoked the first time this class is accessed
         static PlayerState()

@@ -1,0 +1,64 @@
+[gd_scene format=3 uid="uid://b1y1u50nqwe2w"]
+
+[ext_resource type="Theme" uid="uid://bhqwgw5k0by04" path="res://Assets/Themes/GameOverTheme.tres" id="1_16i3q"]
+
+[node name="GameOverScreen" type="Control" unique_id=1703134525]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1921574244]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0.47058824, 0.84313726, 1)
+
+[node name="MarginContainer" type="MarginContainer" parent="ColorRect" unique_id=67530330]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 35
+theme_override_constants/margin_top = 35
+theme_override_constants/margin_right = 35
+theme_override_constants/margin_bottom = 35
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ColorRect/MarginContainer" unique_id=2095366364]
+layout_mode = 2
+
+[node name="Sad" type="Label" parent="ColorRect/MarginContainer/VBoxContainer" unique_id=60551269]
+layout_mode = 2
+theme = ExtResource("1_16i3q")
+theme_override_font_sizes/font_size = 41
+text = ":("
+
+[node name="Message" type="Label" parent="ColorRect/MarginContainer/VBoxContainer" unique_id=1703794267]
+custom_minimum_size = Vector2(100, 50)
+layout_mode = 2
+theme = ExtResource("1_16i3q")
+theme_override_font_sizes/font_size = 11
+text = "Your game ran into and error and needs to restart"
+autowrap_mode = 3
+
+[node name="Error" type="RichTextLabel" parent="ColorRect/MarginContainer/VBoxContainer" unique_id=1318478264]
+custom_minimum_size = Vector2(100, 60)
+layout_mode = 2
+theme = ExtResource("1_16i3q")
+bbcode_enabled = true
+text = "[bgcolor=white][color=blue] Error:[/color][/bgcolor] COMPUTER OVER. 
+VIRUS = VERY YES."
+autowrap_mode = 2
+
+[node name="Restart" type="Label" parent="ColorRect/MarginContainer/VBoxContainer" unique_id=477177780]
+layout_mode = 2
+theme = ExtResource("1_16i3q")
+theme_override_font_sizes/font_size = 8
+text = "[r]estart: 5"

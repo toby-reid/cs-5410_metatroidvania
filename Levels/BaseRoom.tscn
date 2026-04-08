@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://ci3q7pyvnoivk"]
+
+[ext_resource type="Script" uid="uid://chc8np1r12ycg" path="res://Levels/BaseRoom.cs" id="1_aiw25"]
+
+[node name="Room" type="Node2D" unique_id=1234374025 node_paths=PackedStringArray("_tileMapLayer")]
+script = ExtResource("1_aiw25")
+_tileMapLayer = NodePath("TileMapLayer")
+
+[node name="TileMapLayer" type="TileMapLayer" parent="." unique_id=1428987800]

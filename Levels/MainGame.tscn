@@ -13,8 +13,9 @@ remote_path = NodePath("../../Camera2D")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=953465448]
 
-[node name="RoomManager" parent="." unique_id=1047548115 instance=ExtResource("3_r52jk")]
-startRoom = "uid://b8au4wcoggn5v"
+[node name="RoomManager" parent="." unique_id=1047548115 node_paths=PackedStringArray("_camera") instance=ExtResource("3_r52jk")]
+_camera = NodePath("../Camera2D")
+startRoom = "uid://025pj7m3k7i7"
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=689753612]
 

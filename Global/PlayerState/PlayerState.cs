@@ -78,7 +78,7 @@ namespace Global
                 else
                 {
                     // TODO: Crash the game
-                    GD.PrintErr("Placeholder: attempted to set coins without indicator");
+                    SceneChanger.Instance.GoToGameOver("Resource 'coin_count' does not exist");
                 }
             }
         }
@@ -95,8 +95,7 @@ namespace Global
                 }
                 else
                 {
-                    // TODO: Crash the game
-                    GD.PrintErr("Placeholder: attempted to set HP without indicator");
+                    SceneChanger.Instance.GoToGameOver("Resource 'hp' does not exist");
                 }
             }
         } = MaxHP;

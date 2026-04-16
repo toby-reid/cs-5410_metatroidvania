@@ -77,7 +77,6 @@ namespace Global
                 }
                 else
                 {
-                    // TODO: Crash the game
                     SceneChanger.Instance.GoToGameOver("Resource 'coin_count' does not exist");
                 }
             }

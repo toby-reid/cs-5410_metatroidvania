@@ -1,0 +1,24 @@
+[gd_scene format=3 uid="uid://dkix7iq0a36tl"]
+
+[ext_resource type="Script" uid="uid://c56pk06ivmavt" path="res://Environment/Platforms/OneWayPlatform.cs" id="1_1k4aq"]
+[ext_resource type="Texture2D" uid="uid://dwprwplclo563" path="res://Assets/Sight/Tilesets/Dungeon/platform-center.png" id="2_5fwke"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1k4aq"]
+size = Vector2(16, 3)
+
+[node name="OneWayPlatform" type="StaticBody2D" unique_id=830891080 node_paths=PackedStringArray("_placeholderSprite", "_collision")]
+script = ExtResource("1_1k4aq")
+_platformLeftSpritePath = "uid://cq115m2aqmmev"
+_platformCenterSpritePath = "uid://dwprwplclo563"
+_platformRightSpritePath = "uid://cc6rq60phi2um"
+_placeholderSprite = NodePath("Sprite2D")
+_collision = NodePath("CollisionShape2D")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1971579596]
+texture = ExtResource("2_5fwke")
+centered = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=86890934]
+position = Vector2(8, 1.5)
+shape = SubResource("RectangleShape2D_1k4aq")
+one_way_collision = true

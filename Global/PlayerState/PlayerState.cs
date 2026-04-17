@@ -73,7 +73,7 @@ namespace Global
                 if (HasUnlock(Progression.CoinCount))
                 {
                     field = value;
-                    OnCoinCountChange(field);
+                    OnCoinCountChange?.Invoke(field);
                 }
                 else
                 {
@@ -90,7 +90,7 @@ namespace Global
                 if (HasUnlock(Progression.HealthBar))
                 {
                     field = value;
-                    OnHPChange(field);
+                    OnHPChange?.Invoke(field);
                 }
                 else
                 {
@@ -98,6 +98,11 @@ namespace Global
                 }
             }
         } = MaxHP;
+
+        public string CurrentRoom { get; set; } = "uid://dsun3fvnubo0h"; // TutorialRoom.tscn
+        public string LastUsedDoorwayID { get; set; }
+
+        private const string StartingRoom = "uid://bdjr317pb2eqf";
 
         // Static constructor: invoked the first time this class is accessed
         static PlayerState()
@@ -107,15 +112,14 @@ namespace Global
 
         public bool HasUnlock(Progression unlock) => Progress.HasFlag(unlock);
 
-        public void Reset(bool resetTutorial = false)
+        public void CompleteTutorial()
         {
-            if (resetTutorial)
-            {
-                CompletedTutorial = false;
-            }
+            CompletedTutorial = true;
             Progress = 0;
             CoinCount = 0;
             HP = MaxHP;
+            CurrentRoom = StartingRoom;
+            LastUsedDoorwayID = null;
             Save();
         }
 
@@ -124,7 +128,7 @@ namespace Global
             if (!HasUnlock(unlock))
             {
                 Progress |= unlock;
-                OnProgression(Progress);
+                OnProgression?.Invoke(Progress);
                 Save();
             }
             else
@@ -142,9 +146,29 @@ namespace Global
                 GD.PrintErr("Failed to save game progression: " + err);
             }
         }
+        public static bool SaveExists()
+        {
+            return FileAccess.FileExists(SaveFile);
+        }
+        public static void DeleteSaveFile()
+        {
+            if (SaveExists())
+            {
+                DirAccess.RemoveAbsolute(SaveFile);
+            }
+        }
+        public static bool LoadIfExists()
+        {
+            if (SaveExists())
+            {
+                return Load();
+            }
+            RestoreDefaults();
+            return true;
+        }
         public static bool Load()
         {
-            if (FileAccess.FileExists(SaveFile))
+            if (SaveExists())
             {
                 PlayerState state = ResourceLoader.Load<PlayerState>(SaveFile, cacheMode: ResourceLoader.CacheMode.Ignore);
                 if (state != null)
@@ -160,6 +184,10 @@ namespace Global
                 GD.Print("No save file found");
             }
             return false;
+        }
+        public static void RestoreDefaults()
+        {
+            Instance = new();
         }
     }
 }

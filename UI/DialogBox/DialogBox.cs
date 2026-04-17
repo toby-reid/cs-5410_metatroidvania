@@ -12,7 +12,7 @@ public partial class DialogBox : CanvasLayer
 
     public override void _Input(InputEvent @event)
     {
-        if (@event.IsActionPressed(Global.Constants.InputMap.Jump))
+        if (Visible && @event.IsActionPressed(Global.Constants.InputMap.Jump))
         {
             Global.PauseManager.Instance.ResumeGame();
             Visible = false;

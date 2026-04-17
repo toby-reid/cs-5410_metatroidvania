@@ -24,7 +24,6 @@ namespace Actors
         [ExportGroup("Set in Object")]
         [Export] private AnimatedSprite2D _sprite;
         [Export] private PackedScene _swordSwipe;
-        [Export] private RayCast2D _floorDetector;
 
         public const float Speed = 200f;
         public const float JumpVelocity = -250f;
@@ -77,12 +76,9 @@ namespace Actors
                 }
                 else if (Input.IsActionJustPressed(MoveDown) && PlayerState.Instance.HasUnlock(PlayerState.Progression.DropThroughPlatform))
                 {
-                    if (_floorDetector.IsColliding() && _floorDetector.GetCollider() is Environment.OneWayPlatform)
-                    {
-                        // Shift down slightly
-                        // This is done after normal gravity, so it takes slightly longer to fall through
-                        Position += Vector2.Down;
-                    }
+                    // Shift down slightly.
+                    // For anything except one-way platforms with 1 pixel margin, this will snap the player back to the top
+                    Position += Vector2.Down;
                 }
             }
 

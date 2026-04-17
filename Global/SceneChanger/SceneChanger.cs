@@ -5,10 +5,9 @@ namespace Global
     public partial class SceneChanger : Node
     {
         // this holds a UUID for the scene; safe refactoring without immediately loading the scene
-        [Export(PropertyHint.File, "*.tscn")] 
-        private string _mainMenuPath;
-        [Export(PropertyHint.File, "*.tscn")]
-        private string _gameOverPath;
+        [Export(PropertyHint.File, "*.tscn")] private string _mainMenuPath;
+        [Export(PropertyHint.File, "*.tscn")] private string _mainGamePath;
+        [Export(PropertyHint.File, "*.tscn")] private string _gameOverPath;
 
         public static SceneChanger Instance { get; private set; }
 
@@ -48,6 +47,8 @@ namespace Global
         }
 
         public void GoToMainMenu() => ChangeScene(_mainMenuPath);
+
+        public void GoToMainGame() => ChangeScene(_mainGamePath);
 
         public void GoToGameOver(string error = null)
         {

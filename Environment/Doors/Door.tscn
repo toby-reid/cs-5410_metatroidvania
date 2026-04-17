@@ -1,0 +1,26 @@
+[gd_scene format=3 uid="uid://udbhjo2bjfun"]
+
+[ext_resource type="Script" uid="uid://3887etjwi0vv" path="res://Environment/Doors/Door.cs" id="1_upccv"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_a11jn"]
+size = Vector2(16, 16)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_upccv"]
+size = Vector2(2, 64)
+
+[node name="Door" type="Area2D" unique_id=1353115520 node_paths=PackedStringArray("_spawnPoint") groups=["Doors"]]
+script = ExtResource("1_upccv")
+_spawnPoint = NodePath("Spawn point")
+
+[node name="Floor" type="StaticBody2D" parent="." unique_id=1058626636]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floor" unique_id=1557494579]
+position = Vector2(-8, 8)
+shape = SubResource("RectangleShape2D_a11jn")
+
+[node name="TriggerArea" type="CollisionShape2D" parent="." unique_id=1333033959]
+position = Vector2(-15, -32)
+shape = SubResource("RectangleShape2D_upccv")
+
+[node name="Spawn point" type="Marker2D" parent="." unique_id=126539880]
+position = Vector2(0, -8)

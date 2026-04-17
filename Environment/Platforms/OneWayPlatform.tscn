@@ -7,6 +7,8 @@
 size = Vector2(16, 4)
 
 [node name="OneWayPlatform" type="StaticBody2D" unique_id=830891080 node_paths=PackedStringArray("_placeholderSprite", "_collision")]
+collision_layer = 2
+collision_mask = 2
 script = ExtResource("1_1k4aq")
 _platformLeftSpritePath = "uid://cq115m2aqmmev"
 _platformCenterSpritePath = "uid://dwprwplclo563"

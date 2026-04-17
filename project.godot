@@ -96,6 +96,10 @@ attack={
 ]
 }
 
+[layer_names]
+
+2d_physics/layer_2="OneWayPlatform"
+
 [physics]
 
 3d/physics_engine="Jolt Physics"

@@ -3,11 +3,9 @@ using Global;
 
 public partial class Door : Area2D
 {
-    [ExportGroup("Internal Values")]
     [Export] public string ID;
     [Export] private Marker2D _spawnPoint;
 
-    [ExportGroup("Target Values")]
     [Export(PropertyHint.File, "*.tscn")]
     private string _targetRoomPath;
     [Export] private string _targetDoorID;
@@ -16,12 +14,6 @@ public partial class Door : Area2D
     public override void _Ready()
     {
         BodyEntered += OnBodyEntered;
-    }
-
-    // Called every frame. 'delta' is the elapsed time since the previous frame.
-    public override void _Process(double delta)
-    {
-        
     }
 
     public Vector2 GetSpawnPosition(){

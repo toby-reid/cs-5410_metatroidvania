@@ -21,6 +21,10 @@ namespace Actors
             KinematicCollision2D collision = MoveAndCollide(Velocity * (float) delta);
             if (collision != null) {
                 Velocity = Velocity.Bounce(collision.GetNormal());
+                if (collision.GetCollider() is Player player)
+                {
+                    player.TryTakeDamage(-collision.GetNormal());
+                }
             }
         }
         
@@ -31,7 +35,7 @@ namespace Actors
                 Die();
             }
             Scale *= 0.8f;
-            Velocity *= 1.5f;
+            Velocity *= -1.5f;
         }
         
         public void Die()

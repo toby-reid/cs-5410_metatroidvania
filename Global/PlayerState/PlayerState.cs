@@ -73,7 +73,7 @@ namespace Global
                 if (HasUnlock(Progression.CoinCount))
                 {
                     field = value;
-                    OnCoinCountChange(field);
+                    OnCoinCountChange?.Invoke(field);
                 }
                 else
                 {
@@ -90,7 +90,7 @@ namespace Global
                 if (HasUnlock(Progression.HealthBar))
                 {
                     field = value;
-                    OnHPChange(field);
+                    OnHPChange?.Invoke(field);
                 }
                 else
                 {
@@ -128,7 +128,7 @@ namespace Global
             if (!HasUnlock(unlock))
             {
                 Progress |= unlock;
-                OnProgression(Progress);
+                OnProgression?.Invoke(Progress);
                 Save();
             }
             else

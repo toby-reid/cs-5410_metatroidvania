@@ -239,7 +239,7 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ech6m"]
-size = Vector2(9, 10)
+size = Vector2(9, 11)
 
 [node name="Player" type="CharacterBody2D" unique_id=889309543 node_paths=PackedStringArray("_sprite", "_attackTimer")]
 script = ExtResource("1_4x03u")
@@ -249,12 +249,10 @@ _swordSwipe = ExtResource("2_kkbrm")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=731528621]
 sprite_frames = SubResource("SpriteFrames_4x03u")
-animation = &"attack"
-frame = 4
-frame_progress = 1.0
+animation = &"idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1994569514]
-position = Vector2(0.5, 2)
+position = Vector2(0.5, 2.5)
 shape = SubResource("RectangleShape2D_ech6m")
 
 [node name="AttackTimer" type="Timer" parent="." unique_id=468091488]

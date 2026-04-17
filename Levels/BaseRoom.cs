@@ -24,7 +24,6 @@ public partial class BaseRoom : Node2D
         foreach (Node node in doors)
         {
             if(node is Door door && door.ID == doorId){
-                GD.Print(door.GetSpawnPosition());
                 return door.GetSpawnPosition();
             }
         }

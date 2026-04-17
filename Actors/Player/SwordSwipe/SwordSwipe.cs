@@ -12,6 +12,24 @@ namespace Actors
         public override void _Ready()
         {
             Sprite.AnimationFinished += QueueFree;
+            CheckInitialCollisions();
+            BodyEntered += OnBodyEntered;
+        }
+
+        private void CheckInitialCollisions()
+        {
+            foreach (Node2D body in GetOverlappingBodies())
+            {
+                OnBodyEntered(body);
+            }
+        }
+
+        private void OnBodyEntered(Node2D other)
+        {
+            if (other is IEnemy enemy)
+            {
+                enemy.TakeDamage();
+            }
         }
     }
 }

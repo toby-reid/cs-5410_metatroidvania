@@ -24,9 +24,11 @@ namespace Actors
         }
 
         [Export]
-        private AnimatedSprite2D _sprite;
-        [Export]
         private Node2D _idleTarget;
+
+        [ExportGroup("Set in Object")]
+        [Export]
+        private AnimatedSprite2D _sprite;
         [Export]
         private Area2D _playerDetector;
         [Export]
@@ -85,7 +87,7 @@ namespace Actors
                 Velocity = Velocity.Bounce(collision.GetNormal()) * 0.6f;
                 if (collision.GetCollider() is Player player)
                 {
-                    player.TakeDamage();
+                    player.TryTakeDamage(-collision.GetNormal());
                 }
             }
         }
@@ -93,8 +95,11 @@ namespace Actors
         public override void _Process(double delta)
         {
             if (state != State.Idle) return;
-            _sprite.FlipH = Position.X < _idleTarget.Position.X;
-            Position = _idleTarget.Position;
+            if (_idleTarget != null)
+            {
+                _sprite.FlipH = Position.X < _idleTarget.Position.X;
+                Position = _idleTarget.Position;
+            }
         }
 
         public void OnBodyDetected(Node2D body) {

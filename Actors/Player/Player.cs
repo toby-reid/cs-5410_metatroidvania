@@ -109,17 +109,14 @@ namespace Actors
             }
             MoveAndSlide();
 
-            if (_damageImmunity.IsStopped())
+            int collisionCount = GetSlideCollisionCount();
+            for (int i = 0; i < collisionCount; ++i)
             {
-                int collisionCount = GetSlideCollisionCount();
-                for (int i = 0; i < collisionCount; ++i)
+                KinematicCollision2D collision = GetSlideCollision(i);
+                if (collision != null && collision.GetCollider() is IEnemy)
                 {
-                    KinematicCollision2D collision = GetSlideCollision(i);
-                    if (collision != null && collision.GetCollider() is IEnemy)
-                    {
-                        TakeDamage(collision.GetNormal());
-                        break;
-                    }
+                    TryTakeDamage(collision.GetNormal());
+                    break;
                 }
             }
         }
@@ -144,36 +141,31 @@ namespace Actors
             }
         }
 
-        public void TakeDamage() => TakeDamage(Vector2.Zero);
-        public void TakeDamage(Vector2 fromDirection)
+        public void TryTakeDamage() => TryTakeDamage(Vector2.Zero);
+        public void TryTakeDamage(Vector2 fromDirection)
         {
-            // TODO: add sound effects
-            if (--PlayerState.Instance.HP == 0)
+            if (_damageImmunity.IsStopped())
             {
-                Die();
+                // TODO: add sound effects
+                if (--PlayerState.Instance.HP == 0)
+                {
+                    Die();
+                }
+                _sprite.Play(Animation.TakingDamage);
+                if (fromDirection != Vector2.Zero)
+                {
+                    Velocity += 5 * fromDirection.Normalized();
+                }
+                _forcedMovement.WaitTime = _damageImmunity.WaitTime / 5;
+                _damageImmunity.Start();
+                _forcedMovement.Start();
             }
-            _sprite.Play(Animation.TakingDamage);
-            if (fromDirection != Vector2.Zero)
-            {
-                Velocity += 5 * fromDirection.Normalized();
-            }
-            _forcedMovement.WaitTime = _damageImmunity.WaitTime / 5;
-            _damageImmunity.Start();
-            _forcedMovement.Start();
         }
 
         public void Die()
         {
-            // TODO: Play death sfx
-            Timer deathTimer = new()
-            {
-                WaitTime = 5,
-                ProcessMode = ProcessModeEnum.WhenPaused,
-                Autostart = true
-            };
-            deathTimer.Timeout += () => SceneChanger.Instance.GoToGameOver("Your death was in vain.");
-            AddChild(deathTimer);
-            PauseManager.Instance.PauseGame();
+            // TODO: Play death anim or something
+            SceneChanger.Instance.GoToGameOver("Your death was in vain.");
         }
 
         private void SetAnimation()

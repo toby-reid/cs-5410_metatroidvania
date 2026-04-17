@@ -16,26 +16,29 @@ namespace Actors
             public const string Falling = "fall";
             public const string Attacking = "attack";
             public const string TakingDamage = "take_damage";
+            public const string Dying = "death";
 
             public const byte AttackSwordSwipeFrame = 2;
         }
 
         [ExportGroup("Set in Object")]
         [Export] private AnimatedSprite2D _sprite;
-        [Export] private Timer _attackTimer;
         [Export] private PackedScene _swordSwipe;
         [Export] private RayCast2D _floorDetector;
 
         public const float Speed = 200f;
         public const float JumpVelocity = -250f;
 
+        private readonly Timer _attackTimer = new();
+        private readonly Timer _damageTimer = new();
+
         private bool _canAnimate = true;
         private SwordSwipe _optSwordSwipe = null;
 
         public override void _Ready()
         {
-            _attackTimer.WaitTime = _sprite.SpriteFrames.GetFrameCount(Animation.Attacking) / _sprite.SpriteFrames.GetAnimationSpeed(Animation.Attacking);
-            _attackTimer.OneShot = true;
+            SetAnimationTimer(_attackTimer, Animation.Attacking);
+            SetAnimationTimer(_damageTimer, Animation.TakingDamage);
             _sprite.AnimationChanged += RemoveAnimationArtifacts;
             _sprite.Play(Animation.Idle);
         }
@@ -44,6 +47,8 @@ namespace Actors
         {
             Vector2 velocity = Velocity;
 
+            bool canMoveFreely = _attackTimer.IsStopped() && _damageTimer.IsStopped();
+            GD.Print(canMoveFreely);
             bool isOnFloor = IsOnFloor();
             if (!isOnFloor)
             {
@@ -63,23 +68,26 @@ namespace Actors
                     }
                 }
             }
-            else if (Input.IsActionJustPressed(Jump) && PlayerState.Instance.HasUnlock(PlayerState.Progression.Jump))
+            else if (canMoveFreely)
             {
-                velocity.Y = JumpVelocity;
-            }
-            else if (Input.IsActionJustPressed(MoveDown) && PlayerState.Instance.HasUnlock(PlayerState.Progression.DropThroughPlatform))
-            {
-                if (_floorDetector.IsColliding() && _floorDetector.GetCollider() is Environment.OneWayPlatform)
+                if (Input.IsActionJustPressed(Jump) && PlayerState.Instance.HasUnlock(PlayerState.Progression.Jump))
                 {
-                    // Shift down slightly
-                    // This is done after normal gravity, so it takes slightly longer to fall through
-                    Position += Vector2.Down;
+                    velocity.Y = JumpVelocity;
+                }
+                else if (Input.IsActionJustPressed(MoveDown) && PlayerState.Instance.HasUnlock(PlayerState.Progression.DropThroughPlatform))
+                {
+                    if (_floorDetector.IsColliding() && _floorDetector.GetCollider() is Environment.OneWayPlatform)
+                    {
+                        // Shift down slightly
+                        // This is done after normal gravity, so it takes slightly longer to fall through
+                        Position += Vector2.Down;
+                    }
                 }
             }
 
             float xDirection = Input.GetAxis(MoveLeft, MoveRight);
             if (
-                _attackTimer.IsStopped()
+                canMoveFreely
                 && (
                     (xDirection < 0 && PlayerState.Instance.HasUnlock(PlayerState.Progression.MoveLeft))
                     || (xDirection > 0 && PlayerState.Instance.HasUnlock(PlayerState.Progression.MoveRight))
@@ -94,15 +102,20 @@ namespace Actors
             }
 
             Velocity = velocity;
-            if (_canAnimate)
+            if (canMoveFreely)
             {
                 SetAnimation();
             }
+            MoveAndSlide();
 
-            KinematicCollision2D collision = MoveAndCollide(Velocity * (float)delta);
-            if (collision != null && collision.GetCollider() is IEnemy)
+            int collisionCount = GetSlideCollisionCount();
+            for (int i = 0; i < collisionCount; ++i)
             {
-                TakeDamage();
+                if (GetSlideCollision(i) is KinematicCollision2D collision && collision.GetCollider() is IEnemy)
+                {
+                    TakeDamage();
+                    break;
+                }
             }
         }
 
@@ -122,15 +135,35 @@ namespace Actors
                 _sprite.Play(Animation.Attacking);
                 _sprite.FrameChanged += CheckAttackFrame;
                 _attackTimer.Start();
-                AddSpriteTriggers();
             }
         }
 
         public void TakeDamage()
         {
             // TODO: add sound effects
-            _sprite.Play(Animation.TakingDamage);
-            AddSpriteTriggers();
+            if (--PlayerState.Instance.HP == 0)
+            {
+                Die();
+            }
+            else
+            {
+                _sprite.Play(Animation.TakingDamage);
+                _damageTimer.Start();
+            }
+        }
+
+        public void Die()
+        {
+            // TODO: Play death sfx
+            Timer deathTimer = new()
+            {
+                WaitTime = 5,
+                ProcessMode = ProcessModeEnum.WhenPaused,
+                Autostart = true
+            };
+            deathTimer.Timeout += () => SceneChanger.Instance.GoToGameOver("Your death was in vain.");
+            AddChild(deathTimer);
+            PauseManager.Instance.PauseGame();
         }
 
         private void SetAnimation()
@@ -149,19 +182,6 @@ namespace Actors
                 animation = (Velocity.Y > 0) ? Animation.Falling : Animation.Jumping;
             }
             _sprite.Play(animation);
-        }
-
-        private void AddSpriteTriggers()
-        {
-            _sprite.AnimationFinished += ResetSpriteTriggers;
-            _canAnimate = false;
-        }
-
-        private void ResetSpriteTriggers()
-        {
-            _sprite.AnimationFinished -= ResetSpriteTriggers;
-            _canAnimate = true;
-            SetAnimation(); // required to avoid a single frame of weird offset for Attack animation
         }
 
         private void RemoveAnimationArtifacts()
@@ -197,6 +217,13 @@ namespace Actors
             {
                 _sprite.FrameChanged -= CheckAttackFrame;
             }
+        }
+
+        private void SetAnimationTimer(Timer timer, string animation)
+        {
+            AddChild(timer);
+            timer.WaitTime = _sprite.SpriteFrames.GetFrameCount(animation) / _sprite.SpriteFrames.GetAnimationSpeed(animation);
+            timer.OneShot = true;
         }
     }
 }

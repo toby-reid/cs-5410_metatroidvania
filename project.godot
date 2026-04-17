@@ -33,6 +33,10 @@ window/stretch/scale_mode="integer"
 
 project/assembly_name="Metatroidvania"
 
+[global_group]
+
+Doors=""
+
 [input]
 
 move_right={

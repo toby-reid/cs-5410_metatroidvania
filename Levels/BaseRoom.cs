@@ -1,5 +1,4 @@
 using Godot;
-using System;
 
 public partial class BaseRoom : Node2D
 {
@@ -16,5 +15,19 @@ public partial class BaseRoom : Node2D
             usedRect.Size.X * cellSize,
             usedRect.Size.Y * cellSize
         );
+    }
+
+    public Vector2 GetSpawnPosition(string doorId)
+    {
+        var doors = GetTree().GetNodesInGroup("Doors");
+
+        foreach (Node node in doors)
+        {
+            if(node is Door door && door.ID == doorId){
+                return door.GetSpawnPosition();
+            }
+        }
+        GD.Print("no door found");
+        return Vector2.Zero;
     }
 }

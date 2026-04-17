@@ -7,14 +7,14 @@ namespace Global
         public static RoomBus Instance { get; private set; }
 
         [Signal]
-        public delegate void RoomChangeRequestEventHandler(string scenePath, int doorId);
+        public delegate void RoomChangeRequestEventHandler(string scenePath, string doorId);
 
         public override void _Ready()
         {
             Instance = this;
         }
 
-        public void EmitRoomChange(string scenePath, int doorId)
+        public void EmitRoomChange(string scenePath, string doorId)
         {
             EmitSignal(SignalName.RoomChangeRequest, scenePath, doorId);
         }

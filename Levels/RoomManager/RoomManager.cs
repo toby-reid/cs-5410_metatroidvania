@@ -1,14 +1,16 @@
 using Godot;
 using Global;
+using Actors;
 
 public partial class RoomManager : Node
 {
     [Export] public Node2D _roomContainer;
     [Export] public Camera2D _camera;
+    [Export] private Player _player;
 
     [ExportGroup("Start Room")]
     [Export(PropertyHint.File, "*.tscn")] private string startRoom;
-    [Export] private int startDoor;
+    [Export] private string startDoor;
 
     public override void _Ready()
     {
@@ -16,7 +18,7 @@ public partial class RoomManager : Node
         RoomBus.Instance.RoomChangeRequest += ChangeRoom;
     }
 
-    private void ChangeRoom(string scene, int doorId)
+    private void ChangeRoom(string scene, string doorID)
     {
         // there should only be one child, but this is safer
         foreach (Node room in _roomContainer.GetChildren())
@@ -24,10 +26,11 @@ public partial class RoomManager : Node
             room.QueueFree();
         }
 
-        Node newRoom = ResourceLoader.Load<PackedScene>(scene).Instantiate();
-        UpdateCamera((BaseRoom)newRoom);
+        BaseRoom newRoom = (BaseRoom)ResourceLoader.Load<PackedScene>(scene).Instantiate();
+        UpdateCamera(newRoom);
+        
         _roomContainer.AddChild(newRoom);
-
+        _player.Position = newRoom.GetSpawnPosition(doorID);        
         // TODO put the player at the room
     }
 

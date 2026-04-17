@@ -84,6 +84,6 @@ texture = ExtResource("5_p1nai")
 
 [node name="Door" parent="." index="4" unique_id=1353115520 instance=ExtResource("5_ory87")]
 position = Vector2(-224, 224)
-ID = "ToExample2"
-_targetRoomPath = "uid://s3aa1o3lta1l"
+ID = "ToBossRoom"
+_targetRoomPath = "uid://ce7rt8g51yktb"
 _targetDoorID = "ToExampleRoom"

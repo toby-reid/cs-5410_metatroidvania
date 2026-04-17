@@ -20,12 +20,11 @@ namespace Actors
             public const byte AttackSwordSwipeFrame = 2;
         }
 
-        [Export]
-        private AnimatedSprite2D _sprite;
-        [Export]
-        private Timer _attackTimer;
-        [Export]
-        private PackedScene _swordSwipe;
+        [ExportGroup("Set in Object")]
+        [Export] private AnimatedSprite2D _sprite;
+        [Export] private Timer _attackTimer;
+        [Export] private PackedScene _swordSwipe;
+        [Export] private RayCast2D _floorDetector;
 
         public const float Speed = 200f;
         public const float JumpVelocity = -250f;
@@ -67,6 +66,15 @@ namespace Actors
             else if (Input.IsActionJustPressed(Jump) && PlayerState.Instance.HasUnlock(PlayerState.Progression.Jump))
             {
                 velocity.Y = JumpVelocity;
+            }
+            else if (Input.IsActionJustPressed(MoveDown) && PlayerState.Instance.HasUnlock(PlayerState.Progression.DropThroughPlatform))
+            {
+                if (_floorDetector.IsColliding() && _floorDetector.GetCollider() is Environment.OneWayPlatform)
+                {
+                    // Shift down slightly
+                    // This is done after normal gravity, so it takes slightly longer to fall through
+                    Position += Vector2.Down;
+                }
             }
 
             float xDirection = Input.GetAxis(MoveLeft, MoveRight);

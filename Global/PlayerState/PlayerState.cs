@@ -13,7 +13,7 @@ namespace Global
             MoveRight = 1 << 0,
             MoveLeft = 1 << 1,
             Jump = 1 << 2,
-            DropFromPlatform = 1 << 3,
+            DropThroughPlatform = 1 << 3,
             UseLadders = 1 << 4,
             WaterPhysics = 1 << 5,
             BaseAttack = 1 << 6,

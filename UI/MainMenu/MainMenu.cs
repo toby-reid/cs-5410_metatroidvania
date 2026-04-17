@@ -11,7 +11,7 @@ public partial class MainMenu : Control
     public override void _Ready()
     {
         _newGameButton.Pressed += NewGame;
-        if (!FileAccess.FileExists(PlayerState.SaveFile))
+        if (!PlayerState.SaveExists())
         {
             _continueButton.Disabled = true;
         }
@@ -24,6 +24,7 @@ public partial class MainMenu : Control
 
     private static void NewGame()
     {
+        PlayerState.DeleteSaveFile();
         PlayerState.RestoreDefaults();
         SceneChanger.Instance.GoToMainGame();
     }

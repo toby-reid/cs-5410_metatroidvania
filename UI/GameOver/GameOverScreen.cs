@@ -6,11 +6,11 @@ public partial class GameOverScreen : Control
 {
     [Export] Label restartLabel;
     [Export] RichTextLabel errorLabel;
-    
+
     private double countdown = 5;
     private String errorMessage =
         "[bgcolor=white][color=blue] Error:[/color][/bgcolor] COMPUTER OVER. \nVIRUS = VERY YES.";
-    
+
 
     public void Init(string error)
     {
@@ -19,7 +19,7 @@ public partial class GameOverScreen : Control
             errorMessage = "[bgcolor=white][color=blue] Error:[/color][/bgcolor] " + error;
         }
     }
-    
+
     public override void _Ready()
     {
         errorLabel.Text = errorMessage;
@@ -35,7 +35,7 @@ public partial class GameOverScreen : Control
         }
         else
         {
-            // TODO call continue game
+            ContinueGame();
         }
     }
 
@@ -45,12 +45,18 @@ public partial class GameOverScreen : Control
         {
             if (keyEvent.Keycode == Key.R)
             {
-                // TODO call continue game
+                ContinueGame();
             }
             else if (keyEvent.Keycode == Key.E)
             {
                 SceneChanger.Instance.ExitGame();
             }
         }
-}
+    }
+
+    private static void ContinueGame()
+    {
+        PlayerState.LoadIfExists();
+        SceneChanger.Instance.GoToMainGame();
+    }
 }

@@ -146,9 +146,29 @@ namespace Global
                 GD.PrintErr("Failed to save game progression: " + err);
             }
         }
+        public static bool SaveExists()
+        {
+            return FileAccess.FileExists(SaveFile);
+        }
+        public static void DeleteSaveFile()
+        {
+            if (SaveExists())
+            {
+                DirAccess.RemoveAbsolute(SaveFile);
+            }
+        }
+        public static bool LoadIfExists()
+        {
+            if (SaveExists())
+            {
+                return Load();
+            }
+            RestoreDefaults();
+            return true;
+        }
         public static bool Load()
         {
-            if (FileAccess.FileExists(SaveFile))
+            if (SaveExists())
             {
                 PlayerState state = ResourceLoader.Load<PlayerState>(SaveFile, cacheMode: ResourceLoader.CacheMode.Ignore);
                 if (state != null)

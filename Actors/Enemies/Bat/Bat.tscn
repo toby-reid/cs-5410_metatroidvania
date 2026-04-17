@@ -195,11 +195,11 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4mmic"]
 size = Vector2(64, 35)
 
-[node name="Bat" type="CharacterBody2D" unique_id=677415742 node_paths=PackedStringArray("_sprite", "_idleTarget", "_playerDetector")]
+[node name="Bat" type="CharacterBody2D" unique_id=677415742 node_paths=PackedStringArray("_sprite", "_playerDetector", "_collision")]
 script = ExtResource("1_4mmic")
 _sprite = NodePath("AnimatedSprite2D")
-_idleTarget = NodePath("")
 _playerDetector = NodePath("PlayerDetectionArea")
+_collision = NodePath("CollisionShape2D")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=271073305]
 shape = SubResource("CircleShape2D_uci6y")

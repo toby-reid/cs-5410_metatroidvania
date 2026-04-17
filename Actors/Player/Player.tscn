@@ -244,7 +244,7 @@ size = Vector2(9, 11)
 [node name="Player" type="CharacterBody2D" unique_id=889309543 node_paths=PackedStringArray("_sprite", "_attackTimer", "_floorDetector")]
 script = ExtResource("1_4x03u")
 _sprite = NodePath("AnimatedSprite2D")
-_attackTimer = NodePath("AttackTimer")
+_attackTimer = NodePath("")
 _swordSwipe = ExtResource("2_kkbrm")
 _floorDetector = NodePath("RayCast2D")
 
@@ -255,9 +255,6 @@ animation = &"idle"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1994569514]
 position = Vector2(0.5, 2.5)
 shape = SubResource("RectangleShape2D_ech6m")
-
-[node name="AttackTimer" type="Timer" parent="." unique_id=468091488]
-one_shot = true
 
 [node name="RayCast2D" type="RayCast2D" parent="." unique_id=626771813]
 position = Vector2(0, 8)

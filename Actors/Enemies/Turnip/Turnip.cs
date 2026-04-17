@@ -4,7 +4,7 @@ using System;
 
 namespace Actors
 {
-    public partial class Turnip : Node, IEnemy
+    public partial class Turnip : Node2D, IEnemy
     {
         private static class Animation
         {
@@ -12,22 +12,26 @@ namespace Actors
             public const string TakingDamage = "take_damage";
             public const string Death = "death";
         }
-        
+
         [Export]
         private AnimatedSprite2D _sprite;
-        
+        [Export]
+        private CollisionShape2D _collision;
+
         public void Die()
         {
             _sprite.Play(Animation.Death);
+            _collision.QueueFree();
+            _collision = null;
         }
-        
+
         public void AdvanceAnimation()
         {
             if (_sprite.Animation == Animation.Death) {
                 QueueFree();
             }
         }
-        
+
         public override void _Ready()
         {
             _sprite.Play(Animation.Idle);

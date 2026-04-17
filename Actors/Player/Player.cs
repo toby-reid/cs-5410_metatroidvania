@@ -67,7 +67,7 @@ namespace Actors
             {
                 velocity.Y = JumpVelocity;
             }
-            else if (Input.IsActionJustPressed(MoveDown) && PlayerState.Instance.HasUnlock(PlayerState.Progression.DropFromPlatform))
+            else if (Input.IsActionJustPressed(MoveDown) && PlayerState.Instance.HasUnlock(PlayerState.Progression.DropThroughPlatform))
             {
                 if (_floorDetector.IsColliding() && _floorDetector.GetCollider() is Environment.OneWayPlatform)
                 {

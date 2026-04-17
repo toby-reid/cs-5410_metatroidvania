@@ -1,0 +1,23 @@
+Attempting to compile... (72135 lines abridged)
+Compiling successful.
+Entering main game loop.
+Critical failure: Failed to find resource: Resource 'move_right' not found
+Critical failure: Failed to find resource: Resource 'move_left' not found
+... (17 lines abridged)
+Attempting resource recovery...
+Recovery failed.
+Entering safe mode.
+Entering main recovery loop.
+Resource 'move_left' recovered by resource 'player_character.item_pickup'.
+Attempting recovery...
+Recovery failed.
+Continuing in safe mode.
+Resource 'move_right' recovered by resource 'player_character.item_pickup'.
+... (66 lines abridged)
+Recovery successful.
+All resources have been recovered successfully.
+Project reconstructed successfully.
+Exiting main game loop.
+!!Clearing out extra resources...
+!!Deleting operating system...
+!!Exiting...

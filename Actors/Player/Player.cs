@@ -48,7 +48,6 @@ namespace Actors
             Vector2 velocity = Velocity;
 
             bool canMoveFreely = _attackTimer.IsStopped() && _damageTimer.IsStopped();
-            GD.Print(canMoveFreely);
             bool isOnFloor = IsOnFloor();
             if (!isOnFloor)
             {

@@ -20,6 +20,7 @@ config/icon="res://icon.svg"
 SceneChanger="*uid://c6ot1w3ul35a0"
 GameEngine="*uid://bt1v4bqw1dcrq"
 RoomBus="*uid://bk1snxocdui1v"
+ItemBus="*uid://c1o1cqivjerbp"
 
 [display]
 

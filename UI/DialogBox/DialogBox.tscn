@@ -1,0 +1,66 @@
+[gd_scene format=3 uid="uid://bbkayoevmm5yt"]
+
+[ext_resource type="Script" uid="uid://bfwvnl8d1kmea" path="res://UI/DialogBox/DialogBox.cs" id="1_nhuyx"]
+[ext_resource type="Theme" uid="uid://dkxigmd1k1aqo" path="res://Assets/Themes/DialogTheme.tres" id="1_y8bwr"]
+
+[node name="DialogBox" type="CanvasLayer" unique_id=988759185 node_paths=PackedStringArray("title", "instructions")]
+process_mode = 3
+script = ExtResource("1_nhuyx")
+title = NodePath("MarginContainer/MarginContainer/VBoxContainer/Title")
+instructions = NodePath("MarginContainer/MarginContainer/VBoxContainer/Instructions")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=504853319]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.39215687)
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=284420906]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 40
+theme_override_constants/margin_top = 40
+theme_override_constants/margin_right = 40
+theme_override_constants/margin_bottom = 40
+
+[node name="ColorRect" type="Panel" parent="MarginContainer" unique_id=695563047]
+layout_mode = 2
+theme = ExtResource("1_y8bwr")
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer" unique_id=893115347]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/MarginContainer" unique_id=52219973]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="MarginContainer/MarginContainer/VBoxContainer" unique_id=98658744]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+theme = ExtResource("1_y8bwr")
+theme_override_font_sizes/font_size = 14
+text = "You Fixed <item name>!"
+autowrap_mode = 2
+
+[node name="Instructions" type="Label" parent="MarginContainer/MarginContainer/VBoxContainer" unique_id=1920004369]
+custom_minimum_size = Vector2(0, 80)
+layout_mode = 2
+theme = ExtResource("1_y8bwr")
+theme_override_font_sizes/font_size = 14
+text = "<Item instructions>"
+autowrap_mode = 2
+
+[node name="Leave" type="Label" parent="MarginContainer/MarginContainer/VBoxContainer" unique_id=2038438166]
+layout_mode = 2
+theme = ExtResource("1_y8bwr")
+theme_override_font_sizes/font_size = 9
+text = "Press [space] to close"
+horizontal_alignment = 1

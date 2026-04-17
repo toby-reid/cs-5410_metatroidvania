@@ -13,7 +13,6 @@ namespace UI
             {
                 field = value;
                 ((ShaderMaterial)Material).SetShaderParameter(IsActiveParam, !field);
-                GD.Print("Set active to " + field);
             }
         } = true;
 

@@ -29,16 +29,18 @@ namespace Actors
         public const float Speed = 200f;
         public const float JumpVelocity = -250f;
 
-        private readonly Timer _attackTimer = new();
-        private readonly Timer _damageTimer = new();
+        private readonly Timer _damageImmunity = new();
+        private readonly Timer _forcedMovement = new();
 
         private bool _canAnimate = true;
         private SwordSwipe _optSwordSwipe = null;
 
         public override void _Ready()
         {
-            SetAnimationTimer(_attackTimer, Animation.Attacking);
-            SetAnimationTimer(_damageTimer, Animation.TakingDamage);
+            AddChild(_damageImmunity);
+            AddChild(_forcedMovement);
+            SetAnimationTimer(_damageImmunity, Animation.TakingDamage);
+            _forcedMovement.OneShot = true;
             _sprite.AnimationChanged += RemoveAnimationArtifacts;
             _sprite.Play(Animation.Idle);
         }
@@ -47,8 +49,8 @@ namespace Actors
         {
             Vector2 velocity = Velocity;
 
-            bool canMoveFreely = _attackTimer.IsStopped() && _damageTimer.IsStopped();
             bool isOnFloor = IsOnFloor();
+            bool canMoveFreely = _forcedMovement.IsStopped();
             if (!isOnFloor)
             {
                 Vector2 gravity = GetGravity() * (float)delta;
@@ -107,13 +109,17 @@ namespace Actors
             }
             MoveAndSlide();
 
-            int collisionCount = GetSlideCollisionCount();
-            for (int i = 0; i < collisionCount; ++i)
+            if (_damageImmunity.IsStopped())
             {
-                if (GetSlideCollision(i) is KinematicCollision2D collision && collision.GetCollider() is IEnemy)
+                int collisionCount = GetSlideCollisionCount();
+                for (int i = 0; i < collisionCount; ++i)
                 {
-                    TakeDamage();
-                    break;
+                    KinematicCollision2D collision = GetSlideCollision(i);
+                    if (collision != null && collision.GetCollider() is IEnemy)
+                    {
+                        TakeDamage(collision.GetNormal());
+                        break;
+                    }
                 }
             }
         }
@@ -128,27 +134,32 @@ namespace Actors
 
         private void TryAttack()
         {
-            if (_attackTimer.IsStopped() && PlayerState.Instance.HasUnlock(PlayerState.Progression.BaseAttack))
+            if (_forcedMovement.IsStopped() && PlayerState.Instance.HasUnlock(PlayerState.Progression.BaseAttack))
             {
                 // TODO (#31): create "sword" object for collisions
                 _sprite.Play(Animation.Attacking);
                 _sprite.FrameChanged += CheckAttackFrame;
-                _attackTimer.Start();
+                SetAnimationTimer(_forcedMovement, Animation.Attacking);
+                _forcedMovement.Start();
             }
         }
 
-        public void TakeDamage()
+        public void TakeDamage() => TakeDamage(Vector2.Zero);
+        public void TakeDamage(Vector2 fromDirection)
         {
             // TODO: add sound effects
             if (--PlayerState.Instance.HP == 0)
             {
                 Die();
             }
-            else
+            _sprite.Play(Animation.TakingDamage);
+            if (fromDirection != Vector2.Zero)
             {
-                _sprite.Play(Animation.TakingDamage);
-                _damageTimer.Start();
+                Velocity += 5 * fromDirection.Normalized();
             }
+            _forcedMovement.WaitTime = _damageImmunity.WaitTime / 5;
+            _damageImmunity.Start();
+            _forcedMovement.Start();
         }
 
         public void Die()
@@ -220,7 +231,6 @@ namespace Actors
 
         private void SetAnimationTimer(Timer timer, string animation)
         {
-            AddChild(timer);
             timer.WaitTime = _sprite.SpriteFrames.GetFrameCount(animation) / _sprite.SpriteFrames.GetAnimationSpeed(animation);
             timer.OneShot = true;
         }

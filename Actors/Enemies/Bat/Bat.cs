@@ -29,6 +29,8 @@ namespace Actors
         private Node2D _idleTarget;
         [Export]
         private Area2D _playerDetector;
+        [Export]
+        private CollisionShape2D _collision;
 
         private State state = State.Idle;
         private Player player;
@@ -63,6 +65,8 @@ namespace Actors
             Velocity = Vector2.Zero;
             state = State.Dying;
             _sprite.Play(Animation.TakingDamage);
+            _collision.QueueFree();
+            _collision = null;
         }
 
         public override void _PhysicsProcess(double delta)

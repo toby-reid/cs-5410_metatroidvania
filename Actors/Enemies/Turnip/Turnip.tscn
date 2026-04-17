@@ -145,9 +145,10 @@ animations = [{
 "speed": 15.0
 }]
 
-[node name="Turnip" type="StaticBody2D" unique_id=330372468 node_paths=PackedStringArray("_sprite")]
+[node name="Turnip" type="StaticBody2D" unique_id=330372468 node_paths=PackedStringArray("_sprite", "_collision")]
 script = ExtResource("1_do23o")
 _sprite = NodePath("AnimatedSprite2D")
+_collision = NodePath("CollisionShape2D")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1813395977]
 position = Vector2(0, 1)

@@ -4,8 +4,8 @@ using Global;
 
 public partial class Item : Area2D
 {
-    [Export] private String _name;
-    [Export(PropertyHint.MultilineText)] private String _instructions;
+    [Export] public string ItemName;
+    [Export(PropertyHint.MultilineText)] public string Instructions;
     [Export] private PlayerState.Progression _itemValue;
 
     [Export] private Area2D _area;
@@ -20,9 +20,8 @@ public partial class Item : Area2D
         if (area is Actors.Player)
         {
             PlayerState.Instance.Unlock(_itemValue);
+            ItemBus.Instance.EmitItemCollected(this);
             QueueFree();
         }
-
-        // TODO show dialog box and pause game
     }
 }

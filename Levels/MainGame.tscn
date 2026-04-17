@@ -4,6 +4,8 @@
 [ext_resource type="PackedScene" uid="uid://c3a1aq5qtukep" path="res://UI/HUD/CoinCountIndicator/CoinCountIndicator.tscn" id="3_csqc5"]
 [ext_resource type="PackedScene" uid="uid://ccd5qwewxph3u" path="res://Levels/RoomManager/RoomManager.tscn" id="3_r52jk"]
 [ext_resource type="PackedScene" uid="uid://dbhantaane1o1" path="res://UI/HUD/HealthIndicator/HealthIndicator.tscn" id="3_rclbk"]
+[ext_resource type="PackedScene" uid="uid://baxopbu4gjiv0" path="res://UI/InGameMenu/InGameMenu.tscn" id="5_rclbk"]
+[ext_resource type="PackedScene" uid="uid://bbkayoevmm5yt" path="res://UI/DialogBox/DialogBox.tscn" id="6_vqhhm"]
 
 [node name="MainGame" type="Node2D" unique_id=1642332332]
 
@@ -30,3 +32,9 @@ layout_mode = 2
 
 [node name="CoinCountIndicator" parent="CanvasLayer/VBoxContainer" unique_id=608580633 instance=ExtResource("3_csqc5")]
 layout_mode = 2
+
+[node name="InGameMenu" parent="." unique_id=1580437641 instance=ExtResource("5_rclbk")]
+visible = false
+
+[node name="DialogBox" parent="." unique_id=988759185 instance=ExtResource("6_vqhhm")]
+visible = false

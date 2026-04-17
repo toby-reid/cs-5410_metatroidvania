@@ -47,6 +47,7 @@ namespace UI
 
         private void ToMenu()
         {
+            Global.PauseManager.Instance.ResumeGame();
             Global.SceneChanger.Instance.ChangeScene(_mainMenuPath);
         }
     }

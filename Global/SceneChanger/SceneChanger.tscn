@@ -5,4 +5,5 @@
 [node name="SceneChanger" type="Node2D" unique_id=2081979900]
 script = ExtResource("1_5nf47")
 _mainMenuPath = "uid://dpjqsane38lsk"
+_mainGamePath = "uid://bdjr317pb2eqf"
 _gameOverPath = "uid://b1y1u50nqwe2w"

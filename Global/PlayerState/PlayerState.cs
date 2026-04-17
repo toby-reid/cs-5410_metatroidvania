@@ -99,12 +99,10 @@ namespace Global
             }
         } = MaxHP;
 
-        [ExportGroup("Tutorial room")]
-        [Export(PropertyHint.FilePath, "TutorialRoom.tscn")] public string CurrentRoom { get; set; }
-        [Export] public string LastUsedDoorwayID { get; set; }
+        public string CurrentRoom { get; set; } = "uid://dsun3fvnubo0h"; // TutorialRoom.tscn
+        public string LastUsedDoorwayID { get; set; }
 
-        [ExportGroup("Starting room")]
-        [Export(PropertyHint.FilePath, "StartingRoom.tscn")] private string _startingRoom;
+        private const string StartingRoom = "uid://bdjr317pb2eqf";
 
         // Static constructor: invoked the first time this class is accessed
         static PlayerState()
@@ -120,7 +118,7 @@ namespace Global
             Progress = 0;
             CoinCount = 0;
             HP = MaxHP;
-            CurrentRoom = _startingRoom;
+            CurrentRoom = StartingRoom;
             LastUsedDoorwayID = null;
             Save();
         }

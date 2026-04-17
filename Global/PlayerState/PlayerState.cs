@@ -99,6 +99,13 @@ namespace Global
             }
         } = MaxHP;
 
+        [ExportGroup("Tutorial room")]
+        [Export(PropertyHint.FilePath, "TutorialRoom.tscn")] public string CurrentRoom { get; set; }
+        [Export] public string LastUsedDoorwayID { get; set; }
+
+        [ExportGroup("Starting room")]
+        [Export(PropertyHint.FilePath, "StartingRoom.tscn")] private string _startingRoom;
+
         // Static constructor: invoked the first time this class is accessed
         static PlayerState()
         {
@@ -107,15 +114,14 @@ namespace Global
 
         public bool HasUnlock(Progression unlock) => Progress.HasFlag(unlock);
 
-        public void Reset(bool resetTutorial = false)
+        public void CompleteTutorial()
         {
-            if (resetTutorial)
-            {
-                CompletedTutorial = false;
-            }
+            CompletedTutorial = true;
             Progress = 0;
             CoinCount = 0;
             HP = MaxHP;
+            CurrentRoom = _startingRoom;
+            LastUsedDoorwayID = null;
             Save();
         }
 
@@ -160,6 +166,10 @@ namespace Global
                 GD.Print("No save file found");
             }
             return false;
+        }
+        public static void RestoreDefaults()
+        {
+            Instance = new();
         }
     }
 }

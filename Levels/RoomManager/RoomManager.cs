@@ -8,13 +8,9 @@ public partial class RoomManager : Node
     [Export] public Camera2D _camera;
     [Export] private Player _player;
 
-    [ExportGroup("Start Room")]
-    [Export(PropertyHint.File, "*.tscn")] private string startRoom;
-    [Export] private string startDoor;
-
     public override void _Ready()
     {
-        ChangeRoom(startRoom, startDoor);
+        ChangeRoom(PlayerState.Instance.CurrentRoom, PlayerState.Instance.LastUsedDoorwayID);
         RoomBus.Instance.RoomChangeRequest += ChangeRoom;
     }
 
@@ -28,10 +24,12 @@ public partial class RoomManager : Node
 
         BaseRoom newRoom = (BaseRoom)ResourceLoader.Load<PackedScene>(scene).Instantiate();
         UpdateCamera(newRoom);
-        
+
         _roomContainer.AddChild(newRoom);
-        _player.Position = newRoom.GetSpawnPosition(doorID);        
-        // TODO put the player at the room
+        _player.Position = newRoom.GetSpawnPosition(doorID);
+
+        PlayerState.Instance.CurrentRoom = scene;
+        PlayerState.Instance.LastUsedDoorwayID = doorID;
     }
 
     private void UpdateCamera(BaseRoom room)

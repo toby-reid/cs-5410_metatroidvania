@@ -8,14 +8,35 @@ public partial class MainMenu : Control
     [Export] private Button _continueButton;
     [Export] private Button _exitButton;
 
-    [ExportGroup("Scenes")]
-    [Export(PropertyHint.File, "*.tscn")] private string _mainGamePath;
-
     public override void _Ready()
     {
-        _newGameButton.Pressed += () => SceneChanger.Instance.ChangeScene(_mainGamePath);
-        // placeholder until continue is implemented
-        _continueButton.Pressed += () => SceneChanger.Instance.GoToGameOver();
+        _newGameButton.Pressed += NewGame;
+        if (!FileAccess.FileExists(PlayerState.SaveFile))
+        {
+            _continueButton.Disabled = true;
+        }
+        else
+        {
+            _continueButton.Pressed += LoadGame;
+        }
         _exitButton.Pressed += () => SceneChanger.Instance.ExitGame();
+    }
+
+    private static void NewGame()
+    {
+        PlayerState.RestoreDefaults();
+        SceneChanger.Instance.GoToMainGame();
+    }
+
+    private static void LoadGame()
+    {
+        if (PlayerState.Load())
+        {
+            SceneChanger.Instance.GoToMainGame();
+        }
+        else
+        {
+            SceneChanger.Instance.GoToGameOver("Invalid save file");
+        }
     }
 }

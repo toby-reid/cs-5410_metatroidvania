@@ -14,7 +14,7 @@ namespace Actors
             public const string Attack = "attack";
             public const string AttackEnd = "attack_end";
         }
-        
+
         private enum State
         {
             Attacking,
@@ -22,24 +22,24 @@ namespace Actors
             Idle,
             Dying
         }
-        
+
         [Export]
         private AnimatedSprite2D _sprite;
         [Export]
         private Node2D _idleTarget;
         [Export]
         private Area2D _playerDetector;
-        
+
         private State state = State.Idle;
         private Player player;
-        
+
         // Called when the node enters the scene tree for the first time.
         public override void _Ready()
         {
             _sprite.Play(Animation.Idle);
             _sprite.AnimationFinished += AdvanceAnimation;
         }
-        
+
         public void AdvanceAnimation()
         {
             if (_sprite.Animation == Animation.AttackBegin) {
@@ -57,14 +57,14 @@ namespace Actors
                 QueueFree();
             }
         }
-        
+
         public void Die()
         {
-            Velocity *= 0f;
+            Velocity = Vector2.Zero;
             state = State.Dying;
             _sprite.Play(Animation.TakingDamage);
         }
-        
+
         public override void _PhysicsProcess(double delta)
         {
             if (state == State.Pursuing) {
@@ -76,16 +76,23 @@ namespace Actors
             if (Velocity.X > 0) _sprite.FlipH = true;
             else if (Velocity.X < 0) _sprite.FlipH = false;
             KinematicCollision2D collision = MoveAndCollide(Velocity * (float) delta);
-            if (collision != null) Velocity = Velocity.Bounce(collision.GetNormal()) * 0.6f;
+            if (collision != null)
+            {
+                Velocity = Velocity.Bounce(collision.GetNormal()) * 0.6f;
+                if (collision.GetCollider() is Player player)
+                {
+                    player.TakeDamage();
+                }
+            }
         }
-        
+
         public override void _Process(double delta)
         {
             if (state != State.Idle) return;
             _sprite.FlipH = Position.X < _idleTarget.Position.X;
             Position = _idleTarget.Position;
         }
-        
+
         public void OnBodyDetected(Node2D body) {
             if (body is Player && state != State.Attacking && state != State.Dying) {
                 player = (Player) body;

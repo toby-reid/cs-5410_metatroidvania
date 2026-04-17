@@ -90,7 +90,12 @@ namespace Actors
             {
                 SetAnimation();
             }
-            MoveAndSlide();
+
+            KinematicCollision2D collision = MoveAndCollide(Velocity * (float)delta);
+            if (collision != null && collision.GetCollider() is IEnemy)
+            {
+                TakeDamage();
+            }
         }
 
         public override void _Input(InputEvent @event)

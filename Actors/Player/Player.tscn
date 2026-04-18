@@ -241,12 +241,13 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ech6m"]
 size = Vector2(9, 11)
 
-[node name="Player" type="CharacterBody2D" unique_id=889309543 node_paths=PackedStringArray("_sprite")]
+[node name="Player" type="CharacterBody2D" unique_id=889309543 node_paths=PackedStringArray("_sprite", "_collisionShape")]
 collision_layer = 3
 collision_mask = 3
 script = ExtResource("1_4x03u")
 _sprite = NodePath("AnimatedSprite2D")
 _swordSwipe = ExtResource("2_kkbrm")
+_collisionShape = NodePath("CollisionShape2D")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=731528621]
 sprite_frames = SubResource("SpriteFrames_4x03u")

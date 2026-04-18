@@ -20,12 +20,10 @@ public partial class Door : Area2D
         return _spawnPoint.GlobalPosition;
     }
 
-    private void OnBodyEntered(Node2D body)
+    protected virtual void OnBodyEntered(Node2D body)
     {
         if(body is Actors.Player)
         {
-            // Global.RoomBus.Instance.EmitRoomChange(_targetRoomPath, _targetDoorID);
-            // Inside Door.cs OnBodyEntered
             RoomBus.Instance.CallDeferred(nameof(RoomBus.EmitRoomChange), _targetRoomPath, _targetDoorID);
         }
     }

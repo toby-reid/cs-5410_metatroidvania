@@ -24,6 +24,7 @@ namespace Actors
         [ExportGroup("Set in Object")]
         [Export] private AnimatedSprite2D _sprite;
         [Export] private PackedScene _swordSwipe;
+        [Export] private CollisionShape2D _collisionShape;
 
         public const float Speed = 200f;
         public const float JumpVelocity = -250f;
@@ -162,6 +163,14 @@ namespace Actors
         {
             // TODO: Play death anim or something
             SceneChanger.Instance.GoToGameOver("Your death was in vain.");
+        }
+
+        public void DisableCollisions(){            
+            _collisionShape.Disabled = true;
+        }
+
+        public void EnableCollisions() {
+            _collisionShape.Disabled = false;
         }
 
         private void SetAnimation()

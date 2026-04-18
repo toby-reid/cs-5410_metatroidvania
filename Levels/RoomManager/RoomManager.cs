@@ -14,8 +14,10 @@ public partial class RoomManager : Node
         RoomBus.Instance.RoomChangeRequest += ChangeRoom;
     }
 
-    private void ChangeRoom(string scene, string doorID)
+    private async void ChangeRoom(string scene, string doorID)
     {
+
+        _player.DisableCollisions();
         // there should only be one child, but this is safer
         foreach (Node room in _roomContainer.GetChildren())
         {
@@ -30,6 +32,14 @@ public partial class RoomManager : Node
 
         PlayerState.Instance.CurrentRoom = scene;
         PlayerState.Instance.LastUsedDoorwayID = doorID;
+
+        await ToSignal(GetTree(), SceneTree.SignalName.PhysicsFrame);
+        _player.EnableCollisions();
+    }
+
+    public override void _ExitTree()
+    {
+        RoomBus.Instance.RoomChangeRequest -= ChangeRoom;
     }
 
     private void UpdateCamera(BaseRoom room)

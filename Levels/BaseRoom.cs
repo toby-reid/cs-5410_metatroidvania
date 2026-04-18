@@ -27,7 +27,6 @@ public partial class BaseRoom : Node2D
                 return door.GetSpawnPosition();
             }
         }
-        GD.Print("no door found");
         return Vector2.Zero;
     }
 }

@@ -1,3 +1,34 @@
 [gd_scene format=3 uid="uid://boexk335ysn8k"]
 
-[node name="GameWinScreen" type="Node2D" unique_id=1804065482]
+[ext_resource type="Script" uid="uid://0nntybqmtkxd" path="res://UI/GameWinScreen/GameWinScreen.cs" id="1_ff4m2"]
+[ext_resource type="Theme" uid="uid://dkxigmd1k1aqo" path="res://Assets/Themes/DialogTheme.tres" id="2_jfrdf"]
+[ext_resource type="FontFile" uid="uid://cstavoj7lseyh" path="res://Assets/Fonts/5-pt/5-pt.ttf" id="3_jfrdf"]
+[ext_resource type="AudioStream" uid="uid://dhoayyn32o81v" path="res://Assets/Sound/xp-shutdown.mp3" id="4_l4nvl"]
+
+[node name="GameWinScreen" type="Node2D" unique_id=1804065482 node_paths=PackedStringArray("_label", "_timer", "_winSfx")]
+script = ExtResource("1_ff4m2")
+_winTextFile = "res://UI/GameWinScreen/WinScreen.txt"
+_label = NodePath("Label")
+_timer = NodePath("NextText")
+_winSfx = NodePath("WinSFX")
+
+[node name="Polygon2D" type="Polygon2D" parent="." unique_id=1494086246]
+color = Color(0, 0, 0, 1)
+polygon = PackedVector2Array(0, 0, 256, 0, 256, 192, 0, 192)
+
+[node name="Label" type="Label" parent="." unique_id=407284965]
+offset_right = 40.0
+offset_bottom = 23.0
+theme = ExtResource("2_jfrdf")
+theme_override_colors/font_color = Color(0, 1, 0, 1)
+theme_override_fonts/font = ExtResource("3_jfrdf")
+theme_override_font_sizes/font_size = 5
+text = "Sample text
+newline"
+
+[node name="NextText" type="Timer" parent="." unique_id=344876049]
+wait_time = 3.0
+
+[node name="WinSFX" type="AudioStreamPlayer2D" parent="." unique_id=1737294403]
+stream = ExtResource("4_l4nvl")
+volume_db = 6.804

@@ -18,25 +18,24 @@ namespace UI
         // Called when the node enters the scene tree for the first time.
         public override void _Ready()
         {
-            _winSfx.Play();
             string text = ReadTextFile(_winTextFile);
             string[] textParts = text.Split(DelayIndicator);
             _label.Text = textParts[0];
             _remainingText = [.. textParts[1..]];
             _timer.Timeout += AddNextText;
+            _timer.OneShot = false;
             _timer.Start();
         }
 
         private void AddNextText()
         {
-            if (_remainingText.Count > 0)
-            {
-                _label.Text += _remainingText[0];
-                _remainingText.RemoveAt(0);
-            }
-            else
+            _label.Text += _remainingText[0];
+            _remainingText.RemoveAt(0);
+            if (_remainingText.Count == 0)
             {
                 _timer.Timeout -= AddNextText;
+                _winSfx.Play();
+                _winSfx.Finished += () => Global.SceneChanger.Instance.ExitGame();
             }
         }
 

@@ -28,7 +28,7 @@ namespace Actors
 
         public const float Speed = 200f;
         public const float JumpVelocity = -250f;
-        private const float HealTimeSec = 5f;
+        private const float HealTimeSec = 3f;
 
         private readonly Timer _damageImmunity = new();
         private readonly Timer _forcedMovement = new();

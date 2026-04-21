@@ -27,12 +27,14 @@ namespace Actors
 
         public const float Speed = 200f;
         public const float JumpVelocity = -250f;
+        private const float HealTimeSec = 5f;
 
         private readonly Timer _damageImmunity = new();
         private readonly Timer _forcedMovement = new();
 
         private bool _canAnimate = true;
         private SwordSwipe _optSwordSwipe = null;
+        private Timer _optHealTimer = null;
 
         public override void _Ready()
         {
@@ -42,6 +44,12 @@ namespace Actors
             _forcedMovement.OneShot = true;
             _sprite.AnimationChanged += RemoveAnimationArtifacts;
             _sprite.Play(Animation.Idle);
+            PlayerState.Instance.OnHPChange += OnHPChange;
+        }
+
+        public override void _ExitTree()
+        {
+            PlayerState.Instance.OnHPChange -= OnHPChange;
         }
 
         public override void _PhysicsProcess(double delta)
@@ -162,6 +170,33 @@ namespace Actors
         {
             // TODO: Play death anim or something
             SceneChanger.Instance.GoToGameOver("Your death was in vain.");
+        }
+
+        private void OnHPChange(byte newHp)
+        {
+            if (newHp < PlayerState.MaxHP)
+            {
+                if (_optHealTimer != null)
+                {
+                    // Restart the timer
+                    _optHealTimer.Start();
+                }
+                else
+                {
+                    _optHealTimer = new()
+                    {
+                        WaitTime = HealTimeSec
+                    };
+                    _optHealTimer.Timeout += () => ++PlayerState.Instance.HP;
+                    AddChild(_optHealTimer);
+                    _optHealTimer.Start();
+                }
+            }
+            else
+            {
+                _optHealTimer?.QueueFree();
+                _optHealTimer = null;
+            }
         }
 
         private void SetAnimation()

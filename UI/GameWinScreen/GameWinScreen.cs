@@ -11,7 +11,8 @@ namespace UI
         [Export] private Timer _timer;
         [Export] private AudioStreamPlayer2D _winSfx;
 
-        private const string DelayIndicator = "!!";
+        // Use this character in the WinScreen.txt to add 1s of delay between portions
+        private const char DelayIndicator = '!';
 
         private List<string> _remainingText;
 

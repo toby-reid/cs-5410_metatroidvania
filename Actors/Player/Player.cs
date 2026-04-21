@@ -24,6 +24,7 @@ namespace Actors
         [ExportGroup("Set in Object")]
         [Export] private AnimatedSprite2D _sprite;
         [Export] private PackedScene _swordSwipe;
+        [Export] private AudioStreamPlayer2D _healSfx;
 
         public const float Speed = 200f;
         public const float JumpVelocity = -250f;
@@ -187,7 +188,7 @@ namespace Actors
                     {
                         WaitTime = HealTimeSec
                     };
-                    _optHealTimer.Timeout += () => ++PlayerState.Instance.HP;
+                    _optHealTimer.Timeout += Heal;
                     AddChild(_optHealTimer);
                     _optHealTimer.Start();
                 }
@@ -197,6 +198,15 @@ namespace Actors
                 _optHealTimer?.QueueFree();
                 _optHealTimer = null;
             }
+        }
+
+        private void Heal()
+        {
+            if (++PlayerState.Instance.HP > PlayerState.MaxHP)
+            {
+                GD.PrintErr("Set player HP higher than max HP");
+            }
+            _healSfx.Play();
         }
 
         private void SetAnimation()

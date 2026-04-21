@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://c87mtx0k2xbku"]
+
+[ext_resource type="Texture2D" uid="uid://l078t7s4td7f" path="res://Assets/Sight/Enemies/Godboss/icon.svg" id="1_5eq4m"]
+[ext_resource type="Script" uid="uid://ntpywfvrf1wv" path="res://Actors/Enemies/Godboss/Godboss.cs" id="1_benv4"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5eq4m"]
+size = Vector2(126, 126)
+
+[node name="Godboss" type="CharacterBody2D" unique_id=2103216827]
+scale = Vector2(0.8, 0.8)
+script = ExtResource("1_benv4")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=305138873]
+texture = ExtResource("1_5eq4m")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1751848480]
+shape = SubResource("RectangleShape2D_5eq4m")

@@ -24,6 +24,7 @@ namespace Actors
         [ExportGroup("Set in Object")]
         [Export] private AnimatedSprite2D _sprite;
         [Export] private PackedScene _swordSwipe;
+        [Export] private CollisionShape2D _collisionShape;
         [Export] private AudioStreamPlayer2D _healSfx;
 
         public const float Speed = 200f;
@@ -173,6 +174,14 @@ namespace Actors
             SceneChanger.Instance.GoToGameOver("Your death was in vain.");
         }
 
+        public void DisableCollisions(){            
+            _collisionShape.Disabled = true;
+        }
+
+        public void EnableCollisions()
+        {
+            _collisionShape.Disabled = false;
+        }
         private void OnHPChange(byte newHp)
         {
             if (newHp < PlayerState.MaxHP)

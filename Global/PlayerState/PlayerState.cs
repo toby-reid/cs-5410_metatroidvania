@@ -99,7 +99,7 @@ namespace Global
             }
         } = MaxHP;
 
-        public string CurrentRoom { get; set; } = "uid://dsun3fvnubo0h"; // TutorialRoom.tscn
+        public string CurrentRoom { get; set; } = "uid://cmdqcfmcrtfh"; // TutorialRoom.tscn
         public string LastUsedDoorwayID { get; set; }
 
         private const string StartingRoom = "uid://bdjr317pb2eqf";

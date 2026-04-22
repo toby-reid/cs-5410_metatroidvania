@@ -102,7 +102,7 @@ namespace Global
         public string CurrentRoom { get; set; } = "uid://dsun3fvnubo0h"; // TutorialRoom.tscn
         public string LastUsedDoorwayID { get; set; }
 
-        private const string StartingRoom = "uid://bdjr317pb2eqf";
+        private const string StartingRoom = "uid://bldhk04y5h3wu"; // CorruptedTutorialRoom0
 
         // Static constructor: invoked the first time this class is accessed
         static PlayerState()

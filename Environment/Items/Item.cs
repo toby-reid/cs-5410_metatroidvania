@@ -12,7 +12,14 @@ public partial class Item : Area2D
 
     public override void _Ready()
     {
-        _area.BodyEntered += OnAreaEntered;
+        if (PlayerState.Instance.HasUnlock(_itemValue))
+        {
+            QueueFree();
+        }
+        else
+        {
+            _area.BodyEntered += OnAreaEntered;
+        }
     }
 
     private void OnAreaEntered(Node2D area)

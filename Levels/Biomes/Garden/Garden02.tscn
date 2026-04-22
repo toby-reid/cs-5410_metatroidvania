@@ -1,0 +1,83 @@
+[gd_scene format=4 uid="uid://s7uag3hwavwi"]
+
+[ext_resource type="PackedScene" uid="uid://cwhovflc5f0lk" path="res://Levels/Biomes/Garden/GardenBase.tscn" id="1_7231u"]
+[ext_resource type="PackedScene" uid="uid://0ncfoov5jkhu" path="res://Environment/Items/Item.tscn" id="2_tkgv8"]
+[ext_resource type="PackedScene" uid="uid://cqi55qaojjklm" path="res://Actors/Enemies/Bat/Bat.tscn" id="3_w8mpw"]
+[ext_resource type="PackedScene" uid="uid://cbi5vmnwtsxr8" path="res://Environment/Doors/TallDoor.tscn" id="4_w8mpw"]
+
+[sub_resource type="Curve2D" id="Curve2D_w8mpw"]
+_data = {
+"points": PackedVector2Array(0, 0, 50, 0, -50, 0, -50, 0, 0, 0, 50, 0, 0, 0, 0, 0, -50, 0)
+}
+point_count = 3
+
+[sub_resource type="Animation" id="Animation_ory87"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:progress")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_cujop"]
+resource_name = "move"
+length = 10.0
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:progress")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 10),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 500.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_71gvb"]
+_data = {
+&"RESET": SubResource("Animation_ory87"),
+&"move": SubResource("Animation_cujop")
+}
+
+[node name="Room" unique_id=1234374025 instance=ExtResource("1_7231u")]
+
+[node name="TileMapLayer" parent="." index="0" unique_id=1428987800]
+tile_map_data = PackedByteArray("AAAAAAAAAAAIAAQAAAAMAAsAAAABAAAAAAANAAsAAAABAAAAAAAOAAsAAAABAAAAAAAPAAsAAAABAAAAAAAIAAsAAAACAAAAAAAHAAsAAAABAAAAAAAGAAsAAAABAAAAAAAFAAsAAAABAAAAAAAEAAsAAAABAAAAAAADAAsAAAABAAAAAAACAAsAAAABAAAAAAABAAsAAAABAAAAAAAAAAsAAAABAAAAAAAAAAwAAAABAAEAAAABAAwAAAABAAEAAAACAAwAAAABAAEAAAADAAwAAAABAAEAAAAEAAwAAAABAAEAAAAFAAwAAAABAAEAAAAGAAwAAAABAAEAAAAHAAwAAAABAAEAAAAIAAwAAAAAAAoAAAAJAAwAAAABAAEAAAAKAAwAAAABAAEAAAALAAwAAAADAAkAAAAMAAwAAAABAAEAAAANAAwAAAABAAEAAAAOAAwAAAABAAEAAAAOAA0AAAABAAEAAAAPAA0AAAABAAEAAAAPAA4AAAABAAEAAAAOAA4AAAABAAEAAAANAA4AAAABAAEAAAAMAA4AAAABAAEAAAALAA4AAAAGAAIAAAAKAA4AAAAFAAIAAAAJAA4AAAAFAAIAAAAIAA4AAAAEAAIAAAAHAA4AAAABAAEAAAAGAA4AAAABAAEAAAAFAA4AAAABAAEAAAAEAA4AAAABAAEAAAADAA4AAAABAAEAAAACAA4AAAABAAEAAAABAA4AAAABAAEAAAAAAA4AAAABAAEAAAAAAA0AAAABAAEAAAABAA0AAAABAAEAAAACAA0AAAABAAEAAAADAA0AAAABAAEAAAAEAA0AAAABAAEAAAAFAA0AAAABAAEAAAAGAA0AAAABAAEAAAAHAA0AAAABAAEAAAAIAA0AAAAAAAoAAAAJAA0AAAABAAEAAAAKAA0AAAABAAEAAAALAA0AAAADAAkAAAAMAA0AAAABAAEAAAANAA0AAAABAAEAAAAPAAwAAAABAAEAAAALAAsAAAAAAAAAAAA=")
+
+[node name="Item" parent="." index="3" unique_id=506489788 instance=ExtResource("2_tkgv8")]
+position = Vector2(160, 217)
+
+[node name="TallDoor" parent="." index="4" unique_id=1353115520 instance=ExtResource("4_w8mpw")]
+position = Vector2(256, 176)
+rotation = 3.1415927
+scale = Vector2(1, -1)
+ID = "Garden01"
+_targetRoomPath = "uid://cla3k378tpnv4"
+_targetDoorID = "Garden02"
+
+[node name="Bat1" type="Node2D" parent="." index="5" unique_id=1908282741]
+position = Vector2(47, 147)
+
+[node name="Bat" parent="Bat1" index="0" unique_id=677415742 node_paths=PackedStringArray("_idleTarget") instance=ExtResource("3_w8mpw")]
+_idleTarget = NodePath("../IdlePath/IdleTarget")
+
+[node name="IdlePath" type="Path2D" parent="Bat1" index="1" unique_id=1261533345]
+position = Vector2(3, 0)
+curve = SubResource("Curve2D_w8mpw")
+
+[node name="IdleTarget" type="PathFollow2D" parent="Bat1/IdlePath" index="0" unique_id=74450850]
+position = Vector2(-50, 0)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Bat1/IdlePath/IdleTarget" index="0" unique_id=1422926384]
+libraries/ = SubResource("AnimationLibrary_71gvb")
+autoplay = &"move"

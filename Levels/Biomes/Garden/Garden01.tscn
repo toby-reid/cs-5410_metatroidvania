@@ -1,0 +1,48 @@
+[gd_scene format=4 uid="uid://cla3k378tpnv4"]
+
+[ext_resource type="PackedScene" uid="uid://cwhovflc5f0lk" path="res://Levels/Biomes/Garden/GardenBase.tscn" id="1_tao6j"]
+[ext_resource type="PackedScene" uid="uid://0ncfoov5jkhu" path="res://Environment/Items/Item.tscn" id="2_2602x"]
+[ext_resource type="PackedScene" uid="uid://b0rd2wrrnxps7" path="res://Actors/FloatingCoin/FloatingCoin.tscn" id="3_mewn0"]
+[ext_resource type="PackedScene" uid="uid://udbhjo2bjfun" path="res://Environment/Doors/Door.tscn" id="4_mewn0"]
+[ext_resource type="PackedScene" uid="uid://cbi5vmnwtsxr8" path="res://Environment/Doors/TallDoor.tscn" id="5_hx5d4"]
+
+[node name="Room" unique_id=1234374025 instance=ExtResource("1_tao6j")]
+
+[node name="TileMapLayer" parent="." index="0" unique_id=1428987800]
+z_index = 0
+tile_map_data = PackedByteArray("AAAPAAsAAAAJAAcAAAAOAAsAAAAJAAcAAAANAAsAAAAJAAcAAAAMAAsAAAAJAAcAAAALAAsAAAAJAAcAAAAKAAsAAAAJAAcAAAAJAAsAAAAJAAcAAAAIAAsAAAAJAAcAAAAHAAsAAAAJAAcAAAAGAAsAAAAJAAcAAAAFAAsAAAAJAAcAAAAKAAoAAAAHAAkAAAAIAAoAAAAHAAkAAAAGAAkAAAAJAAkAAAAIAAcAAAAJAAkAAAAGAAUAAAAJAAkAAAAJAAMAAAAJAAkAAAAOAAMAAAAJAAkAAAAEAAsAAAAJAAcAAAADAAsAAAAJAAcAAAACAAsAAAAJAAcAAAABAAsAAAAJAAcAAAAAAAsAAAAJAAcAAAD//wsAAAAJAAcAAAD+/wsAAAAJAAcAAAAPAAMAAAAJAAkAAAAAAPb/AAAIAAQAAAA=")
+
+[node name="Item" parent="." index="3" unique_id=506489788 instance=ExtResource("2_2602x")]
+position = Vector2(149, 167)
+ItemName = "Right Movement"
+Instructions = "Press 'D' to move right"
+_itemValue = 1
+
+[node name="FloatingCoin" parent="." index="4" unique_id=1788558948 instance=ExtResource("3_mewn0")]
+position = Vector2(68, 172)
+
+[node name="FloatingCoin2" parent="." index="5" unique_id=1122479154 instance=ExtResource("3_mewn0")]
+position = Vector2(28, 171)
+
+[node name="FloatingCoin3" parent="." index="6" unique_id=1490037758 instance=ExtResource("3_mewn0")]
+position = Vector2(-8, 172)
+
+[node name="Door" parent="." index="7" unique_id=1353115520 instance=ExtResource("4_mewn0")]
+position = Vector2(257, 177)
+scale = Vector2(-1, 1.5)
+ID = "Garden00_0"
+_targetRoomPath = "uid://gmdjaxngiotc"
+_targetDoorID = "Garden01_0"
+
+[node name="Door2" parent="." index="8" unique_id=209624285 instance=ExtResource("4_mewn0")]
+position = Vector2(256, 57)
+scale = Vector2(-1, 1)
+ID = "Garden00_1"
+_targetRoomPath = "uid://gmdjaxngiotc"
+_targetDoorID = "Garden01_1"
+
+[node name="TallDoor" parent="." index="9" unique_id=633000795 instance=ExtResource("5_hx5d4")]
+position = Vector2(-32, 177)
+ID = "Garden02"
+_targetRoomPath = "uid://s7uag3hwavwi"
+_targetDoorID = "Garden01"

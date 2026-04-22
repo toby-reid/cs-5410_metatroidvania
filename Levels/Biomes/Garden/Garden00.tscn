@@ -1,0 +1,29 @@
+[gd_scene format=4 uid="uid://gmdjaxngiotc"]
+
+[ext_resource type="PackedScene" uid="uid://cwhovflc5f0lk" path="res://Levels/Biomes/Garden/GardenBase.tscn" id="1_3o31h"]
+[ext_resource type="PackedScene" uid="uid://udbhjo2bjfun" path="res://Environment/Doors/Door.tscn" id="2_oc2ly"]
+
+[node name="Room" unique_id=1234374025 instance=ExtResource("1_3o31h")]
+
+[node name="TileMapLayer" parent="." index="0" unique_id=1428987800]
+z_index = 0
+tile_map_data = PackedByteArray("AAANAAsAAAAJAAcAAAAMAAsAAAAJAAcAAAALAAsAAAAJAAcAAAAKAAsAAAAJAAcAAAAJAAsAAAAJAAcAAAAIAAsAAAAJAAcAAAAHAAsAAAAJAAcAAAAGAAsAAAAJAAcAAAAFAAsAAAAJAAcAAAAEAAsAAAAJAAcAAAADAAsAAAAJAAcAAAACAAsAAAAJAAcAAAABAAsAAAAJAAcAAAAAAAsAAAAJAAcAAAAOAAsAAAAJAAcAAAAPAAsAAAACAAYAAAAPAAgAAAACAAUAAAAPAAcAAAAAAAEAAAANAAYAAAAJAAcAAAAOAAUAAAAKAAUAAAANAAUAAAAJAAUAAAAMAAUAAAAIAAUAAAAOAAQAAAAKAAQAAAAMAAQAAAAIAAQAAAAMAAYAAAAJAAcAAAAPAAMAAAAAAAEAAAAPAAIAAAAAAAEAAAAPAAEAAAAAAAEAAAAPAAAAAAAAAAEAAAD//wsAAAAJAAcAAAD+/wsAAAAJAAcAAAD9/wsAAAAJAAcAAAD9/wMAAAAJAAkAAAD+/wMAAAAJAAkAAAD//wMAAAAJAAkAAAAAAAMAAAAJAAkAAAAOAAYAAAAJAAcAAAAPAAYAAAAAAAAAAAD///f/AAAIAAQAAAAPAP//AAAAAAEAAAAPAP7/AAAAAAEAAAAPAP3/AAAAAAEAAAAPAPz/AAAAAAEAAAAPAPv/AAAAAAEAAAAPAPr/AAAAAAEAAAAPAPn/AAAAAAEAAAAPAPj/AAAAAAEAAAAPAPf/AAAAAAEAAAA=")
+
+[node name="Door" parent="." index="2" unique_id=1353115520 instance=ExtResource("2_oc2ly")]
+position = Vector2(256, 176)
+scale = Vector2(-1, 1)
+ID = "TODO0"
+_targetDoorID = "Garden00"
+
+[node name="Door2" parent="." index="4" unique_id=665633625 instance=ExtResource("2_oc2ly")]
+position = Vector2(-48, 176)
+scale = Vector2(1, 1.5)
+ID = "Garden01_0"
+_targetRoomPath = "uid://cla3k378tpnv4"
+_targetDoorID = "Garden00_0"
+
+[node name="Door3" parent="." index="5" unique_id=978953770 instance=ExtResource("2_oc2ly")]
+position = Vector2(-48, 56)
+ID = "Garden01_1"
+_targetRoomPath = "uid://cla3k378tpnv4"
+_targetDoorID = "Garden00_1"

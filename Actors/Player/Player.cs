@@ -25,15 +25,18 @@ namespace Actors
         [Export] private AnimatedSprite2D _sprite;
         [Export] private PackedScene _swordSwipe;
         [Export] private CollisionShape2D _collisionShape;
+        [Export] private AudioStreamPlayer2D _healSfx;
 
         public const float Speed = 200f;
         public const float JumpVelocity = -250f;
+        private const float HealTimeSec = 3f;
 
         private readonly Timer _damageImmunity = new();
         private readonly Timer _forcedMovement = new();
 
         private bool _canAnimate = true;
         private SwordSwipe _optSwordSwipe = null;
+        private Timer _optHealTimer = null;
 
         public override void _Ready()
         {
@@ -43,6 +46,12 @@ namespace Actors
             _forcedMovement.OneShot = true;
             _sprite.AnimationChanged += RemoveAnimationArtifacts;
             _sprite.Play(Animation.Idle);
+            PlayerState.Instance.OnHPChange += OnHPChange;
+        }
+
+        public override void _ExitTree()
+        {
+            PlayerState.Instance.OnHPChange -= OnHPChange;
         }
 
         public override void _PhysicsProcess(double delta)
@@ -169,8 +178,44 @@ namespace Actors
             _collisionShape.Disabled = true;
         }
 
-        public void EnableCollisions() {
+        public void EnableCollisions()
+        {
             _collisionShape.Disabled = false;
+        }
+        private void OnHPChange(byte newHp)
+        {
+            if (newHp < PlayerState.MaxHP)
+            {
+                if (_optHealTimer != null)
+                {
+                    // Restart the timer
+                    _optHealTimer.Start();
+                }
+                else
+                {
+                    _optHealTimer = new()
+                    {
+                        WaitTime = HealTimeSec
+                    };
+                    _optHealTimer.Timeout += Heal;
+                    AddChild(_optHealTimer);
+                    _optHealTimer.Start();
+                }
+            }
+            else
+            {
+                _optHealTimer?.QueueFree();
+                _optHealTimer = null;
+            }
+        }
+
+        private void Heal()
+        {
+            if (++PlayerState.Instance.HP > PlayerState.MaxHP)
+            {
+                GD.PrintErr("Set player HP higher than max HP");
+            }
+            _healSfx.Play();
         }
 
         private void SetAnimation()

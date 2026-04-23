@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://blt28tw43qnd" path="res://Assets/Sight/Player/char_run_right_anim.png" id="5_6e37q"]
 [ext_resource type="Texture2D" uid="uid://w5734gvtlgmm" path="res://Assets/Sight/Player/char_jump_up_right_anim.png" id="5_qhy2x"]
 [ext_resource type="Texture2D" uid="uid://drig6f668nfp5" path="res://Assets/Sight/Player/char_hit_right_anim.png" id="6_qhy2x"]
+[ext_resource type="AudioStream" uid="uid://uyohmb02r87m" path="res://Assets/Sound/heal_freesound-346116.wav" id="9_6e37q"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_kkbrm"]
 atlas = ExtResource("2_rsi04")
@@ -241,13 +242,14 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ech6m"]
 size = Vector2(9, 11)
 
-[node name="Player" type="CharacterBody2D" unique_id=889309543 node_paths=PackedStringArray("_sprite", "_collisionShape")]
+[node name="Player" type="CharacterBody2D" unique_id=889309543 node_paths=PackedStringArray("_sprite", "_collisionShape", "_healSfx")]
 collision_layer = 3
 collision_mask = 3
 script = ExtResource("1_4x03u")
 _sprite = NodePath("AnimatedSprite2D")
 _swordSwipe = ExtResource("2_kkbrm")
 _collisionShape = NodePath("CollisionShape2D")
+_healSfx = NodePath("HealSFX")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=731528621]
 sprite_frames = SubResource("SpriteFrames_4x03u")
@@ -256,3 +258,6 @@ animation = &"idle"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1994569514]
 position = Vector2(0.5, 2.5)
 shape = SubResource("RectangleShape2D_ech6m")
+
+[node name="HealSFX" type="AudioStreamPlayer2D" parent="." unique_id=1465691847]
+stream = ExtResource("9_6e37q")

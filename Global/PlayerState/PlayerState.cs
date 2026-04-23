@@ -3,7 +3,7 @@ using System;
 
 namespace Global
 {
-    public partial class PlayerState : Resource
+    public partial class PlayerState
     {
         // may change to ulong with soundtracks, but more likely those will just be separate
         [Flags]
@@ -53,27 +53,17 @@ namespace Global
         public event Action<byte> OnHPChange;
         public event Action<ushort> OnCoinCountChange;
 
-        [Export]
-        public bool CompletedTutorial
-        {
-            get;
-            set
-            {
-                field = value;
-                Save();
-            }
-        }
-        [Export] public Progression Progress { get; private set; } = Progression.All;
-        [Export]
+        public bool CompletedTutorial { get; private set; }
+        public Progression Progress { get; private set; } = Progression.All;
         public ushort CoinCount
         {
-            get;
+            get => _coinCount;
             set
             {
                 if (HasUnlock(Progression.CoinCount))
                 {
-                    field = value;
-                    OnCoinCountChange?.Invoke(field);
+                    _coinCount = value;
+                    OnCoinCountChange?.Invoke(value);
                 }
                 else
                 {
@@ -81,28 +71,31 @@ namespace Global
                 }
             }
         }
-        [Export]
         public byte HP
         {
-            get;
+            get => _hp;
             set
             {
                 if (HasUnlock(Progression.HealthBar))
                 {
-                    field = value;
-                    OnHPChange?.Invoke(field);
+                    _hp = value;
+                    OnHPChange?.Invoke(value);
                 }
                 else
                 {
                     SceneChanger.Instance.GoToGameOver("Resource 'hp' does not exist");
                 }
             }
-        } = MaxHP;
+        }
 
         public string CurrentRoom { get; set; } = "uid://cmdqcfmcrtfh"; // TutorialRoom.tscn
         public string LastUsedDoorwayID { get; set; }
 
-        private const string StartingRoom = "uid://bldhk04y5h3wu"; // CorruptedTutorialRoom0
+        private const Progression StartingProgress = Progression.MoveLeft;
+        private const string StartingRoom = "uid://cubikmkoaafiy"; // CorruptedTutorial00
+
+        private ushort _coinCount = 0;
+        private byte _hp = MaxHP;
 
         // Static constructor: invoked the first time this class is accessed
         static PlayerState()
@@ -115,7 +108,7 @@ namespace Global
         public void CompleteTutorial()
         {
             CompletedTutorial = true;
-            Progress = 0;
+            Progress = StartingProgress;
             CoinCount = 0;
             HP = MaxHP;
             CurrentRoom = StartingRoom;
@@ -140,11 +133,20 @@ namespace Global
 
         public void Save()
         {
-            Error err = ResourceSaver.Save(this, SaveFile);
-            if (err != Error.Ok)
+            using FileAccess file = FileAccess.Open(SaveFile, FileAccess.ModeFlags.Write);
+            if (file == null)
             {
-                GD.PrintErr("Failed to save game progression: " + err);
+                GD.PrintErr("Failed to save game progression");
+                return;
             }
+            file.Store32((uint)Progress);
+            file.Store8(CompletedTutorial ? (byte)1 : (byte)0);
+            file.Store16(CoinCount);
+            file.Store8(HP);
+            file.StorePascalString(CurrentRoom);
+            file.StorePascalString(LastUsedDoorwayID ?? "");
+            GD.Print("Successfully saved game");
+            GD.Print(CurrentRoom);
         }
         public static bool SaveExists()
         {
@@ -170,19 +172,26 @@ namespace Global
         {
             if (SaveExists())
             {
-                PlayerState state = ResourceLoader.Load<PlayerState>(SaveFile, cacheMode: ResourceLoader.CacheMode.Ignore);
-                if (state != null)
+                using FileAccess file = FileAccess.Open(SaveFile, FileAccess.ModeFlags.Read);
+                if (file == null)
                 {
-                    GD.Print("Successfully loaded player state: " + state);
-                    Instance = state;
-                    return true;
+                    GD.PrintErr("Failed to load game progression");
+                    return false;
                 }
-                GD.PrintErr("Failed to load game progression");
+                PlayerState state = new();
+                state.Progress = (Progression)file.Get32();
+                state.CompletedTutorial = file.Get8() != 0;
+                state._coinCount = file.Get16();
+                state._hp = file.Get8();
+                state.CurrentRoom = file.GetPascalString();
+                string lastDoorway = file.GetPascalString();
+                state.LastUsedDoorwayID = (lastDoorway == "") ? null : lastDoorway;
+                Instance = state;
+                GD.Print("Successfully loaded player state");
+                GD.Print(state.CurrentRoom);
+                return true;
             }
-            else
-            {
-                GD.Print("No save file found");
-            }
+            GD.Print("No save file found");
             return false;
         }
         public static void RestoreDefaults()

@@ -8,8 +8,10 @@ public partial class GlitchedDoor : Door
         if(body is Actors.Player)
         {
             PlayerState.Instance.CompleteTutorial();
-            SceneChanger.Instance.GoToGameOver("COMPUTER OVER. \nVIRUS = VERY YES.\n"+
-            "Some functionality corrupted");
+            SceneChanger.Instance.GoToGameOver(
+                "COMPUTER OVER. \nVIRUS = VERY YES.\n"
+                + "Some functionality corrupted"
+            );
         }
     }
 }

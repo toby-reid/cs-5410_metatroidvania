@@ -1,6 +1,7 @@
 [gd_scene format=4 uid="uid://btoertkknlu04"]
 
 [ext_resource type="PackedScene" uid="uid://ojfg0iah850w" path="res://Levels/Biomes/Tutorial/TutorialBase.tscn" id="1_fhsmg"]
+[ext_resource type="Script" uid="uid://ws0nf4k264on" path="res://Environment/Doors/GlitchedDoor.cs" id="3_hwx3e"]
 [ext_resource type="PackedScene" uid="uid://udbhjo2bjfun" path="res://Environment/Doors/Door.tscn" id="3_pjx04"]
 [ext_resource type="PackedScene" uid="uid://b0rd2wrrnxps7" path="res://Actors/FloatingCoin/FloatingCoin.tscn" id="4_pjx04"]
 
@@ -22,9 +23,7 @@ _targetDoorID = "Tutorial02"
 [node name="CrashDoor" parent="." index="3" unique_id=1117075247 instance=ExtResource("3_pjx04")]
 position = Vector2(335, 49)
 rotation = 1.5707964
-ID = "GlitchedDoor"
-_targetRoomPath = "uid://gmdjaxngiotc"
-_targetDoorID = "TODO0"
+script = ExtResource("3_hwx3e")
 
 [node name="FloatingCoin" parent="." index="4" unique_id=1788558948 instance=ExtResource("4_pjx04")]
 position = Vector2(88, -48)

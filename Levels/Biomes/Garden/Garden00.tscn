@@ -13,7 +13,7 @@ tile_map_data = PackedByteArray("AAANAAsAAAAJAAcAAAAMAAsAAAAJAAcAAAALAAsAAAAJAAc
 position = Vector2(256, 176)
 scale = Vector2(-1, 1)
 ID = "TODO0"
-_targetDoorID = "Garden00"
+_targetDoorID = "Garden00_0"
 
 [node name="Door2" parent="." index="4" unique_id=665633625 instance=ExtResource("2_oc2ly")]
 position = Vector2(-48, 176)
@@ -26,4 +26,10 @@ _targetDoorID = "Garden00_0"
 position = Vector2(-48, 56)
 ID = "Garden01_1"
 _targetRoomPath = "uid://cla3k378tpnv4"
+_targetDoorID = "Garden00_1"
+
+[node name="Door4" parent="." index="6" unique_id=89800503 instance=ExtResource("2_oc2ly")]
+position = Vector2(256, 96)
+scale = Vector2(-1, 1)
+ID = "DungeonXX"
 _targetDoorID = "Garden00_1"

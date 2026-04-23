@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://ojfg0iah850w"]
+
+[ext_resource type="PackedScene" uid="uid://ci3q7pyvnoivk" path="res://Levels/BaseRoom.tscn" id="1_kkf2t"]
+[ext_resource type="TileSet" uid="uid://cg3ntb4db6xws" path="res://Environment/TileSets/Dungeon.tres" id="2_qycjw"]
+[ext_resource type="Texture2D" uid="uid://b65sqbhb3l77g" path="res://Assets/Sight/Tilesets/Dungeon/bg_00_dungeon.png" id="2_yjylu"]
+
+[node name="Room" unique_id=1234374025 instance=ExtResource("1_kkf2t")]
+
+[node name="TileMapLayer" parent="." index="0" unique_id=1428987800]
+tile_set = ExtResource("2_qycjw")
+
+[node name="Parallax2D" parent="." index="1" unique_id=2106472750]
+scroll_scale = Vector2(0.95, 0.95)
+
+[node name="Sprite2D" parent="Parallax2D" index="0" unique_id=437551226]
+texture = ExtResource("2_yjylu")

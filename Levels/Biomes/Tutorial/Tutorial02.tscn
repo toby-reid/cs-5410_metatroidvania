@@ -27,10 +27,19 @@ _targetRoomPath = "uid://gmdjaxngiotc"
 _targetDoorID = "TODO0"
 
 [node name="FloatingCoin" parent="." index="4" unique_id=1788558948 instance=ExtResource("4_pjx04")]
-position = Vector2(93, -50)
+position = Vector2(88, -48)
 
 [node name="FloatingCoin2" parent="." index="5" unique_id=757511009 instance=ExtResource("4_pjx04")]
-position = Vector2(184, -100)
+position = Vector2(184, -96)
 
 [node name="FloatingCoin3" parent="." index="6" unique_id=1350142031 instance=ExtResource("4_pjx04")]
-position = Vector2(277, -53)
+position = Vector2(280, -48)
+
+[node name="FloatingCoin4" parent="." index="7" unique_id=1896313241 instance=ExtResource("4_pjx04")]
+position = Vector2(24, -8)
+
+[node name="FloatingCoin5" parent="." index="8" unique_id=888638400 instance=ExtResource("4_pjx04")]
+position = Vector2(40, -24)
+
+[node name="FloatingCoin6" parent="." index="9" unique_id=1365285027 instance=ExtResource("4_pjx04")]
+position = Vector2(56, -8)

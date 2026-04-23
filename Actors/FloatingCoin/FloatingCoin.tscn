@@ -91,6 +91,7 @@ animations = [{
 }]
 
 [node name="FloatingCoin" type="Area2D" unique_id=1788558948 node_paths=PackedStringArray("_sprite", "_pickupSound")]
+scale = Vector2(2, 2)
 script = ExtResource("1_5wmda")
 _sprite = NodePath("AnimatedSprite2D")
 _pickupSound = NodePath("AudioStreamPlayer2D")

@@ -7,6 +7,7 @@ script = ExtResource("1_aiw25")
 _tileMapLayer = NodePath("TileMapLayer")
 
 [node name="TileMapLayer" type="TileMapLayer" parent="." unique_id=1428987800]
+z_index = -1
 
 [node name="Parallax2D" type="Parallax2D" parent="." unique_id=2106472750]
 z_index = -10

@@ -1,0 +1,26 @@
+[gd_scene format=3 uid="uid://cbi5vmnwtsxr8"]
+
+[ext_resource type="Script" uid="uid://3887etjwi0vv" path="res://Environment/Doors/Door.cs" id="1_wewfd"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_a11jn"]
+size = Vector2(16, 16)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fjume"]
+size = Vector2(2, 200)
+
+[node name="TallDoor" type="Area2D" unique_id=1353115520 node_paths=PackedStringArray("_spawnPoint") groups=["Doors"]]
+script = ExtResource("1_wewfd")
+_spawnPoint = NodePath("Spawn point")
+
+[node name="Floor" type="StaticBody2D" parent="." unique_id=1058626636]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floor" unique_id=1557494579]
+position = Vector2(-8, 8)
+shape = SubResource("RectangleShape2D_a11jn")
+
+[node name="TriggerArea" type="CollisionShape2D" parent="." unique_id=1333033959]
+position = Vector2(-15, -100)
+shape = SubResource("RectangleShape2D_fjume")
+
+[node name="Spawn point" type="Marker2D" parent="." unique_id=126539880]
+position = Vector2(0, -8)

@@ -35,10 +35,10 @@ position = Vector2(184, -96)
 position = Vector2(280, -48)
 
 [node name="FloatingCoin4" parent="." index="7" unique_id=1217834660 instance=ExtResource("3_rwopb")]
-position = Vector2(24, -8)
+position = Vector2(54, -8)
 
 [node name="FloatingCoin5" parent="." index="8" unique_id=2082197440 instance=ExtResource("3_rwopb")]
-position = Vector2(40, -24)
+position = Vector2(63, -26)
 
 [node name="FloatingCoin6" parent="." index="9" unique_id=335428935 instance=ExtResource("3_rwopb")]
-position = Vector2(56, -8)
+position = Vector2(76, -8)

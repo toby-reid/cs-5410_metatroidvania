@@ -93,6 +93,10 @@ texture = ExtResource("2_jlsil")
 7:6/0 = 0
 7:6/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, 0, 8, 0, 8, 8, -8, 8)
 8:6/0 = 0
+3:0/0 = 0
+3:1/0 = 0
+3:1/0/physics_layer_1/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, -6, -8, -6)
+3:1/0/physics_layer_1/polygon_0/one_way = true
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_yeuvx"]
 texture = ExtResource("1_yw63k")

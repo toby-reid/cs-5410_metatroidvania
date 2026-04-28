@@ -4,6 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://udbhjo2bjfun" path="res://Environment/Doors/Door.tscn" id="2_bfiv2"]
 [ext_resource type="PackedScene" uid="uid://0ncfoov5jkhu" path="res://Environment/Items/Item.tscn" id="3_rop76"]
 [ext_resource type="PackedScene" uid="uid://cqi55qaojjklm" path="res://Actors/Enemies/Bat/Bat.tscn" id="4_i8wus"]
+[ext_resource type="PackedScene" uid="uid://cqt0wkt8mwa20" path="res://Environment/KillZone/KillZone.tscn" id="5_i8wus"]
 
 [sub_resource type="Curve2D" id="Curve2D_n31k8"]
 _data = {
@@ -62,9 +63,10 @@ _targetRoomPath = "uid://s7uag3hwavwi"
 _targetDoorID = "Garden03"
 
 [node name="Item" parent="." index="4" unique_id=506489788 instance=ExtResource("3_rop76")]
-position = Vector2(9, -118)
+position = Vector2(9, -116)
 ItemName = "Attack"
 Instructions = "Press 'F' to attack"
+_itemValue = 64
 
 [node name="Bat1" type="Node2D" parent="." index="5" unique_id=242026551]
 position = Vector2(82, 25)
@@ -161,3 +163,7 @@ position = Vector2(-50, 0)
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Bat6/IdlePath/IdleTarget" index="0" unique_id=422010837]
 libraries/ = SubResource("AnimationLibrary_mgr53")
 autoplay = &"move"
+
+[node name="KillZone" parent="." index="11" unique_id=352467859 instance=ExtResource("5_i8wus")]
+position = Vector2(-272, 192)
+scale = Vector2(100, 1)

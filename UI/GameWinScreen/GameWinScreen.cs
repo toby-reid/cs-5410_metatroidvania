@@ -12,7 +12,7 @@ namespace UI
         [Export] private AudioStreamPlayer2D _winSfx;
 
         // Use this character in the WinScreen.txt to add 1s of delay between portions
-        private const char DelayIndicator = '!';
+        private const char DelayIndicator = '?';
 
         private List<string> _remainingText;
 
@@ -26,6 +26,14 @@ namespace UI
             _timer.Timeout += AddNextText;
             _timer.OneShot = false;
             _timer.Start();
+        }
+        
+        public override void _Input(InputEvent @event)
+        {
+            if (@event is InputEventKey && _remainingText.Count == 0)
+            {
+                Global.SceneChanger.Instance.ExitGame();
+            }
         }
 
         private void AddNextText()

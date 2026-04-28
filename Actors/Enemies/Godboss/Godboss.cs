@@ -10,10 +10,14 @@ namespace Actors
         private Vector2 velocity;
         [Export]
         private int HP = 3;
+
+        [Export(PropertyHint.File)]
+        private string _winScreenPath;
         
         public override void _Ready()
         {
             Velocity = velocity;
+            Global.PlayerState.Instance.Save();
         }
         
         public override void _PhysicsProcess(double delta)
@@ -42,6 +46,7 @@ namespace Actors
         {
             Velocity *= 0f;
             QueueFree();
+            Global.SceneChanger.Instance.ChangeScene(_winScreenPath);
         }
     }
 }

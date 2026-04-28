@@ -71,6 +71,7 @@ texture = ExtResource("5_71gvb")
 position = Vector2(160, 217)
 ItemName = "The Menu"
 Instructions = "Press 'esc' to pause the game"
+_itemValue = 1024
 
 [node name="TallDoor" parent="." index="5" unique_id=1353115520 instance=ExtResource("4_w8mpw")]
 position = Vector2(256, 176)
@@ -125,3 +126,10 @@ position = Vector2(-336, 81)
 ID = "Garden03"
 _targetRoomPath = "uid://0m4bn0r0p7ow"
 _targetDoorID = "Garden02"
+
+[node name="Door2" parent="." index="11" unique_id=1907259353 instance=ExtResource("7_2o1v1")]
+position = Vector2(256, 304)
+scale = Vector2(-1, 1)
+ID = "Library02_2"
+_targetRoomPath = "uid://cvkrtn6di66y2"
+_targetDoorID = "Garden02_2"

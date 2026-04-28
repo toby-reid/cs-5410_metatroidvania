@@ -12,7 +12,7 @@ tile_map_data = PackedByteArray("AADy//r/AAABAAEAAADy//v/AAABAAEAAADy//z/AAABAAE
 position = Vector2(96, 32)
 scale = Vector2(-1, 1)
 ID = "Tutorial01"
-_targetRoomPath = "uid://cp0urtkibrfr5"
+_targetRoomPath = "uid://cni1e10ix2qyj"
 _targetDoorID = "Tutorial00"
 
 [node name="Door2" parent="." index="3" unique_id=676669223 instance=ExtResource("2_r86pf")]

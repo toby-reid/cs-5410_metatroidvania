@@ -62,9 +62,10 @@ _targetRoomPath = "uid://s7uag3hwavwi"
 _targetDoorID = "Garden03"
 
 [node name="Item" parent="." index="4" unique_id=506489788 instance=ExtResource("3_rop76")]
-position = Vector2(9, -118)
+position = Vector2(9, -116)
 ItemName = "Attack"
 Instructions = "Press 'F' to attack"
+_itemValue = 64
 
 [node name="Bat1" type="Node2D" parent="." index="5" unique_id=242026551]
 position = Vector2(82, 25)

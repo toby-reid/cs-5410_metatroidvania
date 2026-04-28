@@ -22,8 +22,9 @@ _targetDoorID = "Tutorial02"
 [node name="BossRoomDoor" parent="." index="3" unique_id=1117075247 instance=ExtResource("2_dgwsj")]
 position = Vector2(335, 49)
 rotation = 1.5707964
-ID = "BossRoom"
+ID = "ToBossRoom"
 _targetRoomPath = "uid://ce7rt8g51yktb"
+_targetDoorID = "ToExampleRoom"
 
 [node name="FloatingCoin" parent="." index="4" unique_id=1788558948 instance=ExtResource("3_rwopb")]
 position = Vector2(88, -48)
@@ -35,10 +36,10 @@ position = Vector2(184, -96)
 position = Vector2(280, -48)
 
 [node name="FloatingCoin4" parent="." index="7" unique_id=1217834660 instance=ExtResource("3_rwopb")]
-position = Vector2(54, -8)
+position = Vector2(32, -8)
 
 [node name="FloatingCoin5" parent="." index="8" unique_id=2082197440 instance=ExtResource("3_rwopb")]
-position = Vector2(63, -26)
+position = Vector2(40, -24)
 
 [node name="FloatingCoin6" parent="." index="9" unique_id=335428935 instance=ExtResource("3_rwopb")]
-position = Vector2(76, -8)
+position = Vector2(48, -8)

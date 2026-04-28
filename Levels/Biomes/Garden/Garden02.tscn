@@ -71,6 +71,7 @@ texture = ExtResource("5_71gvb")
 position = Vector2(160, 217)
 ItemName = "The Menu"
 Instructions = "Press 'esc' to pause the game"
+_itemValue = 1024
 
 [node name="TallDoor" parent="." index="5" unique_id=1353115520 instance=ExtResource("4_w8mpw")]
 position = Vector2(256, 176)

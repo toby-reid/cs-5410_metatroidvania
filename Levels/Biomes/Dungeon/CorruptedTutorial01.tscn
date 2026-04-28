@@ -13,13 +13,13 @@ tile_map_data = PackedByteArray("AAAAAAIAAAABAAAAAAABAAIAAAADAAAAAAACAAIAAAADAAA
 position = Vector2(272, 177)
 scale = Vector2(-1, 1)
 ID = "Tutorial02"
-_targetRoomPath = "uid://btoertkknlu04"
+_targetRoomPath = "uid://ce0m4u31g8sx2"
 _targetDoorID = "Tutorial01"
 
 [node name="Door2" parent="." index="3" unique_id=1452696074 instance=ExtResource("2_q6xn1")]
 position = Vector2(0, 33)
 ID = "Tutorial00"
-_targetRoomPath = "uid://cmdqcfmcrtfh"
+_targetRoomPath = "uid://cubikmkoaafiy"
 _targetDoorID = "Tutorial01"
 
 [node name="Turnip" parent="." index="4" unique_id=330372468 instance=ExtResource("3_8tw42")]

@@ -16,7 +16,7 @@ scale = Vector2(1.0067004, 1.0068893)
 [node name="Door" parent="." index="2" unique_id=1353115520 instance=ExtResource("2_dgwsj")]
 position = Vector2(0, 1)
 ID = "Tutorial01"
-_targetRoomPath = "uid://cp0urtkibrfr5"
+_targetRoomPath = "uid://cni1e10ix2qyj"
 _targetDoorID = "Tutorial02"
 
 [node name="BossRoomDoor" parent="." index="3" unique_id=1117075247 instance=ExtResource("2_dgwsj")]
